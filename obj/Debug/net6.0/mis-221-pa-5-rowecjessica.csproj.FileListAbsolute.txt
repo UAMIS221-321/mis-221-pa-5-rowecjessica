@@ -1,0 +1,15 @@
+C:\Users\rowec\OneDrive\MIS221\PAs\mis-221-pa-5-rowecjessica\bin\Debug\net6.0\mis-221-pa-5-rowecjessica.exe
+C:\Users\rowec\OneDrive\MIS221\PAs\mis-221-pa-5-rowecjessica\bin\Debug\net6.0\mis-221-pa-5-rowecjessica.deps.json
+C:\Users\rowec\OneDrive\MIS221\PAs\mis-221-pa-5-rowecjessica\bin\Debug\net6.0\mis-221-pa-5-rowecjessica.runtimeconfig.json
+C:\Users\rowec\OneDrive\MIS221\PAs\mis-221-pa-5-rowecjessica\bin\Debug\net6.0\mis-221-pa-5-rowecjessica.dll
+C:\Users\rowec\OneDrive\MIS221\PAs\mis-221-pa-5-rowecjessica\bin\Debug\net6.0\mis-221-pa-5-rowecjessica.pdb
+C:\Users\rowec\OneDrive\MIS221\PAs\mis-221-pa-5-rowecjessica\obj\Debug\net6.0\mis-221-pa-5-rowecjessica.csproj.AssemblyReference.cache
+C:\Users\rowec\OneDrive\MIS221\PAs\mis-221-pa-5-rowecjessica\obj\Debug\net6.0\mis-221-pa-5-rowecjessica.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\rowec\OneDrive\MIS221\PAs\mis-221-pa-5-rowecjessica\obj\Debug\net6.0\mis-221-pa-5-rowecjessica.AssemblyInfoInputs.cache
+C:\Users\rowec\OneDrive\MIS221\PAs\mis-221-pa-5-rowecjessica\obj\Debug\net6.0\mis-221-pa-5-rowecjessica.AssemblyInfo.cs
+C:\Users\rowec\OneDrive\MIS221\PAs\mis-221-pa-5-rowecjessica\obj\Debug\net6.0\mis-221-pa-5-rowecjessica.csproj.CoreCompileInputs.cache
+C:\Users\rowec\OneDrive\MIS221\PAs\mis-221-pa-5-rowecjessica\obj\Debug\net6.0\mis-221-pa-5-rowecjessica.dll
+C:\Users\rowec\OneDrive\MIS221\PAs\mis-221-pa-5-rowecjessica\obj\Debug\net6.0\refint\mis-221-pa-5-rowecjessica.dll
+C:\Users\rowec\OneDrive\MIS221\PAs\mis-221-pa-5-rowecjessica\obj\Debug\net6.0\mis-221-pa-5-rowecjessica.pdb
+C:\Users\rowec\OneDrive\MIS221\PAs\mis-221-pa-5-rowecjessica\obj\Debug\net6.0\mis-221-pa-5-rowecjessica.genruntimeconfig.cache
+C:\Users\rowec\OneDrive\MIS221\PAs\mis-221-pa-5-rowecjessica\obj\Debug\net6.0\ref\mis-221-pa-5-rowecjessica.dll
