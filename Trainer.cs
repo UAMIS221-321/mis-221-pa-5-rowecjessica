@@ -4,7 +4,8 @@ namespace mis_221_pa_5_rowecjessica
     public class Trainer
     {
         private int trainerID;
-        private string trainerName;
+        private string firstName;
+        private string lastName;
         private string trainerMailing;
         private string trainerEmail;
         private double hourlyRate;
@@ -12,11 +13,12 @@ namespace mis_221_pa_5_rowecjessica
         private int maxCustomers;
         static private int count;
 
-        public Trainer(int trainerID, string trainerName, string trainerMailing, string trainerEmail, double hourlyRate, string focus, int maxCustomers)
+        public Trainer(int trainerID, string firstName, string lastName, string trainerMailing, string trainerEmail, double hourlyRate, string focus, int maxCustomers)
         {
             
             this.trainerID = trainerID;
-            this.trainerName = trainerName;
+            this.firstName = firstName;
+            this.lastName = lastName;
             this.trainerMailing = trainerMailing;
             this.trainerEmail = trainerEmail;
             this.hourlyRate = hourlyRate;
@@ -26,7 +28,8 @@ namespace mis_221_pa_5_rowecjessica
         public Trainer()
         {
             trainerID = 0;
-            trainerName = "Jess";
+            firstName = "Jess";
+            lastName = "Rowe";
             trainerMailing = "";
             trainerEmail = "";
             hourlyRate = 0.0;
@@ -45,14 +48,24 @@ namespace mis_221_pa_5_rowecjessica
             return trainerID;
         }
 
-        public void SetTrainerName(string trainerName)
+        public void SetFirstName(string firstName)
         {
-            this.trainerName = trainerName;
+            this.firstName = firstName;
         }
 
-        public string GetTrainerName()
+        public string GetFirstName()
         {
-            return trainerName;
+            return firstName;
+        }
+
+        public void SetLastName(string lastName)
+        {
+            this.lastName = lastName;
+        }
+
+        public string GetLastName()
+        {
+            return lastName;
         }
 
         public void SetTrainerMailing(string trainerMailing)

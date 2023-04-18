@@ -1,1 +1,5 @@
-1234#Jess#4425#rowec#9.5#legs#9#4321#Jake#jt#jt#6.5#arms#8#
+0#Jessica#Rowe#1881 Fox Chapel Dr.#rowecjessica@gmail.com#60#cardio#7#
+1#Jacob#Tinnell#1903 3rd Street#jtinnel10@gmail.com#65#Upper body#5#
+2#Tori#Ferguson#1418 10th Street#tfergie@gmail.com#80#lower body#7#
+3#Kathryn#Pope#5467 Peachtree Corners#kathykat@aol.com#110#Agility#2#
+4#Annabel#Gassel#8923 Andrew Ave#abgassel@hotmail.com#70#lower body#5#
