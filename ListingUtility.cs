@@ -25,7 +25,7 @@ namespace mis_221_pa_5_rowecjessica
             string response = Console.ReadLine().ToUpper();
             if( response == "Y")
             {
-                GetAllListings(path);
+                GetAllListings(listings, path);
             } else 
             {
                 EditListing(listings, path);
@@ -33,7 +33,7 @@ namespace mis_221_pa_5_rowecjessica
         }
 
     
-        public void GetAllListings(string path)
+        public void GetAllListings(Listing[] listings, string path)
         {
             System.Console.WriteLine("Would you like to list a listings? Y for yes N for no");
             string response = Console.ReadLine().ToUpper();
@@ -42,13 +42,11 @@ namespace mis_221_pa_5_rowecjessica
             {
                 int listingID = MakeListingID(listings, path);
                 StreamWriter sw = File.AppendText(path);
-
                 listings[Listing.GetCount()] = new Listing();
-                
+
                 listings[Listing.GetCount()].SetListingID(listingID);
-                sw.WriteLine();
-                sw.Write($"{listingID}#");
-                System.Console.WriteLine($"Your Listing ID is: {listingID}");
+                sw.WriteLine($"{listingID}#");
+                System.Console.WriteLine($"This Listing ID is: {listingID}");
                 
                 System.Console.WriteLine("Please enter the trainer's first name");
                 string trainerFirstName = Console.ReadLine();
@@ -59,93 +57,92 @@ namespace mis_221_pa_5_rowecjessica
                 string trainerLastName = Console.ReadLine();
                 listings[Listing.GetCount()].SetTrainerLastName(trainerLastName);
                 sw.Write($"{trainerLastName}#");
-
-                System.Console.WriteLine("Please enter the day of the session");
-                string day = Console.ReadLine();
-                listings[Listing.GetCount()].SetListingDay(day);
-                sw.Write($"{day}#");
                 
                 System.Console.WriteLine("Please enter the session date");
                 string date = Console.ReadLine();
                 listings[Listing.GetCount()].SetListingDate(date);
+    
+                // get day from date - do not prompt user
+                string day = GetDayFromDate(date);
+                listings[Listing.GetCount()].SetListingDay(day);
+                sw.Write($"{day}#");
                 sw.Write($"{date}#");
+    
 
                 System.Console.WriteLine("Please enter the session time");
-                string sessionTime = Console.ReadLine();
-                listings[Listing.GetCount()].SetSessionTime(sessionTime);
-                sw.Write($"{sessionTime}#");
+                string listingTime = Console.ReadLine();
+                listings[Listing.GetCount()].SetListingTime(listingTime);
+                sw.Write($"{listingTime}#");
 
                 System.Console.WriteLine("Please enter if this session is recurring: Y for yes, N for no ");
                 string userInput = Console.ReadLine().ToUpper();
-                bool recurring = false;
+                string recurring = "false";
 
                 if( userInput == "Y"){
-                    recurring = true;
-                    sw.Write($"Recurring#");
+                    recurring = "This session is recurring";
+                    sw.Write($"{recurring}#");
                 } else {
                     if( userInput == "N"){
-                        recurring = false;
-                        sw.Write($"Not recurring#");
+                        recurring = "This session is not recurring";
+                        sw.Write($"{recurring}#");
                     } else {
                         System.Console.WriteLine("invalid input");
                     }
                 } 
-            
                 listings[Listing.GetCount()].SetRecurring(recurring);
 
-                System.Console.WriteLine("Please enter the session cost");
-                int sessionCost = int.Parse(Console.ReadLine());
-                listings[Listing.GetCount()].SetSessionCost(sessionCost);
-                sw.Write($"{sessionCost}#");
+                System.Console.WriteLine("Please enter the listing cost");
+                int listingCost = int.Parse(Console.ReadLine());
+                listings[Listing.GetCount()].SetListingCost(listingCost);
+                sw.Write($"{listingCost}#");
 
                 System.Console.WriteLine("Please enter the max amount of customers");
                 int maxCustomers = int.Parse(Console.ReadLine());
                 listings[Listing.GetCount()].SetMaxCustomers(maxCustomers);
                 sw.Write($"{maxCustomers}#");
 
-                System.Console.WriteLine("Please enter if this session is stil open to booking: Y for yes, N for no");
-                userInput = Console.ReadLine().ToUpper();
-                bool availability = false;
-
-                if( userInput == "Y"){
-                    availability = true;
-                    sw.Write($"This session is open for booking#");
-                } else {
-                    if( userInput == "N"){
-                        availability = false;
-                        sw.Write($"This session is closed for booking#");
-                    } else {
-                        System.Console.WriteLine("invalid input");
-                    }
-                } 
-                listings[Listing.GetCount()].SetAvailability(availability);
-
-
-                System.Console.WriteLine("Please eneter the amoutn of spots taken:");
+                System.Console.WriteLine("Please eneter the amount of spots taken:");
                 int spotsTaken = int.Parse(Console.ReadLine());
                 listings[Listing.GetCount()].SetSpotsTaken(spotsTaken);
+                sw.Write($"{spotsTaken}#");
 
-                listings[Listing.GetCount()].SetSpotsLeft(maxCustomers, spotsTaken);
-                int spotsLeft = listings[Listing.GetCount()].GetSpotsLeft();
+                // calculate spots left
+                int spotsLeft = maxCustomers - spotsTaken;
+                listings[Listing.GetCount()].SetSpotsLeft(spotsLeft);
                 sw.Write($"{spotsLeft}#");
+
+                // set session to open or full
+                string availability = "";
+
+                if(spotsLeft > 0){
+                    availability = "This session is open for booking!";
+                } else
+                {
+                    availability = "This session is full!";
+                }
+
+                listings[Listing.GetCount()].SetAvailability(availability);
+                sw.Write($"{availability}#");
+
+
 
                 System.Console.WriteLine("Please enter if you offer a first time discount: Y for yes, N for no");
                 userInput = Console.ReadLine().ToUpper();
-                bool discount = false;
+                string discount = "No disocunt offered";
 
                 if( userInput == "Y"){
-                    discount = true;
-                    sw.Write($"This trainer offers a discount for first timers#");
+                    discount = "First time discount offered";
+                    sw.Write($"{discount}#");
                 } else {
                     if( userInput == "N"){
-                        discount = false;
-                        sw.Write($"This trainer does not offer discounts for first timers#");
+                        discount = "No discount offered";
+                        sw.Write($"{discount}#");
                     } else {
-                        System.Console.WriteLine("invalid input");
+                        System.Console.WriteLine($"{discount}");
                     }
                 } 
                 
-                listings[Listing.GetCount()].SetDiscounts(discount);
+                listings[Listing.GetCount()].SetDiscount(discount);
 
 
                 Listing.IncCount();
@@ -201,7 +198,7 @@ namespace mis_221_pa_5_rowecjessica
             while( line != null)
             {
                 string[] temp = line.Split('#');
-                listings[Listing.GetCount()] = new Listing(int.Parse(temp[0]), temp[1], temp[2], temp[3], temp[4], temp[5], bool.Parse(temp[6]), int.Parse(temp[7]), int.Parse(temp[8]), int.Parse(temp[9]), bool.Parse(temp[10]), int.Parse(temp[11]), bool.Parse(temp[12]));
+                listings[Listing.GetCount()] = new Listing(int.Parse(temp[0]), temp[1], temp[2], temp[3], temp[4], temp[5], temp[6], int.Parse(temp[7]), int.Parse(temp[8]), int.Parse(temp[9]), int.Parse(temp[10]), temp[11], temp[12]);
                 Listing.IncCount();
                 line = inFile.ReadLine();
             }
@@ -238,21 +235,29 @@ namespace mis_221_pa_5_rowecjessica
                     System.Console.WriteLine("What is the last name of the trainer teaching this class?");
                     listings[foundVal].SetTrainerLastName(Console.ReadLine());
 
-                    System.Console.WriteLine("What day will the class be held?");
-                    listings[foundVal].SetListingDay(Console.ReadLine());
+                    System.Console.WriteLine("What date will the class be held?");
+                    string date = Console.ReadLine();
+                    listings[foundVal].SetListingDate(date);
+                    
+                    // get day from date
+                    string day = GetDayFromDate(date);
+                    listings[foundVal].SetListingDay(day);
 
                     System.Console.WriteLine("What time will the class be held?");
-                    listings[foundVal].SetSessionTime(Console.ReadLine());
+                    listings[foundVal].SetListingTime(Console.ReadLine());
 
                     System.Console.WriteLine("Does this class occur every week? Y for yes, N for no");
+                    string recurring = "not recurring";
                     if(Console.ReadLine().ToUpper() == "Y")
                     {
-                        listings[foundVal].SetRecurring(true);
+                        recurring = "This session is recurring";
+                        listings[foundVal].SetRecurring(recurring);
                     } else
                     {
                         if(Console.ReadLine().ToUpper() == "N")
                         {
-                            listings[foundVal].SetRecurring(false);
+                            recurring = "This session is not recurring";
+                            listings[foundVal].SetRecurring(recurring);
                         } else
                         {
                             System.Console.WriteLine("Invalid");
@@ -260,67 +265,90 @@ namespace mis_221_pa_5_rowecjessica
                     }
 
                     System.Console.WriteLine("How much is this class per person?");
-                    listings[foundVal].SetSessionCost(int.Parse(Console.ReadLine()));
+                    listings[foundVal].SetListingCost(int.Parse(Console.ReadLine()));
 
                     System.Console.WriteLine("What is the max amount of customers allowed to attend this class?");
-                    listings[foundVal].SetMaxCustomers(int.Parse(Console.ReadLine()));
+                    int maxCustomers = int.Parse(Console.ReadLine());
+                    listings[foundVal].SetMaxCustomers(maxCustomers);
 
-                    System.Console.WriteLine("Do you offer discounts to first time customers? Y for yes, N for no");
+                    System.Console.WriteLine("Please eneter the amount of spots taken:");
+                    int spotsTaken = int.Parse(Console.ReadLine());
+                    listings[foundVal].SetSpotsTaken(spotsTaken);
+
+                    // calculate spots left
+                    int spotsLeft = maxCustomers - spotsTaken;
+                    listings[foundVal].SetSpotsLeft(spotsLeft);
+
+                    // set availability 
+                    string availability = "";
+                        if(spotsLeft > 0){
+                            availability = "This session is open for booking!";
+                        } else
+                        {
+                            availability = "This session is full!";
+                        }                        
+                    listings[foundVal].SetAvailability(availability);
+
+
+                    System.Console.WriteLine("Do you offer discount to first time customers? Y for yes, N for no");
+                    string discount = "No discount";
+
                     if(Console.ReadLine().ToUpper() == "Y")
                     {
-                        listings[foundVal].SetDiscounts(true);
+                        discount = "First time discount offered";
                     } else
                     {
-                        if(Console.ReadLine().ToUpper() == "N")
-                        {
-                            listings[foundVal].SetDiscounts(false);
-                        } else 
-                        {
-                            System.Console.WriteLine("Invalid input");
-                        }
+                        discount = "No discount offered";
                     }
 
+                    listings[foundVal].SetDiscount(discount);
 
+
+                    StreamWriter reWrite = new StreamWriter(path);
+                    for( int i = 0; i < Listing.GetCount(); i ++)
+                    {
+                        reWrite.Write($"{listings[i].GetListingID()}#");
+                        reWrite.Write($"{listings[i].GetTrainerFirstName()}#");
+                        reWrite.Write($"{listings[i].GetTrainerLastName()}#");
+                        reWrite.Write($"{listings[i].GetListingDay()}#");
+                        reWrite.Write($"{listings[i].GetListingDate()}#");
+                        reWrite.Write($"{listings[i].GetListingTime()}#");
+                        reWrite.Write($"{listings[i].GetRecurring()}#");
+                        reWrite.Write($"{listings[i].GetListingCost()}#");
+                        reWrite.Write($"{listings[i].GetMaxCustomers()}#");
+                        reWrite.Write($"{listings[i].GetSpotsTaken()}#");
+                        reWrite.Write($"{listings[i].GetSpotsLeft()}#");
+                        reWrite.Write($"{listings[i].GetAvailability()}#");
+                        reWrite.Write($"{listings[i].GetDiscount()}#");
+                        reWrite.WriteLine(); 
+                    }
+                    reWrite.Close();
+                }else 
+                {
+                    System.Console.WriteLine("Listing not found");
                 }
+
+                System.Console.WriteLine("If you'd like to edit the information of another listing, enter the listing ID. To exit -1");
+                searchVal = int.Parse(Console.ReadLine());
             }
         }
 
+        public string GetDayFromDate(string date)
+        {
+            string day = "";
 
+            switch (date)
+            {
+                case "05/01":
+                    day = "Monday";
+                    break;
+                case "05/02":
+                    day = "Tuesday";
+                    break;
+            }
 
-
-
-
-
-        // public void UpdateListings(){
-        //     System.Console.WriteLine("What's the Listings ID of the Listings you'd like to update?");
-        //     // will later be search for Listings ID
-        //     int searchVal = int.Parse(Console.ReadLine());
-        //     int i = Find(searchVal);
-        //     int foundIndex = i;
-
-        //     if(foundIndex != -1){
-        //         System.Console.WriteLine("Please enter your first name");
-        //         string firstName = Console.ReadLine();
-        //         listings[Listing.GetCount()].SetTrainerFirstName(firstName);
-        //         // sw.Write($"{firstName}#");
-
-        //         System.Console.WriteLine("Please enter your last name");
-        //         string lastName = Console.ReadLine();
-        //         listings[Listing.GetCount()].SetTrainerLastName(lastName);
-        //         // sw.Write($"{lastName}#");
-
-        //         System.Console.WriteLine("Please enter your max amount of customers");
-        //         int max = int.Parse(Console.ReadLine());
-        //         listings[Listing.GetCount()].SetMaxCustomers(max);
-        //         // sw.Write($"{max}#");
-
-        //         Save();
-        //     } 
-            
-        //     else{
-        //         System.Console.WriteLine("Listings not found");
-        //     }
-        // }
+            return day;
+        }
 
     }
 }

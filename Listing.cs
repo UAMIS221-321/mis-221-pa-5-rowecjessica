@@ -6,33 +6,33 @@ namespace mis_221_pa_5_rowecjessica
         private string trainerFirstName;
         private string trainerLastName;
         private string day;
-        private string sessionDate;
-        private string sessionTime;
-        private bool recurring;
-        private double sessionCost;
+        private string date;
+        private string listingTime;
+        private string recurring;
+        private int listingCost;
         private int maxCustomers;
         private int spotsTaken;
-        private bool availability;
         private int spotsLeft;
-        private bool discounts;
+        private string availability;
+        private string discount;
         static private int count;
 
 
-        public Listing(int listingsID, string trainerFirstName, string trainerLastName, string day, string sessionDate, string sessionTime, bool recurring, double sessionCost, int maxCustomers, int spotsTaken, bool availability, int spotsLeft, bool discounts)
+        public Listing(int listingID, string trainerFirstName, string trainerLastName, string day, string date, string listingTime, string recurring, int listingCost, int maxCustomers, int spotsTaken, int spotsLeft, string availability, string discount)
         {
             this.listingID = listingID;
             this.trainerFirstName = trainerFirstName;
             this.trainerLastName = trainerLastName;
             this.day = day;
-            this.sessionDate = sessionDate;
-            this.sessionTime = sessionTime;
+            this.date = date;
+            this.listingTime = listingTime;
             this.recurring = recurring;
-            this.sessionCost = sessionCost;
+            this.listingCost = listingCost;
             this.maxCustomers = maxCustomers;
             this.spotsTaken = spotsTaken;
-            this.availability = availability;
             this.spotsLeft = spotsLeft;
-            this.discounts = discounts;
+            this.availability = availability;
+            this.discount = discount;
         }
 
         public Listing(){
@@ -40,15 +40,15 @@ namespace mis_221_pa_5_rowecjessica
             trainerLastName = "Rowe";
             trainerFirstName = "Jess";
             day = "Monday";
-            sessionDate = "06/26/2003";
-            sessionTime = "12:30";
-            recurring = true;
-            sessionCost = 10.0;
+            date = "06/26/2003";
+            listingTime = "12:30";
+            recurring = "Recurring";
+            listingCost = 10;
             maxCustomers = 9;
             spotsTaken = 0;
-            availability = true;
             spotsLeft = 8;
-            discounts = true;
+            availability = "Available";
+            discount = "discount offered";
             count = 0;
         }
 
@@ -67,7 +67,7 @@ namespace mis_221_pa_5_rowecjessica
             this.trainerLastName = trainerLastName;
         }
 
-        public string GetTrainerLastNameID()
+        public string GetTrainerLastName()
         {
             return trainerLastName;
         }
@@ -82,7 +82,7 @@ namespace mis_221_pa_5_rowecjessica
             return trainerFirstName;
         }
 
-        public void SetListingDay(string Day)
+        public void SetListingDay(string day)
         {
             this.day = day;
         }
@@ -92,44 +92,44 @@ namespace mis_221_pa_5_rowecjessica
             return day;
         }
 
-        public void SetListingDate(string sessionDate)
+        public void SetListingDate(string date)
         {
-            this.sessionDate = sessionDate;
+            this.date = date;
         }
 
         public string GetListingDate()
         {
-            return sessionDate;
+            return date;
         }
 
-        public void SetSessionTime(string sessionTime)
+        public void SetListingTime(string listingTime)
         {
-            this.sessionTime = sessionTime;
+            this.listingTime = listingTime;
         }
 
-        public string GetSessionTime()
+        public string GetListingTime()
         {
-            return sessionTime;
+            return listingTime;
         }
 
-        public void SetRecurring(bool recurring)
+        public void SetRecurring(string recurring)
         {
             this.recurring = recurring;
         }
 
-        public bool GetRecurring()
+        public string GetRecurring()
         {
             return recurring;
         }
 
-        public void SetSessionCost(int sessionCost)
+        public void SetListingCost(int listingCost)
         {
-            this.sessionCost = sessionCost;
+            this.listingCost = listingCost;
         }
 
-        public double GetSessionCost()
+        public int GetListingCost()
         {
-            return sessionCost;
+            return listingCost;
         }
 
         public void SetMaxCustomers(int maxCustomers)
@@ -152,26 +152,27 @@ namespace mis_221_pa_5_rowecjessica
             return spotsTaken;
         }
 
-        public void SetAvailability(bool availability)
+        public void SetAvailability(string availability)
         {
             this.availability = availability;
-            if(spotsLeft > 0){
-                availability = true;
-            } else 
-            {
-                availability = false;
-            }
+            // if(spotsLeft > 0){
+            //     availability = "This session is open for booking";
+            // } else 
+            // {
+            //     availability = "This session is closed";
+            // }
         }
 
-        public bool GetAvailability()
+        public string GetAvailability()
         {
             return availability;
         }
 
-        public void SetSpotsLeft(int maxCusomters, int spotsTaken)
+        public void SetSpotsLeft(int spotsLeft)
         {
             // this.spotsLeft = spotsLeft;
-            spotsLeft = maxCusomters - spotsTaken;
+            // spotsLeft = maxCusomters - spotsTaken;
+            this.availability = availability;
         }
 
         public int GetSpotsLeft()
@@ -179,24 +180,27 @@ namespace mis_221_pa_5_rowecjessica
             return spotsLeft;
         }
 
-        public void SetDiscounts(bool discounts)
+        public void SetDiscount(string discount)
         {
-            this.discounts = discounts;
+            this.discount = discount;
         }
 
-        public bool GetDiscounts()
+        public string GetDiscount()
         {
-            return discounts;
+            return discount;
         }
 
-        static public void IncCount(){
+        static public void IncCount()
+        {
             Listing.count ++;
         }
 
-        static public void SetCount(int count){
+        static public void SetCount(int count)
+        {
             Listing.count = count;
         }
-        static public int GetCount(){
+        static public int GetCount()
+        {
             return Listing.count;
         }
 

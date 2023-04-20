@@ -44,28 +44,33 @@ static void Menu(){
 
 static void ManageTrainerData(){
     string path = @"C:\Users\rowec\OneDrive\MIS221\PAs\mis-221-pa-5-rowecjessica\Trainers.txt"; 
-    Trainer[] trainers = new Trainer[50];
+    Trainer[] trainers = new Trainer[200];
     TrainerUtility trainerUtility = new TrainerUtility(trainers);
 
-    // trainerUtility.Save(path);
     trainerUtility.TrainerFile(path); 
     trainerUtility.NewTrainer(path);
-    // utility.GetAllTrainersFromFile(trainers);
 }
 
 static void ManageListingData(){
     string path = @"C:\Users\rowec\OneDrive\MIS221\PAs\mis-221-pa-5-rowecjessica\Listings.txt";
-    Listing[] listings = new Listing[50];
+    Listing[] listings = new Listing[200];
     ListingUtility listingUtility = new ListingUtility(listings);
 
     listingUtility.ListingFile(path);
     listingUtility.NewListing(path);
-    // listingUtility.GetAllListings(path);
     
 }
 
 static void ManageCustomerBookingData(){
-    System.Console.WriteLine("manage customer booking data");
+    string path = @"C:\Users\rowec\OneDrive\MIS221\PAs\mis-221-pa-5-rowecjessica\transactions.txt";
+    Booking[] bookings = new Booking[200];
+    Listing[] listings = new Listing[200];
+    Trainer[] trainers = new Trainer[200];
+    BookingUtility bookingUtility = new BookingUtility(bookings, listings, trainers);
+
+    bookingUtility.BookingFile(path);
+    bookingUtility.ViewAvailableSessions();
+    bookingUtility.BookSession();
 }
 
 static void RunReports(){
