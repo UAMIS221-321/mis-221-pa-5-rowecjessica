@@ -2,8 +2,8 @@
 
 Menu();
 
-static void Menu(){
-
+static void Menu()
+{
     System.Console.WriteLine("Welcome to TLAC!");
     System.Console.WriteLine("Please select what you would like to do:");
     System.Console.WriteLine("1 - Manage Trainer Data");
@@ -17,32 +17,28 @@ static void Menu(){
     if (userInput == "1")
     {
         ManageTrainerData();
-    } else 
+    }
+
+    if(userInput == "2")
     {
-        if(userInput == "2")
-        {
-            ManageListingData();
-        } else
-        {
-            if (userInput == "3")
-            {
-                ManageCustomerBookingData();
-            } else
-            {
-                if (userInput == "4")
-                {
-                    RunReports();
-                } else
-                {
-                    Console.Clear();
-                }
-            }
-        }
+        ManageListingData();
+    } 
+    
+    if (userInput == "3")
+    {
+        ManageCustomerBookingData();
+    }
+            
+    if (userInput == "4")
+    {
+        RunReports();            
     }
 }
 
 
-static void ManageTrainerData(){
+
+static void ManageTrainerData()
+{
     string path = @"C:\Users\rowec\OneDrive\MIS221\PAs\mis-221-pa-5-rowecjessica\Trainers.txt"; 
     Trainer[] trainers = new Trainer[200];
     TrainerUtility trainerUtility = new TrainerUtility(trainers);
@@ -51,17 +47,20 @@ static void ManageTrainerData(){
     trainerUtility.NewTrainer(path);
 }
 
-static void ManageListingData(){
+
+static void ManageListingData()
+{
     string path = @"C:\Users\rowec\OneDrive\MIS221\PAs\mis-221-pa-5-rowecjessica\Listings.txt";
     Listing[] listings = new Listing[200];
     ListingUtility listingUtility = new ListingUtility(listings);
 
     listingUtility.ListingFile(path);
     listingUtility.NewListing(path);
-    
 }
 
-static void ManageCustomerBookingData(){
+
+static void ManageCustomerBookingData()
+{
     string path = @"C:\Users\rowec\OneDrive\MIS221\PAs\mis-221-pa-5-rowecjessica\transactions.txt";
     Booking[] bookings = new Booking[200];
     Listing[] listings = new Listing[200];
@@ -70,12 +69,16 @@ static void ManageCustomerBookingData(){
 
     bookingUtility.BookingFile(path);
     bookingUtility.ViewAvailableSessions();
-    bookingUtility.BookSession();
 }
 
-static void RunReports(){
-    System.Console.WriteLine("run reports");
+
+static void RunReports()
+{
+    ReportUtility reportUtility = new ReportUtility();
+
+    reportUtility.ReportMenu();
 }
+
 
 
 

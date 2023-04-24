@@ -23,8 +23,6 @@ namespace mis_221_pa_5_rowecjessica
 
         public void BookSession()
         {
-            string path = @"C:\Users\rowec\OneDrive\MIS221\PAs\mis-221-pa-5-rowecjessica\transactions.txt";
-
             System.Console.WriteLine("Would you like to book a session? Y to book, N to go back to Booking Menu:");
             string input = Console.ReadLine().ToUpper();
 
@@ -39,8 +37,7 @@ namespace mis_221_pa_5_rowecjessica
 
         public int CheckBookingIsOpen(int ID)
         {
-        
-            string path = @"C:\Users\rowec\OneDrive\MIS221\PAs\mis-221-pa-5-rowecjessica\Listings.txt";
+            string path = @"C:\Users\rowec\OneDrive\MIS221\PAs\mis-221-pa-5-rowecjessica\Listings.txt"; 
             int foundVal = -1;
             Listing.SetCount(0);
             StreamReader inFile = new StreamReader(path);
@@ -54,19 +51,23 @@ namespace mis_221_pa_5_rowecjessica
                 if(ID == int.Parse(temp[0]))
                 {
                     foundVal = Listing.GetCount();
-
-                    if(int.Parse(temp[10]) < 1)
-                    {
-                        System.Console.WriteLine("This session is full, please go back and look for a different session!");
-                        ViewAvailableSessions();
-                    }else
-                    {
-                        FinalizeBooking(ID, listings, trainers);
-                    }
+                    Listing.IncCount();
                 }
+
+                line = inFile.ReadLine();
             }
 
-            if(foundVal == -1)
+            if(foundVal != -1)
+            {
+                if(listings[foundVal].GetSpotsLeft() < 1)
+                {
+                    System.Console.WriteLine("This session is full, please go back and look for a different session!");
+                    ViewAvailableSessions();
+                }else
+                {
+                    FinalizeBooking(ID, listings, trainers);
+                }
+            }else
             {
                 System.Console.WriteLine($"Session ID {ID} was not found, please go back and look for a different session");
                 ViewAvailableSessions();
@@ -75,110 +76,47 @@ namespace mis_221_pa_5_rowecjessica
             return ID;
         }
 
+
+
         public void FinalizeBooking(int ID, Listing[] listings, Trainer[] trainers)
         {
+            string customerFirstName = "Null";
+            string customerLastName = "Null";
+            string customerEmail = "Null";
+            string trainingDate = "00/00";
+            string trainerFirstName = "Null";
+            string trainerLastName = "Null";
+            string status = "Null";
 
-            System.Console.WriteLine("Enter your first name:");
-            string customerFirstName = Console.ReadLine();
+            string path = @"C:\Users\rowec\OneDrive\MIS221\PAs\mis-221-pa-5-rowecjessica\transactions.txt";
 
-            System.Console.WriteLine("Enter your last name:");
-            string customerLastName = Console.ReadLine();
-
-            System.Console.WriteLine("Enter your email:");
-            string customerEmail = Console.ReadLine();
-
-          
-
-
-            string path = @"C:\Users\rowec\OneDrive\MIS221\PAs\mis-221-pa-5-rowecjessica\Listings.txt";
-            int customerID = CustomerID(path);
-            StreamReader inFile = new StreamReader(path);
-            Listing.SetCount(0);
-            string line = inFile.ReadLine();
-
-
-            ////// TAKE OUT SET VALUE LATER 
-            ID = 10;
-            //////////////////
-
-
-            while( line != null)
-            {
-                string[] temp = line.Split('#');
-                listings[Listing.GetCount()] = new Listing(int.Parse(temp[0]), temp[1], temp[2], temp[3], temp[4], temp[5], temp[6], int.Parse(temp[7]), int.Parse(temp[8]), int.Parse(temp[9]), int.Parse(temp[10]), temp[11], temp[12]);
-                Listing.IncCount();
-                line = inFile.ReadLine();
-            }
-
-
-            // for(int i = 0; i < Listing.GetCount(); i ++)
-            // {
-            //     if(ID == listings[i].GetListingID())
-            //     {
-                    string trainingDate = listings[0].GetListingDate();
-                    string trainerFirstName = listings[0].GetTrainerFirstName();
-                    string trainerLastName = listings[0].GetTrainerLastName();
-                    int status = listings[0].GetSpotsLeft();
-            //     }
-            // }
-            inFile.Close();
-
-
-
-            path = @"C:\Users\rowec\OneDrive\MIS221\PAs\mis-221-pa-5-rowecjessica\Trainers.txt";
-            StreamReader newFile = new StreamReader(path);
-            Listing.SetCount(0);
-            line = newFile.ReadLine();
-
-            while(line != null)
-            {
-                string[] temp = line.Split('#');
-                trainers[Trainer.GetCount()] = new Trainer(int.Parse(temp[0]), temp[1], temp[2], temp[3], temp[4], double.Parse(temp[5]), temp[6], int.Parse(temp[7]));
-                Trainer.IncCount();
-                line = newFile.ReadLine();
-            }
-
-            // for(int i = 0; i < Trainer.GetCount(); i ++)
-            // {
-            //     if(trainerLastName == trainers[i].GetLastName())
-            //     {
-                    int trainerID = trainers[0].GetTrainerID();
-            //     }
-            // }
-
-            newFile.Close();
-
-
-            path = @"C:\Users\rowec\OneDrive\MIS221\PAs\mis-221-pa-5-rowecjessica\transactions.txt";
-            StreamWriter sw = new StreamWriter(path);
-
-            sw.Write($"{customerID}");
-            sw.Write($"{ID}");
-            sw.Write($"{customerFirstName}");
-            sw.Write($"{customerLastName}");
-            sw.Write($"{customerEmail}");
-            sw.Write($"{trainingDate}");
-            sw.Write($"{trainerID}");
-            sw.Write($"{trainerFirstName}");
-            sw.Write($"{trainerLastName}");
-            sw.Write($"{status}");
-
-            sw.Close();
-            
-        }
-
-
-
-        public int CustomerID(string path)
-        {
             System.Console.WriteLine("Are you a returning customer? Y - yes, N - no");
             string input = Console.ReadLine().ToUpper();
             int customerID = 0;
+            int foundVal = -1;
 
             if(input == "Y")
             {
                 System.Console.WriteLine("What is your customer ID?");
                 customerID = int.Parse(Console.ReadLine());
+                ReadInAllBookings(bookings, path);
+
+                for(int i = 1; i < Booking.GetCount(); i ++)
+                {
+                    if(bookings[i].GetCustomerID() == customerID)
+                    {
+                        foundVal = i;
+                        customerFirstName = bookings[i].GetCustomerFirstName();
+                        customerLastName = bookings[i].GetCustomerLastName();
+                        customerEmail = bookings[i].GetCustomerEmail();
+                    }
+                }
+
+                if(foundVal < 0)
+                {
+                    System.Console.WriteLine("Cusomter ID not found");
+                }
+
             } else
             {
                 ReadInAllBookings(bookings, path);
@@ -192,9 +130,72 @@ namespace mis_221_pa_5_rowecjessica
                     }
                 }
                 customerID = max + 1;
+
+                System.Console.WriteLine($"Your customer ID is {customerID}");
+
+                System.Console.WriteLine("Enter your first name:");
+                customerFirstName = Console.ReadLine();
+
+                System.Console.WriteLine("Enter your last name:");
+                customerLastName = Console.ReadLine();
+
+                System.Console.WriteLine("Enter your email:");
+                customerEmail = Console.ReadLine();
             }
 
-            return customerID;
+            path = @"C:\Users\rowec\OneDrive\MIS221\PAs\mis-221-pa-5-rowecjessica\Listings.txt";
+            StreamReader inFile = new StreamReader(path);
+            Listing.SetCount(0);
+            string line = inFile.ReadLine(); 
+
+            while( line != null)
+            {
+                string[] temp = line.Split('#');
+                listings[Listing.GetCount()] = new Listing(int.Parse(temp[0]), temp[1], temp[2], temp[3], temp[4], temp[5], temp[6], int.Parse(temp[7]), int.Parse(temp[8]), int.Parse(temp[9]), int.Parse(temp[10]), temp[11], temp[12]);
+                Listing.IncCount();
+                line = inFile.ReadLine();
+            }
+
+            for(int i = 0; i < Listing.GetCount(); i ++)
+            {
+                if(ID == listings[i].GetListingID())
+                {
+                    trainingDate = listings[i].GetListingDate();
+                    trainerFirstName = listings[i].GetTrainerFirstName();
+                    trainerLastName = listings[i].GetTrainerLastName();
+
+                    if(listings[i].GetSpotsLeft() > 0)
+                    {
+                        status = "Open";
+                    } else
+                    {
+                        status = "Closed";
+                    }
+                }
+            }
+            inFile.Close();
+
+
+
+            int trainerID = FindTrainerID(trainerLastName);
+
+            path = @"C:\Users\rowec\OneDrive\MIS221\PAs\mis-221-pa-5-rowecjessica\transactions.txt";
+            StreamWriter sw = File.AppendText(path);
+            
+            sw.WriteLine();
+            sw.Write($"{customerID}#");
+            sw.Write($"{ID}#");
+            sw.Write($"{customerFirstName}#");
+            sw.Write($"{customerLastName}#");
+            sw.Write($"{customerEmail}#");
+            sw.Write($"{trainingDate}#");
+            sw.Write($"{trainerID}#");
+            sw.Write($"{trainerFirstName}#");
+            sw.Write($"{trainerLastName}#");
+            sw.Write($"{status}#");
+
+            sw.Close();
+            
         }
 
         public void ReadInAllBookings(Booking[] bookings, string path)
@@ -215,6 +216,58 @@ namespace mis_221_pa_5_rowecjessica
         }
 
 
+        public int FindTrainerID(string trainerLastName)
+            {
+                string path = @"C:\Users\rowec\OneDrive\MIS221\PAs\mis-221-pa-5-rowecjessica\Trainers.txt";
+                StreamReader newFile = new StreamReader(path);
+                Trainer.SetCount(0);
+                string line = newFile.ReadLine();
+                int trainerID = 0;
+
+                while(line != null)
+                {
+                    string[] temp = line.Split('#');
+                    trainers[Trainer.GetCount()] = new Trainer(int.Parse(temp[0]), temp[1], temp[2], temp[3], temp[4], double.Parse(temp[5]), temp[6], int.Parse(temp[7]));
+                    Trainer.IncCount();
+                    line = newFile.ReadLine();
+                }
+
+                for(int i = 0; i < Trainer.GetCount(); i ++)
+                {
+                    if(trainerLastName == trainers[i].GetLastName())
+                    {
+                        trainerID = trainers[0].GetTrainerID();
+                    }
+                }
+
+                newFile.Close();
+
+                return trainerID;
+
+            }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         public void ViewAvailableSessions()
         {
@@ -231,24 +284,29 @@ namespace mis_221_pa_5_rowecjessica
             {
                 string searchLastName = ViewAvailableSessionsByTrainer(path);
                 ViewFullSessionsByTrainer(path, searchLastName);
+                BookSession();
             }
 
             if(userInput == "2")
             {
                 string searchDay = ViewAvailableSessionsByDay(path);
                 ViewFullSessionsByDay(path, searchDay);
+                BookSession();
             }
 
             if(userInput == "3")
             {
                 string searchDate = ViewAvailableSessionsByDate(path);
                 ViewFullSessionsByDate(path, searchDate);
+                BookSession();
             }
 
             if(userInput == "4")
             {
                 ViewAllAvailable(path);
+                BookSession();
             }
+
 
         }
 
@@ -259,6 +317,7 @@ namespace mis_221_pa_5_rowecjessica
             System.Console.WriteLine("Please enter the last name of the trainer whose availabe sessions you'd like to see:");
             string searchLastName = Console.ReadLine().ToUpper();
 
+            path = @"C:\Users\rowec\OneDrive\MIS221\PAs\mis-221-pa-5-rowecjessica\Listings.txt";
             int foundVal = -1;
             Listing.SetCount(0);
             StreamReader inFile = new StreamReader(path);
