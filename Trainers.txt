@@ -1,7 +1,6 @@
-0#Jessica#Rowe#1881 Fox Chapel Dr.#rowecjessica@gmail.com#60#cardio#7#
-1#Jacob#Tinnell#1903 3rd Street#jtinnel10@gmail.com#65#Upper body#5#
-2#Tori#Ferguson#1418 10th Street#tfergie@gmail.com#80#lower body#7#
-3#Kathryn#Pope#5467 Peachtree Corners#kathykat@aol.com#110#Agility#2#
-4#Annabel#Gassel#8923 Andrew Ave#abgassel@hotmail.com#70#lower body#5#
+1#Jessica#Rowe#1881 Fox Chapel Dr.#rowecjessica@gmail.com#60#cardio#7#
+2#Jacob#Tinnell#1903 3rd Street#jtinnel10@gmail.com#65#Upper body#5#
+3#Tori#Ferguson#1418 10th Street#tfergie@gmail.com#80#lower body#7#
+4#Kathryn#Pope#5467 Peachtree Corners#kathykat@aol.com#110#Agility#2#
 5#Anna#Conway#2030 Harrisburg#annacconway@gmail#40#cardio#9#
 6#Sydney#Egenes#1814 Saint CLoud#smeg43@crimson#40#core#9#

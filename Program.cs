@@ -12,29 +12,63 @@ static void Menu()
     System.Console.WriteLine("4 - Run Reports");
     System.Console.WriteLine("5 - Exit the application");
 
-    string userInput = Console.ReadLine();
+    string line = Console.ReadLine();
+    int userInput = MenuErrorHandle(line);
 
-    if (userInput == "1")
+    if (userInput == 1)
     {
         ManageTrainerData();
     }
 
-    if(userInput == "2")
+    if(userInput == 2)
     {
         ManageListingData();
     } 
     
-    if (userInput == "3")
+    if (userInput == 3)
     {
         ManageCustomerBookingData();
     }
             
-    if (userInput == "4")
+    if (userInput == 4)
     {
         RunReports();            
     }
+
+    if (userInput == 5)
+    {
+        Console.Clear();
+    }
+
 }
 
+static int MenuErrorHandle(string line)
+{
+    string inputCheck = "";
+    int userInput = 0;
+    int result = 0;
+
+    if ((line == "1") || (line == "2") || (line == "3") || (line == "4") || (line == "5"))
+    {
+        inputCheck = "yes";
+    } else inputCheck = "no";
+
+    bool parseSuccessful = int.TryParse(line, out result);
+    while (result == 0 || inputCheck == "no")
+    {
+        System.Console.WriteLine("Invalid input, please enter a correct option:");
+        line = Console.ReadLine();
+
+        if((line == "1") || (line == "2") || (line == "3") || (line == "4") || (line == "5"))
+        {
+            inputCheck = "yes";
+        } else inputCheck = "no";
+
+        parseSuccessful = int.TryParse(line, out result);
+    }
+    userInput = result;
+    return userInput;
+}
 
 
 static void ManageTrainerData()

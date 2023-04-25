@@ -2,15 +2,14 @@ namespace mis_221_pa_5_rowecjessica
 {
     public class TrainerUtility
     {
-        
         private Trainer[] trainers;
-
 
         public TrainerUtility(Trainer[] trainers)
         {
             this.trainers = trainers;
         }
-
+       
+        // Create trainer file if the text file does not already exist
         public void TrainerFile(string path)
         {
             if(!File.Exists(path))
@@ -20,32 +19,79 @@ namespace mis_221_pa_5_rowecjessica
 
         }
 
-        public void NewTrainer(string path){
-            System.Console.WriteLine("Are you a new trainer? Enter Y for yes or N for no");
-            string response = Console.ReadLine().ToUpper();
-            if( response == "Y")
+        // Navigate to add, edit, or delete trainer information
+        public void NewTrainer(string path)
+        {
+            System.Console.WriteLine("1 - Add a new trainer");
+            System.Console.WriteLine("2 - Edit a current trainer's inforamtion");
+            System.Console.WriteLine("3 - Delete a trainer from the system");
+            System.Console.WriteLine("4 - Return to main menu");
+            System.Console.WriteLine("5 - Exit application");
+            string line = Console.ReadLine();
+
+            int userInput = TrainerErrorHandle(line);
+
+            if(userInput == 1)
             {
                 GetAllTrainers(trainers, path);
-            } else 
+            } 
+
+            if(userInput == 2)
             {
-                System.Console.WriteLine("Are you a trainer wanting to update your information? Y for yes, N for no");
-                response = Console.ReadLine().ToUpper();
-                if( response == "Y"){
-                    EditTrainer(trainers, path);
-                } else {
-                    if( response == "N"){
-                        System.Console.WriteLine("exit application");
-                    } else {
-                        System.Console.WriteLine("Invalid response");
-                    }
-                }
+                EditTrainer(trainers, path);
+            }
+
+            if(userInput == 3)
+            {
+                DeleteTrainer(trainers, path);
+            }
+
+            if(userInput == 4)
+            {
+                MainMenu(); 
+            }
+
+            if(userInput == 5)
+            {
+                Console.Clear();
             }
         }
 
+        static int TrainerErrorHandle(string line)
+        {
+            string inputCheck = "";
+            int userInput = 0;
+            int result = 0;
 
+            if ((line == "1") || (line == "2") || (line == "3") || (line == "4") || (line == "5"))
+            {
+                inputCheck = "yes";
+            } else inputCheck = "no";
+
+            bool parseSuccessful = int.TryParse(line, out result);
+            while (result == 0 || inputCheck == "no")
+            {
+                System.Console.WriteLine("Invalid input, please enter a correct option:");
+                line = Console.ReadLine();
+
+                if((line == "1") || (line == "2") || (line == "3") || (line == "4") || (line == "5"))
+                {
+                    inputCheck = "yes";
+                } else inputCheck = "no";
+
+                parseSuccessful = int.TryParse(line, out result);
+            }
+            userInput = result;
+            return userInput;
+        }
+
+
+
+        // Make new trainer by prompting user for information
+        // Writing to the Trainers.txt file as the user enters information
         public void GetAllTrainers(Trainer[] trainers, string path)
         {
-            System.Console.WriteLine("Would you like to register as a new trainer? Y for yes N for no");
+            System.Console.WriteLine("Would you like to register as a new trainer? Press Y for yes, any other key to return to trainer menu");
             string response = Console.ReadLine().ToUpper();
 
             while (response == "Y")
@@ -53,59 +99,68 @@ namespace mis_221_pa_5_rowecjessica
                 int trainerID = MakeTrainerID(trainers, path);
                 StreamWriter sw = File.AppendText(path);
 
-                trainers[Trainer.GetCount()] = new Trainer();
-                
-                trainers[Trainer.GetCount()].SetTrainerID(trainerID);
-                sw.WriteLine();
                 sw.Write($"{trainerID}#");
                 System.Console.WriteLine($"Your trainer ID is: {trainerID}");
                 
                 System.Console.WriteLine("Please enter your first name");
                 string firstName = Console.ReadLine();
-                trainers[Trainer.GetCount()].SetFirstName(firstName);
                 sw.Write($"{firstName}#");
 
                 System.Console.WriteLine("Please enter your last name");
                 string lastName = Console.ReadLine();
-                trainers[Trainer.GetCount()].SetLastName(lastName);
                 sw.Write($"{lastName}#");
 
                 System.Console.WriteLine("Please enter your mailing address");
                 string address = Console.ReadLine();
-                trainers[Trainer.GetCount()].SetTrainerMailing(address);
                 sw.Write($"{address}#");
                 
                 System.Console.WriteLine("Please enter your Email");
                 string email = Console.ReadLine();
-                trainers[Trainer.GetCount()].SetTrainerEmail(email);
                 sw.Write($"{email}#");
 
-                System.Console.WriteLine("Please enter your hourly rate");
-                double rate = double.Parse(Console.ReadLine());
-                trainers[Trainer.GetCount()].SetHourlyRate(rate);
+                System.Console.WriteLine("Please enter your hourly rate per customer");
+                string line = Console.ReadLine();
+                double result = 0.0;
+                bool parseSuccessful = double.TryParse(line, out result);
+
+                while (result <= 0 ){
+                    System.Console.WriteLine("Please enter a number:");
+                    line = Console.ReadLine();
+                    parseSuccessful = double.TryParse(line, out result);
+                }
+                double rate = result;
                 sw.Write($"{rate}#");
 
                 System.Console.WriteLine("Please enter your focus");
                 string focus = Console.ReadLine();
-                trainers[Trainer.GetCount()].SetFocus(focus);
                 sw.Write($"{focus}#");
 
                 System.Console.WriteLine("Please enter your max amount of customers");
-                int max = int.Parse(Console.ReadLine());
-                trainers[Trainer.GetCount()].SetMaxCustomers(max);
+                line = Console.ReadLine();
+                int var = 0;
+                parseSuccessful = int.TryParse(line, out var);
+
+                while (var <= 0 ){
+                    System.Console.WriteLine("Please enter a number:");
+                    line = Console.ReadLine();
+                    parseSuccessful = int.TryParse(line, out var);
+                }
+
+                int max = var;
                 sw.Write($"{max}#");
-
-
-                Trainer.IncCount();
+                sw.WriteLine();
 
                 sw.Close();
-
-            System.Console.WriteLine("Would you like to register another trainer? Y for yes N for no");
-            response = Console.ReadLine().ToUpper();
-
+                System.Console.WriteLine("Would you like to register another trainer? Y for yes N for no");
+                response = Console.ReadLine().ToUpper();
             }
+            // takes user back to trainer menu
+            NewTrainer(path);
         }
 
+
+        // Reads through exiting trainers and determines the last trainer ID made
+        // Makes a trainer ID for the new trainer that is one more than the current max ID
         public int MakeTrainerID(Trainer[] trainers, string path)
         {
             ReadInAllTrainers(trainers, path);
@@ -124,6 +179,8 @@ namespace mis_221_pa_5_rowecjessica
 
         }
 
+
+        // Reads in all current trainers on file and puts them into the trainers array
         public void ReadInAllTrainers(Trainer[] trainers, string path)
         {
             StreamReader inFile = new StreamReader(path);
@@ -142,12 +199,16 @@ namespace mis_221_pa_5_rowecjessica
         }
 
 
+        // Searches for the trainer with the trainer ID given by the user
+        // User re enters the information for that trainer
+        // Program reads in existing trainers, identify the one to be changed, changes it
+        // Program reprints the trainers with the updated trainer
         public void EditTrainer(Trainer[] trainers, string path)
         {
-
-            System.Console.WriteLine("What is the trainer ID of the trainer who'd information you'd like to change? Enter -1 to exit");
-            int searchVal = int.Parse(Console.ReadLine());
-
+            System.Console.WriteLine("What is the trainer ID of the trainer who's information you'd like to change?");
+            string line = Console.ReadLine();
+            int searchVal = EditTrainerErrorHandle(line);
+            
             while(searchVal != -1)
             {
                 int foundVal = -1;
@@ -161,41 +222,59 @@ namespace mis_221_pa_5_rowecjessica
                     }
                 }
 
-
+                // user re enters the information for the trainer with the trainer ID they entered
                 if(foundVal != -1)
                 {
                     trainers[foundVal].SetTrainerID(searchVal);
                     
-                    System.Console.WriteLine("Please enter your first name");
+                    System.Console.WriteLine("Please enter the trainer's first name");
                     string firstName = Console.ReadLine();
                     trainers[foundVal].SetFirstName(firstName);
 
-                    System.Console.WriteLine("Please enter your last name");
+                    System.Console.WriteLine("Please enter the trainer's last name");
                     string lastName = Console.ReadLine();
                     trainers[foundVal].SetLastName(lastName);
 
-                    System.Console.WriteLine("Please enter your mailing address");
+                    System.Console.WriteLine("Please the trainer's mailing address");
                     string address = Console.ReadLine();
                     trainers[foundVal].SetTrainerMailing(address);
                     
-                    System.Console.WriteLine("Please enter your Email");
+                    System.Console.WriteLine("Please the trainer's Email");
                     string email = Console.ReadLine();
                     trainers[foundVal].SetTrainerEmail(email);
 
-                    System.Console.WriteLine("Please enter your hourly rate");
-                    double rate = double.Parse(Console.ReadLine());
+                    System.Console.WriteLine("Please enter the trainer's hourly rate per customer");
+                    line = Console.ReadLine();
+                    double result = 0.0;
+                    bool parseSuccessful = double.TryParse(line, out result);
+
+                    while (result <= 0 ){
+                        System.Console.WriteLine("Please enter a number:");
+                        line = Console.ReadLine();
+                        parseSuccessful = double.TryParse(line, out result);
+                    }
+                    double rate = result;
                     trainers[foundVal].SetHourlyRate(rate);
 
-                    System.Console.WriteLine("Please enter your focus");
+                    System.Console.WriteLine("Please enter the trainer's focus");
                     string focus = Console.ReadLine();
                     trainers[foundVal].SetFocus(focus);
 
-                    System.Console.WriteLine("Please enter your max amount of customers");
-                    int max = int.Parse(Console.ReadLine());
+                    System.Console.WriteLine("Please enter the trainer's max amount of customers");
+                    line = Console.ReadLine();
+                    int var = 0;
+                    parseSuccessful = int.TryParse(line, out var);
+
+                    while (var <= 0 ){
+                        System.Console.WriteLine("Please enter a number:");
+                        line = Console.ReadLine();
+                        parseSuccessful = int.TryParse(line, out var);
+                    }
+
+                    int max = var;
                     trainers[foundVal].SetMaxCustomers(max);
 
-
-
+                    // rewrites all trainers from the file including the updated one
                     StreamWriter reWrite = new StreamWriter(path);
                     for(int i = 0; i < Trainer.GetCount(); i ++)
                     {
@@ -209,232 +288,241 @@ namespace mis_221_pa_5_rowecjessica
                         reWrite.Write($"{trainers[i].GetMaxCustomers()}#");
                         reWrite.WriteLine(); 
                     }
-
                     reWrite.Close();
-
                 } 
                 else 
                 {
-                    System.Console.WriteLine("Trainer not found");
+                    System.Console.WriteLine($"There is no trainer on file with the ID number {searchVal}.");
                 }
 
                 System.Console.WriteLine("If you'd like to edit the information of another trainer, enter their trainer ID. To exit -1");
-                searchVal = int.Parse(Console.ReadLine());
+                line = Console.ReadLine();
+                if( line == "-1")
+                {
+                    Console.Clear();
+                }
+                searchVal = EditTrainerErrorHandle(line);
             }
         }
 
+        public int EditTrainerErrorHandle(string line)
+        {
+            int result = 0;
+
+            if( line == "-1")
+            {
+                NewTrainer(@"C:\Users\rowec\OneDrive\MIS221\PAs\mis-221-pa-5-rowecjessica\Trainers.txt");
+            }
+
+            bool parseSuccessful = int.TryParse(line, out result);
+
+            while (result <= 0 ){
+                System.Console.WriteLine("Please enter a number:");
+                line = Console.ReadLine();
+                if( line == "-1")
+                {
+                    NewTrainer(@"C:\Users\rowec\OneDrive\MIS221\PAs\mis-221-pa-5-rowecjessica\Trainers.txt");
+                }
+                parseSuccessful = int.TryParse(line, out result);
+            }
+            int searchVal = result;
+
+            return searchVal;
+        }
 
 
-
-            // UpdateTrainer();
-
-        
-
-        // public void Save(string path)
-        // {
-        //     StreamReader inFile = new StreamReader(path);
-        //     for(int i = 0; i < Trainer.GetCount(); i ++)
-        //     {
-        //         string input = inFile.ReadLine();
-        //         trainers[i] = input.Split('#');
-
-        //     }
-
-        //     for(int i = 0; i < Trainer.GetCount(); i ++)
-        //     {
-        //         System.Console.WriteLine(trainers[i]);
-        //     }
-
-        //     inFile.Close();
-        // }
-
-        // public int Find(int searchVal){
-        //     for(int i = 0; i < Trainer.GetCount(); i ++)
-        //     {
-        //         if(trainers[i].GetTrainerID() == searchVal)
-        //         {
-        //             return i;
-        //         }
-        //     }
-
-        //     return -1;
-        // }
-
-        // public void UpdateTrainer(){
-        //     System.Console.WriteLine("What's the trainer ID of the trainer youd like to update?");
-        //     // will later be search for trainer ID
-        //     int searchVal = int.Parse(Console.ReadLine());
-        //     int i = Find(searchVal);
-        //     int foundIndex = i;
-
-        //     if(foundIndex != -1){
-        //         System.Console.WriteLine("Please enter your first name");
-        //         string firstName = Console.ReadLine();
-        //         trainers[Trainer.GetCount()].SetFirstName(firstName);
-        //         // sw.Write($"{firstName}#");
-
-        //         System.Console.WriteLine("Please enter your last name");
-        //         string lastName = Console.ReadLine();
-        //         trainers[Trainer.GetCount()].SetLastName(lastName);
-        //         // sw.Write($"{lastName}#");
-
-        //         System.Console.WriteLine("Please enter your mailing address");
-        //         string address = Console.ReadLine();
-        //         trainers[Trainer.GetCount()].SetTrainerMailing(address);
-        //         // sw.Write($"{address}#");
-                
-        //         System.Console.WriteLine("Please enter your Email");
-        //         string email = Console.ReadLine();
-        //         trainers[Trainer.GetCount()].SetTrainerEmail(email);
-        //         // sw.Write($"{email}#");
-
-        //         System.Console.WriteLine("Please enter your hourly rate");
-        //         double rate = double.Parse(Console.ReadLine());
-        //         trainers[Trainer.GetCount()].SetHourlyRate(rate);
-        //         // sw.Write($"{rate}#");
-
-        //         System.Console.WriteLine("Please enter your focus");
-        //         string focus = Console.ReadLine();
-        //         trainers[Trainer.GetCount()].SetFocus(focus);
-        //         // sw.Write($"{focus}#");
-
-        //         System.Console.WriteLine("Please enter your max amount of customers");
-        //         int max = int.Parse(Console.ReadLine());
-        //         trainers[Trainer.GetCount()].SetMaxCustomers(max);
-        //         // sw.Write($"{max}#");
-
-        //         Save();
-        //     } 
+        // Delete trainer from trainer file
+        public void DeleteTrainer(Trainer[] trainers, string path)
+        {
+            System.Console.WriteLine("What is the trainer ID of the trainer you would like to delete?");
+            string line = Console.ReadLine();
+            int searchVal = DeleteTrainerErrorHandle(line);
             
-        //     else{
-        //         System.Console.WriteLine("Trainer not found");
-        //     }
-        // }
+            // Read in current trainers and find the trainer ID given
+            while(searchVal >= 0)
+            {
+                Trainer.SetCount(0);
+                int foundVal = -1;
+                StreamReader inFile = new StreamReader(path);
+                line = inFile.ReadLine();
+
+                while( line != null)
+                {
+                    string[] temp = line.Split('#');
+                    if(int.Parse(temp[0]) == searchVal)
+                    {
+                        foundVal = 1;
+                    }
+
+                    if(int.Parse(temp[0]) != searchVal)
+                    {
+                        trainers[Trainer.GetCount()] = new Trainer(int.Parse(temp[0]), temp[1], temp[2], temp[3], temp[4], double.Parse(temp[5]), temp[6], int.Parse(temp[7]));
+                        Trainer.IncCount();
+                    }
+
+                    line = inFile.ReadLine();
+                }
+                inFile.Close();
+
+                // if that trainer ID exists, rewrite trainers after deleting the found trainer
+                // if that trainer ID doesn't exist, prompt for new trainer ID
+                if(foundVal >= 0)
+                {
+                    StreamWriter reWrite = new StreamWriter(path);
+                    for(int i = 0; i < Trainer.GetCount(); i ++)
+                    {
+                        reWrite.Write($"{trainers[i].GetTrainerID()}#");
+                        reWrite.Write($"{trainers[i].GetFirstName()}#");
+                        reWrite.Write($"{trainers[i].GetLastName()}#");
+                        reWrite.Write($"{trainers[i].GetTrainerMailing()}#");
+                        reWrite.Write($"{trainers[i].GetTrainerEmail()}#");
+                        reWrite.Write($"{trainers[i].GetHourlyRate()}#");
+                        reWrite.Write($"{trainers[i].GetFocus()}#");
+                        reWrite.Write($"{trainers[i].GetMaxCustomers()}#");
+                        reWrite.WriteLine(); 
+                    }
+                    reWrite.Close();
+                }else
+                {
+                    System.Console.WriteLine($"There is no trainer on file with the ID number {searchVal}.");
+                }
+                System.Console.WriteLine("If you would like to delete another trainer, enter the trainer ID. To return to the menu enter -1:");
+                line = Console.ReadLine();
+                searchVal = DeleteTrainerErrorHandle(line);
+            }
+            NewTrainer(path);
+        }
 
 
-        // public void EditTrainerData(){
-        //     System.Console.WriteLine("What is your trainer ID?");
-        //     int searchVal = int.Parse(Console.ReadLine());
+        static  int DeleteTrainerErrorHandle(string line)
+        {
+            int result = 0;
+            if( line == "-1")
+            {
+                NewTrainer(@"C:\Users\rowec\OneDrive\MIS221\PAs\mis-221-pa-5-rowecjessica\Trainers.txt");
+            }
+            bool parseSuccessful = int.TryParse(line, out result);
 
-        //     for(int i = 0; i < Trainer.GetCount(); i ++){
-        //         if( trainers[i].GetTrainerID() = searchVal ){
-        //             return i;
-        //         }
-        //     }
+            while (result <= 0 ){
+                System.Console.WriteLine("Please enter a number:");
+                line = Console.ReadLine();
+                if( line == "-1")
+                {
+                    NewTrainer(@"C:\Users\rowec\OneDrive\MIS221\PAs\mis-221-pa-5-rowecjessica\Trainers.txt");
+                }
+                parseSuccessful = int.TryParse(line, out result);
+            }
+            int searchVal = result;
 
-        //     System.Console.WriteLine("Here is what your current data looks like:");
-        //     System.Console.WriteLine($"{trainers[i]}");
-        //     System.Console.WriteLine("Please select what you would like to update: ");
-        //     System.Console.WriteLine("1 - Your first name");
-        //     System.Console.WriteLine("2 - Your last name");
-        //     System.Console.WriteLine("3 - Your mailing address");
-        //     System.Console.WriteLine("4 - Your email address");
-        //     System.Console.WriteLine("5 - Your hourly rate");
-        //     System.Console.WriteLine("6 - Your focus");
-        //     System.Console.WriteLine("7 - Your max amount of customers");
+            return searchVal;
+        }
 
-        //     int editValue = int.Parse(Console.ReadLine());
+        // Copy of menu from main
+        static void MainMenu()
+        {
+            System.Console.WriteLine("Please select what you would like to do:");
+            System.Console.WriteLine("1 - Manage Trainer Data");
+            System.Console.WriteLine("2 - Managae Listing Data");
+            System.Console.WriteLine("3 - Manage Customer booking data");
+            System.Console.WriteLine("4 - Run Reports");
+            System.Console.WriteLine("5 - Exit the application");
 
-        //     if(editValue = 1){
-        //         System.Console.WriteLine("What would you like to change your first name to?");
-        //         string newFirstName = Console.ReadLine();
-        //         trainers[i].SetFirstName(newFirstName);
-        //     }
+            string line = Console.ReadLine();
+            int userInput = MenuErrorHandle(line);
 
-        //     if(editValue = 2){
-        //         System.Console.WriteLine("What would you like to change your last name to?");
-        //         string newLastName = Console.ReadLine();
-        //         trainers[i].SetLastName(newLastName);
-        //     }
+            if (userInput == 1)
+            {
+                ManageTrainerData();
+            }
 
-        //     if(editValue = 3){
-        //         System.Console.WriteLine("What would you like to change your mailing address to?");
-        //         string newTrainerMailing = Console.ReadLine();
-        //         trainers[i].SetTrainerMailing(newTrainerMailing);
-        //     }
+            if(userInput == 2)
+            {
+                ManageListingData();
+            } 
+            
+            if (userInput == 3)
+            {
+                ManageCustomerBookingData();
+            }
+                    
+            if (userInput == 4)
+            {
+                RunReports();            
+            }
 
-        //     if(editValue = 4){
-        //         System.Console.WriteLine("What would you like to change your email address to?");
-        //         string newTrainerEmail= Console.ReadLine();
-        //         trainers[i].SetTrainerEmail(newTrainerEmail);
-        //     }
+            if (userInput == 5)
+            {
+                Console.Clear();
+            }
 
-        //     if(editValue = 5){
-        //         System.Console.WriteLine("What would you like to change your hourly rate to?");
-        //         double newHourlyRate = double.Parse(Console.ReadLine());
-        //         trainers[i].SetHourlyRate(newHourlyRate);
-        //     }
+        }
 
-        //     if(editValue = 6){
-        //         System.Console.WriteLine("What would you like to change your focus to?");
-        //         string newFocus = Console.ReadLine();
-        //         trainers[i].SetFocus(newFocus);
-        //     }
+        static int MenuErrorHandle(string line)
+        {
+            string inputCheck = "";
+            int userInput = 0;
+            int result = 0;
 
-        //     if(editValue = 7){
-        //         System.Console.WriteLine("What would you like to change your max amount of customers to?");
-        //         int newMaxCustomers = int.Parse(Console.ReadLine());
-        //         trainers[i].SetMaxCustomers(newMaxCustomers);
-        //     }
-        // }
+            if ((line == "1") || (line == "2") || (line == "3") || (line == "4") || (line == "5"))
+            {
+                inputCheck = "yes";
+            } else inputCheck = "no";
 
+            bool parseSuccessful = int.TryParse(line, out result);
+            while (result == 0 || inputCheck == "no")
+            {
+                System.Console.WriteLine("Invalid input, please enter a correct option:");
+                line = Console.ReadLine();
 
+                if((line == "1") || (line == "2") || (line == "3") || (line == "4") || (line == "5"))
+                {
+                    inputCheck = "yes";
+                } else inputCheck = "no";
 
-        // public void GetAllTrainersFromFile(Trainer[] trainers){
-        //     StreamReader inFile = new StreamReader("Trainers.txt");
-        //     Trainer.SetCount(0);
+                parseSuccessful = int.TryParse(line, out result);
+            }
+            userInput = result;
+            return userInput;
+        }
 
-        //     string line = inFile.ReadLine();
+        static void ManageTrainerData()
+        {
+            string path = @"C:\Users\rowec\OneDrive\MIS221\PAs\mis-221-pa-5-rowecjessica\Trainers.txt"; 
+            Trainer[] trainers = new Trainer[200];
+            TrainerUtility trainerUtility = new TrainerUtility(trainers);
 
-        //     while(line != null){
-        //         string[] temp = line.Split('#');
-        //         trainers[Trainer.GetCount()] = new Trainer(int.Parse(temp[0]), temp[1], temp[2], temp[3], temp[4], double.Parse(temp[5]), temp[6], int.Parse(temp[7]));
-        //         System.Console.WriteLine(temp[3]);
+            trainerUtility.TrainerFile(path); 
+            trainerUtility.NewTrainer(path);
+        }
 
-        //         Trainer.IncCount();
-        //         line = inFile.ReadLine();
-        //     }
+        static void ManageListingData()
+        {
+            string path = @"C:\Users\rowec\OneDrive\MIS221\PAs\mis-221-pa-5-rowecjessica\Listings.txt";
+            Listing[] listings = new Listing[200];
+            ListingUtility listingUtility = new ListingUtility(listings);
 
-        //     inFile.Close();
+            listingUtility.ListingFile(path);
+            listingUtility.NewListing(path);
+        }
 
-        // }
+        static void ManageCustomerBookingData()
+        {
+            string path = @"C:\Users\rowec\OneDrive\MIS221\PAs\mis-221-pa-5-rowecjessica\transactions.txt";
+            Booking[] bookings = new Booking[200];
+            Listing[] listings = new Listing[200];
+            Trainer[] trainers = new Trainer[200];
+            BookingUtility bookingUtility = new BookingUtility(bookings, listings, trainers);
 
-        // public void AddTrainer(){
-        //     System.Console.WriteLine("Please enter your trainer ID");
-        //     Trainer newTrainer = new Trainer();
-        //     newTrainer.SetTrainerID(int.Parse(Console.ReadLine()));
+            bookingUtility.BookingFile(path);
+            bookingUtility.ViewAvailableSessions();
+        }
 
-        //     System.Console.WriteLine("Please enter your name");
-        //     newTrainer.SetTrainerName(Console.ReadLine());
+        static void RunReports()
+        {
+            ReportUtility reportUtility = new ReportUtility();
 
-        //     System.Console.WriteLine("Please enter mailing address");
-        //     newTrainer.SetTrainerMailing(Console.ReadLine());
+            reportUtility.ReportMenu();
+        }
 
-        //     System.Console.WriteLine("Please enter your email");
-        //     newTrainer.SetTrainerEmail(Console.ReadLine());
-
-        //     System.Console.WriteLine("Please eneter your hourly rate");
-        //     newTrainer.SetHourlyRate(double.Parse(Console.ReadLine()));
-
-        //     System.Console.WriteLine("Please eneter your focus");
-        //     newTrainer.SetFocus(Console.ReadLine());
-
-        //     System.Console.WriteLine("Please enter your max amount of cutomers");
-        //     newTrainer.SetMaxCustomers(int.Parse(Console.ReadLine()));
-
-        //     trainers[Trainer.GetCount()] = newTrainer;
-        //     Trainer.IncCount();
-
-        //     Save(trainerID, trainerName, trainerMailing, trainerEmail, hourlyRate, focus, maxCustomers);
-        // }
-
-        // public void Save(int trainerID, string trainerName, string trainerMailing, string trainerEmail, double hourlyRate, string focus, int maxCustomers){
-        //     StreamWriter outFile = new StreamWriter("Trainer.txt");
-        //     for(int i = 0; i < Trainer.GetCount(); i ++){
-        //         outFile.WriteLine($"{trainerID}#{trainerName}#{trainerMailing}#{trainerEmail}#{hourlyRate}#{focus}#{maxCustomers}");
-        //     }
-
-        //     outFile.Close();
-        // }
     }
 }

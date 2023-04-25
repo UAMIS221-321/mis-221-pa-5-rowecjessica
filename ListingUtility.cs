@@ -21,15 +21,80 @@ namespace mis_221_pa_5_rowecjessica
         }
 
         public void NewListing(string path){
-            System.Console.WriteLine("Are you a new Listings? Enter Y for yes or N for no");
-            string response = Console.ReadLine().ToUpper();
-            if( response == "Y")
+            System.Console.WriteLine("Press 1 to add a listing, 2 to edit or delete a listing:");
+            int response = int.Parse(Console.ReadLine());
+            if( response == 1)
             {
                 GetAllListings(listings, path);
             } else 
             {
-                EditListing(listings, path);
+                System.Console.WriteLine("Press 1 to edit a listing, 2 to delete a listing:");
+                response = int.Parse(Console.ReadLine());
+
+                if(response == 1)
+                {
+                    EditListing(listings, path);
+                }
+                if(response == 2)
+                {
+                    DeleteListing(listings);
+                }
+
             }
+        }
+
+
+        public void DeleteListing (Listing[] listings)
+        {
+            string path = @"C:\Users\rowec\OneDrive\MIS221\PAs\mis-221-pa-5-rowecjessica\Listings.txt";
+            System.Console.WriteLine("What is the listing ID of the listing you would like to delete?");
+            int searchVal = int.Parse(Console.ReadLine());
+
+            while(searchVal != -1)
+            {
+                Listing.SetCount(0);
+                StreamReader inFile = new StreamReader(path);
+                string line = inFile.ReadLine();
+
+                while( line != null)
+                {
+                    string[] temp = line.Split('#');
+                    if(int.Parse(temp[0]) != searchVal)
+                    {
+                        listings[Listing.GetCount()] = new Listing(int.Parse(temp[0]), temp[1], temp[2], temp[3], temp[4], temp[5], temp[6], int.Parse(temp[7]), int.Parse(temp[8]), int.Parse(temp[9]), int.Parse(temp[10]), temp[11], temp[12]);
+                        Listing.IncCount();
+                    }
+                    
+                    line = inFile.ReadLine();
+                }
+                inFile.Close();
+
+
+                StreamWriter reWrite = new StreamWriter(path);
+                for( int i = 0; i < Listing.GetCount(); i ++)
+                {
+                    reWrite.Write($"{listings[i].GetListingID()}#");
+                    reWrite.Write($"{listings[i].GetTrainerFirstName()}#");
+                    reWrite.Write($"{listings[i].GetTrainerLastName()}#");
+                    reWrite.Write($"{listings[i].GetListingDay()}#");
+                    reWrite.Write($"{listings[i].GetListingDate()}#");
+                    reWrite.Write($"{listings[i].GetListingTime()}#");
+                    reWrite.Write($"{listings[i].GetRecurring()}#");
+                    reWrite.Write($"{listings[i].GetListingCost()}#");
+                    reWrite.Write($"{listings[i].GetMaxCustomers()}#");
+                    reWrite.Write($"{listings[i].GetSpotsTaken()}#");
+                    reWrite.Write($"{listings[i].GetSpotsLeft()}#");
+                    reWrite.Write($"{listings[i].GetAvailability()}#");
+                    reWrite.Write($"{listings[i].GetDiscount()}#");
+                    reWrite.WriteLine(); 
+                }
+                reWrite.Close();
+
+                System.Console.WriteLine("If you want to delete another listing, enter the listing ID. To go back to the listing Menu, enter -1:");
+                searchVal = int.Parse(Console.ReadLine());
+            }
+
+            NewListing(path);
         }
 
     
