@@ -2,7 +2,7 @@ namespace mis_221_pa_5_rowecjessica
 {
     public class ReportUtility
     {
-        public void ReportMenu()
+        public void ReportMenu(Booking[] bookings)
         {
             System.Console.WriteLine("What report function would you like to do?");
             System.Console.WriteLine("1 - Individual Customer Sessions");
@@ -18,7 +18,7 @@ namespace mis_221_pa_5_rowecjessica
 
             if(userInput == "2")
             {
-                HistoricalCustomerSessions();
+                HistoricalCustomerSessions(bookings);
             }
 
             if(userInput == "3")
@@ -119,9 +119,46 @@ namespace mis_221_pa_5_rowecjessica
             }
         }
 
-        public void HistoricalCustomerSessions()
+        public void HistoricalCustomerSessions(Booking[] bookings)
         {
-            System.Console.WriteLine("HCS");
+            
+            int max = 0; 
+            int customerID = 0;
+            int currentID = 0;
+            StreamReader sr = new StreamReader(@"C:\Users\rowec\OneDrive\MIS221\PAs\mis-221-pa-5-rowecjessica\transactions.txt");
+            Booking.SetCount(0);
+            string line = sr.ReadLine();
+
+            while( line != null)
+            {
+                string[] temp = line.Split('#');
+                bookings[Booking.GetCount()] = new Booking(int.Parse(temp[0]), int.Parse(temp[1]), temp[2], temp[3], temp[4], temp[5], int.Parse(temp[6]), temp[7], temp[8], temp[9]);
+                Booking.IncCount();
+                line = sr.ReadLine();
+            }
+            sr.Close();
+
+            for(int i = 0; i < Booking.GetCount(); i ++)
+            {
+                currentID = bookings[i].GetCustomerID();
+                if(currentID > max)
+                {
+                    max = currentID;
+                }
+                Booking.IncCount();
+            }
+
+            for(int n = 0; n < max; n ++)
+            {
+                for(int j = 0; j < Booking.GetCount(); j ++)
+                {
+                    if(bookings[j].GetCustomerID() == j)
+                    {
+                        System.Console.WriteLine($"Listing ID: {bookings[j].GetSessionID()}, Date: {bookings[j].GetTrainingDate()}, Trainer: #{bookings[j].GetBookingTrainerID()} {bookings[j].GetBookingTrainerFirstName()} {bookings[j].GetBookingTrainerLastName()}");
+                    }
+                }
+                Booking.IncCount();
+            }
         }
 
         public void HistoricalRevenueReport()

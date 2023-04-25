@@ -394,22 +394,30 @@ namespace mis_221_pa_5_rowecjessica
         }
 
 
-        static  int DeleteTrainerErrorHandle(string line)
+        static int DeleteTrainerErrorHandle(string line)
         {
             int result = 0;
+
             if( line == "-1")
             {
-                NewTrainer(@"C:\Users\rowec\OneDrive\MIS221\PAs\mis-221-pa-5-rowecjessica\Trainers.txt");
+                // NewTrainer(@"C:\Users\rowec\OneDrive\MIS221\PAs\mis-221-pa-5-rowecjessica\Trainers.txt");
+                System.Console.WriteLine("Add path later");
+                /////////////////////////////////////////////////////
             }
+
             bool parseSuccessful = int.TryParse(line, out result);
 
             while (result <= 0 ){
                 System.Console.WriteLine("Please enter a number:");
                 line = Console.ReadLine();
+
                 if( line == "-1")
                 {
-                    NewTrainer(@"C:\Users\rowec\OneDrive\MIS221\PAs\mis-221-pa-5-rowecjessica\Trainers.txt");
+                    // NewTrainer(@"C:\Users\rowec\OneDrive\MIS221\PAs\mis-221-pa-5-rowecjessica\Trainers.txt");
+                    System.Console.WriteLine("add path later");
+                    ///////////////////////////////////////////////////
                 }
+
                 parseSuccessful = int.TryParse(line, out result);
             }
             int searchVal = result;
@@ -520,8 +528,9 @@ namespace mis_221_pa_5_rowecjessica
         static void RunReports()
         {
             ReportUtility reportUtility = new ReportUtility();
+            Booking[] bookings = new Booking[200];
 
-            reportUtility.ReportMenu();
+            reportUtility.ReportMenu(bookings);
         }
 
     }

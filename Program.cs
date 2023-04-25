@@ -109,8 +109,9 @@ static void ManageCustomerBookingData()
 static void RunReports()
 {
     ReportUtility reportUtility = new ReportUtility();
+    Booking[] bookings = new Booking[200];
 
-    reportUtility.ReportMenu();
+    reportUtility.ReportMenu(bookings);
 }
 
 
