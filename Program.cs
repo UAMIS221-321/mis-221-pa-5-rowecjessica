@@ -86,10 +86,11 @@ static void ManageListingData()
 {
     string path = @"C:\Users\rowec\OneDrive\MIS221\PAs\mis-221-pa-5-rowecjessica\Listings.txt";
     Listing[] listings = new Listing[200];
-    ListingUtility listingUtility = new ListingUtility(listings);
+    Trainer[] trainers = new Trainer[200];
+    ListingUtility listingUtility = new ListingUtility(listings, trainers);
 
     listingUtility.ListingFile(path);
-    listingUtility.NewListing(path);
+    listingUtility.NewListing(path, listings, trainers);
 }
 
 
@@ -108,10 +109,12 @@ static void ManageCustomerBookingData()
 
 static void RunReports()
 {
-    ReportUtility reportUtility = new ReportUtility();
     Booking[] bookings = new Booking[200];
+    Listing[] listings = new Listing[200];
+    Trainer[] trainers = new Trainer[200];
+    ReportUtility reportUtility = new ReportUtility(bookings, listings, trainers);
 
-    reportUtility.ReportMenu(bookings);
+    reportUtility.ReportMenu(bookings, listings, trainers);
 }
 
 

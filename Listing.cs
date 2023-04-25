@@ -9,7 +9,7 @@ namespace mis_221_pa_5_rowecjessica
         private string date;
         private string listingTime;
         private string recurring;
-        private int listingCost;
+        private double listingCost;
         private int maxCustomers;
         private int spotsTaken;
         private int spotsLeft;
@@ -18,7 +18,7 @@ namespace mis_221_pa_5_rowecjessica
         static private int count;
 
 
-        public Listing(int listingID, string trainerFirstName, string trainerLastName, string day, string date, string listingTime, string recurring, int listingCost, int maxCustomers, int spotsTaken, int spotsLeft, string availability, string discount)
+        public Listing(int listingID, string trainerFirstName, string trainerLastName, string day, string date, string listingTime, string recurring, double listingCost, int maxCustomers, int spotsTaken, int spotsLeft, string availability, string discount)
         {
             this.listingID = listingID;
             this.trainerFirstName = trainerFirstName;
@@ -43,7 +43,7 @@ namespace mis_221_pa_5_rowecjessica
             date = "06/26/2003";
             listingTime = "12:30";
             recurring = "Recurring";
-            listingCost = 10;
+            listingCost = 10.0;
             maxCustomers = 9;
             spotsTaken = 0;
             spotsLeft = 8;
@@ -122,12 +122,12 @@ namespace mis_221_pa_5_rowecjessica
             return recurring;
         }
 
-        public void SetListingCost(int listingCost)
+        public void SetListingCost(double listingCost)
         {
             this.listingCost = listingCost;
         }
 
-        public int GetListingCost()
+        public double GetListingCost()
         {
             return listingCost;
         }

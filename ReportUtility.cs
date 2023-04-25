@@ -2,7 +2,17 @@ namespace mis_221_pa_5_rowecjessica
 {
     public class ReportUtility
     {
-        public void ReportMenu(Booking[] bookings)
+        private Booking[] bookings;
+        private Listing[] listings;
+        private Trainer[] trainers;
+
+        public ReportUtility(Booking[] bookings, Listing[] listings, Trainer[] trainers)
+        {
+            this.bookings = bookings;
+            this.listings = listings;
+            this.trainers = trainers;
+        }
+        public void ReportMenu(Booking[] bookings, Listing[] listings, Trainer[] trainers)
         {
             System.Console.WriteLine("What report function would you like to do?");
             System.Console.WriteLine("1 - Individual Customer Sessions");
@@ -122,43 +132,45 @@ namespace mis_221_pa_5_rowecjessica
         public void HistoricalCustomerSessions(Booking[] bookings)
         {
             
-            int max = 0; 
-            int customerID = 0;
-            int currentID = 0;
-            StreamReader sr = new StreamReader(@"C:\Users\rowec\OneDrive\MIS221\PAs\mis-221-pa-5-rowecjessica\transactions.txt");
-            Booking.SetCount(0);
-            string line = sr.ReadLine();
+            System.Console.WriteLine("Historical Customer Sessions");
+            // int customerID = 0;
+            // int currentID = 0;
+            // StreamReader sr = new StreamReader(@"C:\Users\rowec\OneDrive\MIS221\PAs\mis-221-pa-5-rowecjessica\transactions.txt");
+            // Booking.SetCount(0);
+            // string line = sr.ReadLine();
 
-            while( line != null)
-            {
-                string[] temp = line.Split('#');
-                bookings[Booking.GetCount()] = new Booking(int.Parse(temp[0]), int.Parse(temp[1]), temp[2], temp[3], temp[4], temp[5], int.Parse(temp[6]), temp[7], temp[8], temp[9]);
-                Booking.IncCount();
-                line = sr.ReadLine();
-            }
-            sr.Close();
+            // while( line != null)
+            // {
+            //     string[] temp = line.Split('#');
+            //     bookings[Booking.GetCount()] = new Booking(int.Parse(temp[0]), int.Parse(temp[1]), temp[2], temp[3], temp[4], temp[5], int.Parse(temp[6]), temp[7], temp[8], temp[9]);
+            //     Booking.IncCount();
+            //     line = sr.ReadLine();
+            // }
+            // sr.Close();
 
-            for(int i = 0; i < Booking.GetCount(); i ++)
-            {
-                currentID = bookings[i].GetCustomerID();
-                if(currentID > max)
-                {
-                    max = currentID;
-                }
-                Booking.IncCount();
-            }
+            // int max = bookings[0].GetCustomerID();
+            // for(int i = 0; i < Booking.GetCount(); i ++)
+            // {
+            //     if( max < bookings[i].GetCustomerID() )
+            //     {
+            //         max = bookings[i].GetCustomerID();
+            //     }
+            //     Booking.IncCount();
+            // }
 
-            for(int n = 0; n < max; n ++)
-            {
-                for(int j = 0; j < Booking.GetCount(); j ++)
-                {
-                    if(bookings[j].GetCustomerID() == j)
-                    {
-                        System.Console.WriteLine($"Listing ID: {bookings[j].GetSessionID()}, Date: {bookings[j].GetTrainingDate()}, Trainer: #{bookings[j].GetBookingTrainerID()} {bookings[j].GetBookingTrainerFirstName()} {bookings[j].GetBookingTrainerLastName()}");
-                    }
-                }
-                Booking.IncCount();
-            }
+            // for(int n = 0; n < max; n ++)
+            // {
+            //     for(int j = 0; j < Booking.GetCount(); j ++)
+            //     {
+            //         if(bookings[0].GetCustomerID() == j)
+            //         {
+            //             System.Console.WriteLine($"Listing ID: {bookings[j].GetSessionID()}, Date: {bookings[j].GetTrainingDate()}, Trainer: #{bookings[j].GetBookingTrainerID()} {bookings[j].GetBookingTrainerFirstName()} {bookings[j].GetBookingTrainerLastName()}");
+            //         }
+            //     }
+            //     Booking.IncCount();
+            // }
+
+            
         }
 
         public void HistoricalRevenueReport()

@@ -25,3 +25,8 @@
 250#Jake#Tinnell#TUESDAY#07/11#11am#This session is recurring#50#5#3#2#0pen for booking#First time discount offered#
 260#Jake#Tinnell#TUESDAY#07/18#11am#This session is recurring#50#5#5#1#0pen for booking#First time discount offered#
 270#Jake#Tinnell#TUESDAY#07/25#11am#This session is recurring#50#5#4#1#0pen for booking#First time discount offered#
+280#Tori#Ferguson#Monday#05/01#10am#This session is recurring#60#7#3#4#This session is open for booking!#First time discount offered#
+290#Tori#Ferguson#Tuesday#05/02#10am#This session is recurring#60#5#5#0#This session is full!#No discount offered#
+300#Jessica#Rowe#Tuesday#07/18#10am#This session is recurring#70#6#4#2#This session is open for booking!#First time discount offered#
+310#Jessica#Rowe#Thursday#06/29#9am#This session is recurring#60#7#0#7#This session is open for booking!#First time discount offered#
+320#Jessica#Rowe#Saturday#07/01#10am#This session is recurring#60#7#0#7#This session is open for booking!#First time discount offered#
