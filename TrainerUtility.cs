@@ -429,6 +429,7 @@ namespace mis_221_pa_5_rowecjessica
         // Copy of menu from main
         static void MainMenu()
         {
+            Console.Clear();
             System.Console.WriteLine("Please select what you would like to do:");
             System.Console.WriteLine("1 - Manage Trainer Data");
             System.Console.WriteLine("2 - Managae Listing Data");
