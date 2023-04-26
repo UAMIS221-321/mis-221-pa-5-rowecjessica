@@ -6,3 +6,5 @@
 6#Sydney#Egenes#1814 Saint CLoud#smeg43@crimson#40#core#9#
 7#Annabel#Gassel#1418 10th Ave#abgassel@gmail.com#70#Legs#8#
 8#Kaylee#Kabza#1418 10th Ave#kkabza@gmail#9#Upper Body#8#
+9#Mary#Lavarato#5643 Cubs Lane#mlavarato@crimson.ua.edu#70#legs#8#
+10#Adalyn#Conn#8294 Lakeview ave#aconn@crimson.ua.edu#65#Arms#7#

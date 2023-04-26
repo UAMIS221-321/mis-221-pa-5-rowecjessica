@@ -24,311 +24,187 @@ namespace mis_221_pa_5_rowecjessica
         }
 
         public void NewListing(string path, Listing[] listings, Trainer[] trainers){
-            System.Console.WriteLine("Press 1 to add a listing, 2 to edit or delete a listing:");
-            int response = int.Parse(Console.ReadLine());
-            if( response == 1)
+            Console.Clear();
+            System.Console.WriteLine("Select what you would like to do:");
+            System.Console.WriteLine("1 - Add a listing");
+            System.Console.WriteLine("2 - Edit a listing");
+            System.Console.WriteLine("3 - Delete a listing");
+            System.Console.WriteLine("4 - Go back to Main Menu");
+
+            string input = Console.ReadLine();
+            string valid = "No";
+
+            while(valid == "No")
+            {
+                if( (input == "1") || (input == "2") || (input == "3") || (input == "4"))
+                {
+                    valid = "Yes";
+                }else
+                {
+                    valid = "No";
+                    Console.WriteLine("Please enter a valid menu option:");
+                    input = Console.ReadLine();
+                }
+            }
+
+            if(input == "1")
             {
                 GetAllListings(listings, path, trainers);
-            } else 
-            {
-                System.Console.WriteLine("Press 1 to edit a listing, 2 to delete a listing:");
-                response = int.Parse(Console.ReadLine());
-
-                if(response == 1)
-                {
-                    EditListing(listings, path);
-                }
-                if(response == 2)
-                {
-                    DeleteListing(listings);
-                }
-
             }
+
+            if(input == "2")
+            {
+                EditListing(listings, path, trainers);
+            }
+
+            if(input == "3")
+            {
+                DeleteListing(listings);
+            }
+
+            if(input == "4")
+            {
+                MainMenu();
+            }
+
         }
 
-
-        
 
     
         public void GetAllListings(Listing[] listings, string path, Trainer[] trainers)
         {
-            System.Console.WriteLine("Would you like to list a listings? Y for yes N for no");
-            string response = Console.ReadLine().ToUpper();
+            Console.Clear();
+            System.Console.WriteLine("Would you like to add new a listings? Y for yes N for no");
+            string input = Console.ReadLine().ToUpper();
+            string valid = "No";
+            
+            while(valid == "No")
+            {
+                if( (input == "Y") || (input == "N"))
+                {
+                    valid = "Yes";
+                }else
+                {
+                    valid = "No";
+                    System.Console.WriteLine("Please enter Y or N:");
+                    input = Console.ReadLine().ToUpper();
+                }
+            }
 
-            while (response == "Y")
+            if(input == "N")
+            {
+                NewListing(path, listings, trainers);
+            }
+
+            while (input == "Y")
             {
                 int listingID = MakeListingID(listings, path);
-                StreamWriter sw = File.AppendText(path);
                 listings[Listing.GetCount()] = new Listing();
 
                 listings[Listing.GetCount()].SetListingID(listingID);
-                sw.Write($"{listingID}#");
                 System.Console.WriteLine($"This Listing ID is: {listingID}");
+
                 
-
-
+                /////////// Find trainer first and last name by trainerID  //////////////////////
                 System.Console.WriteLine("Please enter the trainer ID of the trainer running this session: ");
-                int trainerID = int.Parse(Console.ReadLine());
-                int foundVal = -1;
+                int ID = int.Parse(Console.ReadLine());
+                int trainerID = CheckTrainerID(ID);
+                int foundVal = FindTrainersName(trainerID);
 
-                //////////////////////// Trainer first and last name //////////////////////
-                StreamReader inFile = new StreamReader(@"C:\Users\rowec\OneDrive\MIS221\PAs\mis-221-pa-5-rowecjessica\Trainers.txt");
-                Trainer.SetCount(0);
-                string line = inFile.ReadLine();
-
-                while(foundVal < 0)
-                {
-                    while( line != null)
-                    {
-                        string[] temp = line.Split('#');
-                        trainers[Trainer.GetCount()] = new Trainer(int.Parse(temp[0]), temp[1], temp[2], temp[3], temp[4], double.Parse(temp[5]), temp[6], int.Parse(temp[7]));
-                        Trainer.IncCount();
-                        line = inFile.ReadLine();
-                    }
-                    inFile.Close();
-
-                    for(int i = 0; i < Trainer.GetCount(); i ++)
-                    {
-                        if(trainerID == trainers[i].GetTrainerID())
-                        {
-                            foundVal = i;
-                        }
-                    }
-                    
-                    if(foundVal < 0)
-                    {
-                        System.Console.WriteLine("Trainer ID not found. You need to be a registerd trainer to be able to list a training session.");
-                        System.Console.WriteLine("To enter a different trainer ID: press 1");
-                        System.Console.WriteLine("To return the the Main Menu: press 2");
-                        response = Console.ReadLine();
-
-                        if(response == "1")
-                        {
-                            System.Console.WriteLine("Please enter the trainer ID of the trainer running this session:");
-                            trainerID = int.Parse(Console.ReadLine());
-                        }
-
-                        if(response == "2")
-                        {
-                            MainMenu();
-                        }
-                    }
-                }
-                
-                
                 string trainerFirstName = trainers[foundVal].GetFirstName();
                 listings[Listing.GetCount()].SetTrainerFirstName(trainerFirstName);
-                sw.Write($"{trainerFirstName}#");
 
                 string trainerLastName = trainers[foundVal].GetLastName();
                 listings[Listing.GetCount()].SetTrainerLastName(trainerLastName);
-                sw.Write($"{trainerLastName}#");
-                
 
-                ///////////////////////// Listing date and day //////////////////////////////////
+                ///////////////////////// Listing date and day /////////////////////
                 System.Console.WriteLine("Please enter the session date in MM/DD format: Remeber we are only accepting listings for May - August 2023 at this time. ");
                 string date = Console.ReadLine();
                 string day = GetDayFromDate(date);
                 listings[Listing.GetCount()].SetListingDate(date);
-    
                 listings[Listing.GetCount()].SetListingDay(day);
-                sw.Write($"{day}#");
-                sw.Write($"{date}#");
     
-                /////////////////////////  Session time  //////////////////////////////////
+                /////////////////////////  Session time  ///////////////////
                 System.Console.WriteLine("Please enter the session time");
                 string listingTime = Console.ReadLine();
                 listings[Listing.GetCount()].SetListingTime(listingTime);
-                sw.Write($"{listingTime}#");
+
 
 
                 //////////////////////// Recurring //////////////////////
-                System.Console.WriteLine("Please enter if this session is recurring: Y for yes, N for no ");
-                string userInput = Console.ReadLine().ToUpper();
-                string recurring = "false";
+                
+                string recurring = ListingReccuring();
+                if(recurring == "This session is recurring")
+                    {
+                        IfRecurring(recurring, day, listingID, trainerFirstName, trainerLastName, listingTime, foundVal, trainerID);
+                    }else
+                    {
+                    listings[Listing.GetCount()].SetRecurring(recurring);
 
-                if( userInput == "Y"){
-                    recurring = "This session is recurring";
+                    ///////////////////////   Listing Cost   ///////////////////////////
+                    
+                    foundVal = FindListingCost(trainerID);
+                    double listingCost = trainers[foundVal].GetHourlyRate();
+                    listings[Listing.GetCount()].SetListingCost(listingCost);
+
+                    /////////////////////////  Max customers  ////////////////////////////////////////////
+
+                    foundVal = FindMaxCustomers(trainerID);
+                    int maxCustomers = trainers[foundVal].GetMaxCustomers();
+                    listings[Listing.GetCount()].SetMaxCustomers(maxCustomers);
+
+
+                    ////// set spots taken and spots left
+                    int spotsTaken = 0;
+                    listings[Listing.GetCount()].SetSpotsTaken(spotsTaken);
+
+
+                    // calculate spots left
+                    int spotsLeft = maxCustomers - spotsTaken;
+                    listings[Listing.GetCount()].SetSpotsLeft(spotsLeft);
+
+
+                    // set session to open or full
+                    string availability = FindAvailability(spotsLeft);
+                    listings[Listing.GetCount()].SetAvailability(availability);
+
+
+                    //////////////////// discount 
+                    
+                    string discount = FindDiscount();
+                    listings[Listing.GetCount()].SetDiscount(discount);
+                    
+                    //////////////////// write it out
+                    StreamWriter sw = File.AppendText(path);
+                    sw.Write($"{listingID}#");
+                    sw.Write($"{trainerFirstName}#");
+                    sw.Write($"{trainerLastName}#");
+                    sw.Write($"{day}#");
+                    sw.Write($"{date}#");
+                    sw.Write($"{listingTime}#");
                     sw.Write($"{recurring}#");
-                } else {
-                    if( userInput == "N"){
-                        recurring = "This session is not recurring";
-                        sw.Write($"{recurring}#");
-                    } else {
-                        System.Console.WriteLine("invalid input");
-                    }
-                } 
-                listings[Listing.GetCount()].SetRecurring(recurring);
-
-
-                ///////////////////////   Listing Cost   ///////////////////////////
-                StreamReader costFile = new StreamReader(@"C:\Users\rowec\OneDrive\MIS221\PAs\mis-221-pa-5-rowecjessica\Trainers.txt");
-                Trainer.SetCount(0);
-                line = costFile.ReadLine();
-
-                while( line != null)
-                {
-                    string[] temp = line.Split('#');
-                    trainers[Trainer.GetCount()] = new Trainer(int.Parse(temp[0]), temp[1], temp[2], temp[3], temp[4], double.Parse(temp[5]), temp[6], int.Parse(temp[7]));
-                    Trainer.IncCount();
-                    line = costFile.ReadLine();
-                }
-                costFile.Close();
-
-                for(int i = 0; i < Trainer.GetCount(); i ++)
-                {
-                    if(trainerID == trainers[i].GetTrainerID())
-                    {
-                        foundVal = i;
-                    }
-                }
-
-                double listingCost = trainers[foundVal].GetHourlyRate();
-                listings[Listing.GetCount()].SetListingCost(listingCost);
-                sw.Write($"{listingCost}#");
-
-
-
-                /////////////////////////  Max customers  ////////////////////////////////////////////
-        
-                StreamReader maxFile = new StreamReader(@"C:\Users\rowec\OneDrive\MIS221\PAs\mis-221-pa-5-rowecjessica\Trainers.txt");
-                Trainer.SetCount(0);
-                line = maxFile.ReadLine();
-
-                while( line != null)
-                {
-                    string[] temp = line.Split('#');
-                    trainers[Trainer.GetCount()] = new Trainer(int.Parse(temp[0]), temp[1], temp[2], temp[3], temp[4], double.Parse(temp[5]), temp[6], int.Parse(temp[7]));
-                    Trainer.IncCount();
-                    line = maxFile.ReadLine();
-                }
-                maxFile.Close();
-
-                for(int i = 0; i < Trainer.GetCount(); i ++)
-                {
-                    if(trainerID == trainers[i].GetTrainerID())
-                    {
-                        foundVal = i;
-                    }
-                }
-
-                int maxCustomers = trainers[foundVal].GetMaxCustomers();
-                listings[Listing.GetCount()].SetMaxCustomers(maxCustomers);
-                sw.Write($"{maxCustomers}#");
-
-
-
-
-                ////// set spots taken and spots left
-                int spotsTaken = 0;
-                listings[Listing.GetCount()].SetSpotsTaken(spotsTaken);
-                sw.Write($"{spotsTaken}#");
-
-                // calculate spots left
-                int spotsLeft = maxCustomers - spotsTaken;
-                listings[Listing.GetCount()].SetSpotsLeft(spotsLeft);
-                sw.Write($"{spotsLeft}#");
-
-
-
-
-                // set session to open or full
-                string availability = "";
-
-                if(spotsLeft > 0){
-                    availability = "This session is open for booking!";
-                } else
-                {
-                    availability = "This session is full!";
-                }
-
-                listings[Listing.GetCount()].SetAvailability(availability);
-                sw.Write($"{availability}#");
-
-
-
-                System.Console.WriteLine("Please enter if you offer a first time discount: Y for yes, N for no");
-                userInput = Console.ReadLine().ToUpper();
-                string discount = "No disocunt offered";
-
-                if( userInput == "Y"){
-                    discount = "First time discount offered";
+                    sw.Write($"{listingCost}#");
+                    sw.Write($"{maxCustomers}#");
+                    sw.Write($"{spotsTaken}#");
+                    sw.Write($"{spotsLeft}#");
+                    sw.Write($"{availability}#");
                     sw.Write($"{discount}#");
-                } else {
-                    if( userInput == "N"){
-                        discount = "No discount offered";
-                        sw.Write($"{discount}#");
-                    } else {
-                        System.Console.WriteLine($"{discount}");
-                    }
-                } 
-                sw.WriteLine();
-                listings[Listing.GetCount()].SetDiscount(discount);
 
-
-                Listing.IncCount();
-
-                sw.Close();
+                    
+                    sw.WriteLine();
+                    Listing.IncCount();
+                    sw.Close();
+                }
 
             System.Console.WriteLine("Would you like to register another Listings? Y for yes N for no");
-            response = Console.ReadLine().ToUpper();
+            input = Console.ReadLine().ToUpper();
 
             }
-
-        }
-
-        public int MakeListingID(Listing[] listings, string path)
-        {
-            ReadInAllListings(listings, path);
-            int max = listings[0].GetListingID();
-
-            for(int i = 1; i < Listing.GetCount(); i ++)
-            {
-                if(listings[i].GetListingID() > max)
-                {
-                    max = listings[i].GetListingID();
-                }
-            }
-
-            int listingID = max + 10;
-            return listingID;
-        }
-
-    
-
-        public int Find(int searchVal){
-            for(int i = 0; i < Listing.GetCount(); i ++)
-            {
-                if(listings[i].GetListingID() == searchVal)
-                {
-                    return i;
-                }
-            }
-
-            return -1;
         }
 
 
 
-        public void ReadInAllListings(Listing[] listings, string path)
-        {
-            StreamReader inFile = new StreamReader(path);
-            Listing.SetCount(0);
-            string line = inFile.ReadLine();
-
-            while( line != null)
-            {
-                string[] temp = line.Split('#');
-                listings[Listing.GetCount()] = new Listing(int.Parse(temp[0]), temp[1], temp[2], temp[3], temp[4], temp[5], temp[6], int.Parse(temp[7]), int.Parse(temp[8]), int.Parse(temp[9]), int.Parse(temp[10]), temp[11], temp[12]);
-                Listing.IncCount();
-                line = inFile.ReadLine();
-            }
-
-            inFile.Close();
-        }
-
-
-        public void EditListing(Listing[] listings, string path)
+        public void EditListing(Listing[] listings, string path, Trainer[] trainers)
         {
             System.Console.WriteLine("What is the listing ID of the listing you would like to update?");
             int searchVal = int.Parse(Console.ReadLine());
@@ -348,81 +224,76 @@ namespace mis_221_pa_5_rowecjessica
 
                 if( foundVal != -1)
                 {
+                    // Listing.SetCount(0);
+
                     listings[foundVal].SetListingID(searchVal);
 
-                    System.Console.WriteLine("What is the first name of the trainer teaching this class?");
-                    listings[foundVal].SetTrainerFirstName(Console.ReadLine());
+                    /////////// Find trainer first and last name by trainerID  //////////////////////
+                    System.Console.WriteLine("Please enter the trainer ID of the trainer running this session: ");
+                    int ID = int.Parse(Console.ReadLine());
+                    int trainerID = CheckTrainerID(ID);
+                    int foundValTrainer = FindTrainersName(trainerID);
 
-                    System.Console.WriteLine("What is the last name of the trainer teaching this class?");
-                    listings[foundVal].SetTrainerLastName(Console.ReadLine());
+                    string trainerFirstName = trainers[foundValTrainer].GetFirstName();
+                    listings[foundVal].SetTrainerFirstName(trainerFirstName);
 
-                    System.Console.WriteLine("What date will the class be held?");
+                    string trainerLastName = trainers[foundValTrainer].GetLastName();
+                    listings[foundVal].SetTrainerLastName(trainerLastName);
+
+
+                    ///////////////////////// Listing date and day /////////////////////
+                    System.Console.WriteLine("Please enter the session date in MM/DD format: Remeber we are only accepting listings for May - August 2023 at this time. ");
                     string date = Console.ReadLine();
-                    listings[foundVal].SetListingDate(date);
-                    
-                    // get day from date
                     string day = GetDayFromDate(date);
+                    listings[foundVal].SetListingDate(date);
+        
                     listings[foundVal].SetListingDay(day);
+        
+                    /////////////////////////  Session time  ///////////////////
+                    System.Console.WriteLine("Please enter the session time");
+                    string listingTime = Console.ReadLine();
+                    listings[foundVal].SetListingTime(listingTime);
 
-                    System.Console.WriteLine("What time will the class be held?");
-                    listings[foundVal].SetListingTime(Console.ReadLine());
+                    //////////////////////// Recurring //////////////////////
+                    
+                    string recurring = ListingReccuring();
+                    listings[foundVal].SetRecurring(recurring);
 
-                    System.Console.WriteLine("Does this class occur every week? Y for yes, N for no");
-                    string recurring = "not recurring";
-                    if(Console.ReadLine().ToUpper() == "Y")
-                    {
-                        recurring = "This session is recurring";
-                        listings[foundVal].SetRecurring(recurring);
-                    } else
-                    {
-                        if(Console.ReadLine().ToUpper() == "N")
-                        {
-                            recurring = "This session is not recurring";
-                            listings[foundVal].SetRecurring(recurring);
-                        } else
-                        {
-                            System.Console.WriteLine("Invalid");
-                        }
-                    }
+                    ///////////////////////   Listing Cost   ///////////////////////////
+                    
+                    foundVal = FindListingCost(trainerID);
+                    double listingCost = trainers[foundValTrainer].GetHourlyRate();
+                    listings[foundVal].SetListingCost(listingCost);
 
-                    System.Console.WriteLine("How much is this class per person?");
-                    listings[foundVal].SetListingCost(int.Parse(Console.ReadLine()));
+                    /////////////////////////  Max customers  ////////////////////////////////////////////
 
-                    System.Console.WriteLine("What is the max amount of customers allowed to attend this class?");
-                    int maxCustomers = int.Parse(Console.ReadLine());
+                    foundVal = FindMaxCustomers(trainerID);
+                    int maxCustomers = trainers[foundValTrainer].GetMaxCustomers();
                     listings[foundVal].SetMaxCustomers(maxCustomers);
 
-                    System.Console.WriteLine("Please eneter the amount of spots taken:");
-                    int spotsTaken = int.Parse(Console.ReadLine());
+
+                    ////// set spots taken and spots left
+                    int spotsTaken = 0;
                     listings[foundVal].SetSpotsTaken(spotsTaken);
+
 
                     // calculate spots left
                     int spotsLeft = maxCustomers - spotsTaken;
                     listings[foundVal].SetSpotsLeft(spotsLeft);
 
-                    // set availability 
-                    string availability = "";
-                        if(spotsLeft > 0){
-                            availability = "This session is open for booking!";
-                        } else
-                        {
-                            availability = "This session is full!";
-                        }                        
+
+                    // set session to open or full
+                    string availability = FindAvailability(spotsLeft);
                     listings[foundVal].SetAvailability(availability);
 
 
-                    System.Console.WriteLine("Do you offer discount to first time customers? Y for yes, N for no");
-                    string discount = "No discount";
-
-                    if(Console.ReadLine().ToUpper() == "Y")
-                    {
-                        discount = "First time discount offered";
-                    } else
-                    {
-                        discount = "No discount offered";
-                    }
-
+                    //////////////////// discount 
+                    
+                    string discount = FindDiscount();
                     listings[foundVal].SetDiscount(discount);
+                    
+                    //////////////////// done 
+
 
 
                     StreamWriter reWrite = new StreamWriter(path);
@@ -452,6 +323,280 @@ namespace mis_221_pa_5_rowecjessica
                 System.Console.WriteLine("If you'd like to edit the information of another listing, enter the listing ID. To exit -1");
                 searchVal = int.Parse(Console.ReadLine());
             }
+        }
+
+        public void IfRecurring(string recurring, string day, int listingID, string trainerFirstName, string trainerLastName, string listingTime, int foundVal, int trainerID)
+        {
+            if(recurring == "This session is recurring")
+            {
+                ///////////////////////   Listing Cost   ///////////////////////////
+                    
+                    foundVal = FindListingCost(trainerID);
+                    double listingCost = trainers[foundVal].GetHourlyRate();
+                    listings[Listing.GetCount()].SetListingCost(listingCost);
+
+                    /////////////////////////  Max customers  ////////////////////////////////////////////
+
+                    foundVal = FindMaxCustomers(trainerID);
+                    int maxCustomers = trainers[foundVal].GetMaxCustomers();
+                    listings[Listing.GetCount()].SetMaxCustomers(maxCustomers);
+
+
+                    ////// set spots taken and spots left
+                    int spotsTaken = 0;
+                    listings[Listing.GetCount()].SetSpotsTaken(spotsTaken);
+
+
+                    // calculate spots left
+                    int spotsLeft = maxCustomers - spotsTaken;
+                    listings[Listing.GetCount()].SetSpotsLeft(spotsLeft);
+
+
+                    // set session to open or full
+                    string availability = FindAvailability(spotsLeft);
+                    listings[Listing.GetCount()].SetAvailability(availability);
+
+                    // discount 
+                    string discount = FindDiscount();
+                    listings[foundVal].SetDiscount(discount);
+
+                GetDateFromDay(day, listingID, trainerFirstName, trainerLastName, listingTime, foundVal, trainerID, listingCost, maxCustomers, spotsTaken, spotsLeft, availability, discount);
+            }
+        }
+
+
+
+
+        public int CheckTrainerID(int ID)
+        {
+            int foundVal = -1;
+            int trainerID = 0;
+
+            StreamReader inFile = new StreamReader(@"C:\Users\rowec\OneDrive\MIS221\PAs\mis-221-pa-5-rowecjessica\Trainers.txt");
+            Trainer.SetCount(0);
+            string line = inFile.ReadLine();
+
+            while(foundVal < 0)
+            {
+                while( line != null)
+                {
+                    string[] temp = line.Split('#');
+                    trainers[Trainer.GetCount()] = new Trainer(int.Parse(temp[0]), temp[1], temp[2], temp[3], temp[4], double.Parse(temp[5]), temp[6], int.Parse(temp[7]));
+                    Trainer.IncCount();
+                    line = inFile.ReadLine();
+                }
+                inFile.Close();
+
+                for(int i = 0; i < Trainer.GetCount(); i ++)
+                {
+                    if(ID == trainers[i].GetTrainerID())
+                    {
+                        foundVal = i;
+                    }
+                }
+                
+                if(foundVal < 0)
+                {
+                    System.Console.WriteLine("Trainer ID not found. You need to be a registerd trainer to be able to list a training session.");
+                    System.Console.WriteLine("To enter a different trainer ID: press 1");
+                    System.Console.WriteLine("To return the the Main Menu: press 2");
+                    string response = Console.ReadLine();
+
+                    if(response == "1")
+                    {
+                        System.Console.WriteLine("Please enter the trainer ID of the trainer running this session:");
+                        ID = int.Parse(Console.ReadLine());
+                    }
+
+                    if(response == "2")
+                    {
+                        MainMenu();
+                    }
+                }
+
+                trainerID = ID;
+                }
+            return trainerID;
+        }
+
+        public int FindTrainersName(int trainerID)
+        {
+                int foundVal = -1;
+
+                //////////////////////// Trainer first and last name //////////////////////
+                StreamReader inFile = new StreamReader(@"C:\Users\rowec\OneDrive\MIS221\PAs\mis-221-pa-5-rowecjessica\Trainers.txt");
+                Trainer.SetCount(0);
+                string line = inFile.ReadLine();
+
+                while(foundVal < 0)
+                {
+                    while( line != null)
+                    {
+                        string[] temp = line.Split('#');
+                        trainers[Trainer.GetCount()] = new Trainer(int.Parse(temp[0]), temp[1], temp[2], temp[3], temp[4], double.Parse(temp[5]), temp[6], int.Parse(temp[7]));
+                        Trainer.IncCount();
+                        line = inFile.ReadLine();
+                    }
+                    inFile.Close();
+
+                    for(int i = 0; i < Trainer.GetCount(); i ++)
+                    {
+                        if(trainerID == trainers[i].GetTrainerID())
+                        {
+                            foundVal = i;
+                        }
+                    }
+                    
+                }
+            return foundVal;
+        }
+
+        public int FindListingCost(int trainerID)
+        {
+            StreamReader costFile = new StreamReader(@"C:\Users\rowec\OneDrive\MIS221\PAs\mis-221-pa-5-rowecjessica\Trainers.txt");
+            Trainer.SetCount(0);
+            int foundVal = -1;
+
+            string line = costFile.ReadLine();
+
+            while( line != null)
+                {
+                    string[] temp = line.Split('#');
+                    trainers[Trainer.GetCount()] = new Trainer(int.Parse(temp[0]), temp[1], temp[2], temp[3], temp[4], double.Parse(temp[5]), temp[6], int.Parse(temp[7]));
+                    Trainer.IncCount();
+                    line = costFile.ReadLine();
+                }
+                costFile.Close();
+
+                for(int i = 0; i < Trainer.GetCount(); i ++)
+                {
+                    if(trainerID == trainers[i].GetTrainerID())
+                    {
+                        foundVal = i;
+                    }
+                }
+            return foundVal;
+        }
+
+        public string ListingReccuring()
+        {
+            System.Console.WriteLine("Please enter if this session is recurring: Y for yes, N for no ");
+            string userInput = Console.ReadLine().ToUpper();
+            string recurring = "false";
+
+            if( userInput == "Y"){
+                recurring = "This session is recurring";
+            } else {
+                if( userInput == "N"){
+                    recurring = "This session is not recurring";
+                } else {
+                    System.Console.WriteLine("invalid input");
+                }
+            } 
+            return recurring;
+        }
+
+        public int FindMaxCustomers(int trainerID)
+        {
+            StreamReader maxFile = new StreamReader(@"C:\Users\rowec\OneDrive\MIS221\PAs\mis-221-pa-5-rowecjessica\Trainers.txt");
+            Trainer.SetCount(0);
+            int foundVal = -1;
+            string line = maxFile.ReadLine();
+
+            while( line != null)
+            {
+                string[] temp = line.Split('#');
+                trainers[Trainer.GetCount()] = new Trainer(int.Parse(temp[0]), temp[1], temp[2], temp[3], temp[4], double.Parse(temp[5]), temp[6], int.Parse(temp[7]));
+                Trainer.IncCount();
+                line = maxFile.ReadLine();
+            }
+            maxFile.Close();
+
+            for(int i = 0; i < Trainer.GetCount(); i ++)
+            {
+                if(trainerID == trainers[i].GetTrainerID())
+                {
+                    foundVal = i;
+                }
+            }
+
+            return foundVal;
+        }
+
+        public string FindAvailability(int spotsLeft)
+        {
+            string availability = "";
+            if(spotsLeft > 0){
+                availability = "This session is open for booking!";
+            } else
+            {
+                availability = "This session is full!";
+            }
+            return availability;
+        }
+
+        public string FindDiscount()
+        {
+            System.Console.WriteLine("Please enter if you would like to offer a %5 discount on your classes: Y for yes, N for no");
+            string userInput = Console.ReadLine().ToUpper();
+            string discount = "No disocunt offered";
+
+            if( userInput == "Y"){
+                discount = "discount offered";
+            } else {
+                if( userInput == "N"){
+                    discount = "No discount offered";
+                } else {
+                    System.Console.WriteLine($"{discount}");
+                }
+            }
+            return discount; 
+        }
+        public int MakeListingID(Listing[] listings, string path)
+        {
+            ReadInAllListings(listings, path);
+            int max = listings[0].GetListingID();
+
+            for(int i = 1; i < Listing.GetCount(); i ++)
+            {
+                if(listings[i].GetListingID() > max)
+                {
+                    max = listings[i].GetListingID();
+                }
+            }
+
+            int listingID = max + 10;
+            return listingID;
+        }
+
+
+        public int Find(int searchVal){
+            for(int i = 0; i < Listing.GetCount(); i ++)
+            {
+                if(listings[i].GetListingID() == searchVal)
+                {
+                    return i;
+                }
+            }
+
+            return -1;
+        }
+
+        public void ReadInAllListings(Listing[] listings, string path)
+        {
+            StreamReader inFile = new StreamReader(path);
+            Listing.SetCount(0);
+            string line = inFile.ReadLine();
+
+            while( line != null)
+            {
+                string[] temp = line.Split('#');
+                listings[Listing.GetCount()] = new Listing(int.Parse(temp[0]), temp[1], temp[2], temp[3], temp[4], temp[5], temp[6], int.Parse(temp[7]), int.Parse(temp[8]), int.Parse(temp[9]), int.Parse(temp[10]), temp[11], temp[12]);
+                Listing.IncCount();
+                line = inFile.ReadLine();
+            }
+
+            inFile.Close();
         }
 
         public void DeleteListing (Listing[] listings)
@@ -590,6 +735,168 @@ namespace mis_221_pa_5_rowecjessica
             return day;
         }
 
+
+            
+        public void GetDateFromDay(string day, int listingID, string trainerFirstName, string trainerLastName, string listingTime, int foundVal, int trainerID, double listingCost, int maxCustomers, int spotsTaken, int spotsLeft, string availability, string discount)
+        {
+            StreamWriter sw = File.AppendText(@"C:\Users\rowec\OneDrive\MIS221\PAs\mis-221-pa-5-rowecjessica\Listings.txt");
+            if(day == "Monday")
+            {
+                sw.WriteLine($"{listingID}#{trainerFirstName}#{trainerLastName}#{day}#05/01#{listingTime}#This session is recurring#{listingCost}#{maxCustomers}#{spotsTaken}#{spotsLeft}#{availability}#{discount}#");
+                sw.WriteLine($"{listingID + 10}#{trainerFirstName}#{trainerLastName}#{day}#05/08#{listingTime}#This session is recurring#{listingCost}#{maxCustomers}#{spotsTaken}#{spotsLeft}#{availability}#{discount}#");
+                sw.WriteLine($"{listingID + 20}#{trainerFirstName}#{trainerLastName}#{day}#05/15#{listingTime}#This session is recurring#{listingCost}#{maxCustomers}#{spotsTaken}#{spotsLeft}#{availability}#{discount}#");
+                sw.WriteLine($"{listingID + 30 }#{trainerFirstName}#{trainerLastName}#{day}#05/22#{listingTime}#This session is recurring#{listingCost}#{maxCustomers}#{spotsTaken}#{spotsLeft}#{availability}#{discount}#");
+                sw.WriteLine($"{listingID + 40}#{trainerFirstName}#{trainerLastName}#{day}#05/29#{listingTime}#This session is recurring#{listingCost}#{maxCustomers}#{spotsTaken}#{spotsLeft}#{availability}#{discount}#");
+                sw.WriteLine($"{listingID + 50}#{trainerFirstName}#{trainerLastName}#{day}#06/05#{listingTime}#This session is recurring#{listingCost}#{maxCustomers}#{spotsTaken}#{spotsLeft}#{availability}#{discount}#");
+                sw.WriteLine($"{listingID + 60}#{trainerFirstName}#{trainerLastName}#{day}#06/12#{listingTime}#This session is recurring#{listingCost}#{maxCustomers}#{spotsTaken}#{spotsLeft}#{availability}#{discount}#");
+                sw.WriteLine($"{listingID + 70}#{trainerFirstName}#{trainerLastName}#{day}#06/19#{listingTime}#This session is recurring#{listingCost}#{maxCustomers}#{spotsTaken}#{spotsLeft}#{availability}#{discount}#");
+                sw.WriteLine($"{listingID + 80}#{trainerFirstName}#{trainerLastName}#{day}#06/26#{listingTime}#This session is recurring#{listingCost}#{maxCustomers}#{spotsTaken}#{spotsLeft}#{availability}#{discount}#");
+                sw.WriteLine($"{listingID + 90}#{trainerFirstName}#{trainerLastName}#{day}#07/03#{listingTime}#This session is recurring#{listingCost}#{maxCustomers}#{spotsTaken}#{spotsLeft}#{availability}#{discount}#");
+                sw.WriteLine($"{listingID + 100}#{trainerFirstName}#{trainerLastName}#{day}#07/10#{listingTime}#This session is recurring#{listingCost}#{maxCustomers}#{spotsTaken}#{spotsLeft}#{availability}#{discount}#");
+                sw.WriteLine($"{listingID + 110}#{trainerFirstName}#{trainerLastName}#{day}#07/17#{listingTime}#This session is recurring#{listingCost}#{maxCustomers}#{spotsTaken}#{spotsLeft}#{availability}#{discount}#");
+                sw.WriteLine($"{listingID + 120}#{trainerFirstName}#{trainerLastName}#{day}#07/24#{listingTime}#This session is recurring#{listingCost}#{maxCustomers}#{spotsTaken}#{spotsLeft}#{availability}#{discount}#");
+                sw.WriteLine($"{listingID + 130}#{trainerFirstName}#{trainerLastName}#{day}#07/31#{listingTime}#This session is recurring#{listingCost}#{maxCustomers}#{spotsTaken}#{spotsLeft}#{availability}#{discount}#");
+                sw.WriteLine($"{listingID + 140}#{trainerFirstName}#{trainerLastName}#{day}#08/07#{listingTime}#This session is recurring#{listingCost}#{maxCustomers}#{spotsTaken}#{spotsLeft}#{availability}#{discount}#");
+                sw.WriteLine($"{listingID + 150}#{trainerFirstName}#{trainerLastName}#{day}#08/14#{listingTime}#This session is recurring#{listingCost}#{maxCustomers}#{spotsTaken}#{spotsLeft}#{availability}#{discount}#");
+                sw.WriteLine($"{listingID + 160}#{trainerFirstName}#{trainerLastName}#{day}#08/21#{listingTime}#This session is recurring#{listingCost}#{maxCustomers}#{spotsTaken}#{spotsLeft}#{availability}#{discount}#");
+                sw.WriteLine($"{listingID + 170}#{trainerFirstName}#{trainerLastName}#{day}#08/28#{listingTime}#This session is recurring#{listingCost}#{maxCustomers}#{spotsTaken}#{spotsLeft}#{availability}#{discount}#");
+            }
+
+            if(day == "Tuesday")
+            {
+                sw.WriteLine($"{listingID}#{trainerFirstName}#{trainerLastName}#{day}#05/02#{listingTime}#This session is recurring#{listingCost}#{maxCustomers}#{spotsTaken}#{spotsLeft}#{availability}#{discount}#");
+                sw.WriteLine($"{listingID + 10}#{trainerFirstName}#{trainerLastName}#{day}#05/09#{listingTime}#This session is recurring#{listingCost}#{maxCustomers}#{spotsTaken}#{spotsLeft}#{availability}#{discount}#");
+                sw.WriteLine($"{listingID + 20}#{trainerFirstName}#{trainerLastName}#{day}#05/16#{listingTime}#This session is recurring#{listingCost}#{maxCustomers}#{spotsTaken}#{spotsLeft}#{availability}#{discount}#");
+                sw.WriteLine($"{listingID + 30 }#{trainerFirstName}#{trainerLastName}#{day}#05/23#{listingTime}#This session is recurring#{listingCost}#{maxCustomers}#{spotsTaken}#{spotsLeft}#{availability}#{discount}#");
+                sw.WriteLine($"{listingID + 40}#{trainerFirstName}#{trainerLastName}#{day}#05/30#{listingTime}#This session is recurring#{listingCost}#{maxCustomers}#{spotsTaken}#{spotsLeft}#{availability}#{discount}#");
+                sw.WriteLine($"{listingID + 50}#{trainerFirstName}#{trainerLastName}#{day}#06/06#{listingTime}#This session is recurring#{listingCost}#{maxCustomers}#{spotsTaken}#{spotsLeft}#{availability}#{discount}#");
+                sw.WriteLine($"{listingID + 60}#{trainerFirstName}#{trainerLastName}#{day}#06/13#{listingTime}#This session is recurring#{listingCost}#{maxCustomers}#{spotsTaken}#{spotsLeft}#{availability}#{discount}#");
+                sw.WriteLine($"{listingID + 70}#{trainerFirstName}#{trainerLastName}#{day}#06/20#{listingTime}#This session is recurring#{listingCost}#{maxCustomers}#{spotsTaken}#{spotsLeft}#{availability}#{discount}#");
+                sw.WriteLine($"{listingID + 80}#{trainerFirstName}#{trainerLastName}#{day}#06/27#{listingTime}#This session is recurring#{listingCost}#{maxCustomers}#{spotsTaken}#{spotsLeft}#{availability}#{discount}#");
+                sw.WriteLine($"{listingID + 90}#{trainerFirstName}#{trainerLastName}#{day}#07/04#{listingTime}#This session is recurring#{listingCost}#{maxCustomers}#{spotsTaken}#{spotsLeft}#{availability}#{discount}#");
+                sw.WriteLine($"{listingID + 100}#{trainerFirstName}#{trainerLastName}#{day}#07/11#{listingTime}#This session is recurring#{listingCost}#{maxCustomers}#{spotsTaken}#{spotsLeft}#{availability}#{discount}#");
+                sw.WriteLine($"{listingID + 110}#{trainerFirstName}#{trainerLastName}#{day}#07/18#{listingTime}#This session is recurring#{listingCost}#{maxCustomers}#{spotsTaken}#{spotsLeft}#{availability}#{discount}#");
+                sw.WriteLine($"{listingID + 120}#{trainerFirstName}#{trainerLastName}#{day}#07/25#{listingTime}#This session is recurring#{listingCost}#{maxCustomers}#{spotsTaken}#{spotsLeft}#{availability}#{discount}#");
+                sw.WriteLine($"{listingID + 130}#{trainerFirstName}#{trainerLastName}#{day}#08/01#{listingTime}#This session is recurring#{listingCost}#{maxCustomers}#{spotsTaken}#{spotsLeft}#{availability}#{discount}#");
+                sw.WriteLine($"{listingID + 140}#{trainerFirstName}#{trainerLastName}#{day}#08/08#{listingTime}#This session is recurring#{listingCost}#{maxCustomers}#{spotsTaken}#{spotsLeft}#{availability}#{discount}#");
+                sw.WriteLine($"{listingID + 150}#{trainerFirstName}#{trainerLastName}#{day}#08/15#{listingTime}#This session is recurring#{listingCost}#{maxCustomers}#{spotsTaken}#{spotsLeft}#{availability}#{discount}#");
+                sw.WriteLine($"{listingID + 160}#{trainerFirstName}#{trainerLastName}#{day}#08/22#{listingTime}#This session is recurring#{listingCost}#{maxCustomers}#{spotsTaken}#{spotsLeft}#{availability}#{discount}#");
+                sw.WriteLine($"{listingID + 170}#{trainerFirstName}#{trainerLastName}#{day}#08/29#{listingTime}#This session is recurring#{listingCost}#{maxCustomers}#{spotsTaken}#{spotsLeft}#{availability}#{discount}#");
+            }
+
+            if(day == "Wednesday")
+            {
+                sw.WriteLine($"{listingID}#{trainerFirstName}#{trainerLastName}#{day}#05/03#{listingTime}#This session is recurring#{listingCost}#{maxCustomers}#{spotsTaken}#{spotsLeft}#{availability}#{discount}#");
+                sw.WriteLine($"{listingID + 10}#{trainerFirstName}#{trainerLastName}#{day}#05/10#{listingTime}#This session is recurring#{listingCost}#{maxCustomers}#{spotsTaken}#{spotsLeft}#{availability}#{discount}#");
+                sw.WriteLine($"{listingID + 20}#{trainerFirstName}#{trainerLastName}#{day}#05/17#{listingTime}#This session is recurring#{listingCost}#{maxCustomers}#{spotsTaken}#{spotsLeft}#{availability}#{discount}#");
+                sw.WriteLine($"{listingID + 30 }#{trainerFirstName}#{trainerLastName}#{day}#05/24#{listingTime}#This session is recurring#{listingCost}#{maxCustomers}#{spotsTaken}#{spotsLeft}#{availability}#{discount}#");
+                sw.WriteLine($"{listingID + 40}#{trainerFirstName}#{trainerLastName}#{day}#05/31#{listingTime}#This session is recurring#{listingCost}#{maxCustomers}#{spotsTaken}#{spotsLeft}#{availability}#{discount}#");
+                sw.WriteLine($"{listingID + 50}#{trainerFirstName}#{trainerLastName}#{day}#06/07#{listingTime}#This session is recurring#{listingCost}#{maxCustomers}#{spotsTaken}#{spotsLeft}#{availability}#{discount}#");
+                sw.WriteLine($"{listingID + 60}#{trainerFirstName}#{trainerLastName}#{day}#06/14#{listingTime}#This session is recurring#{listingCost}#{maxCustomers}#{spotsTaken}#{spotsLeft}#{availability}#{discount}#");
+                sw.WriteLine($"{listingID + 70}#{trainerFirstName}#{trainerLastName}#{day}#06/21#{listingTime}#This session is recurring#{listingCost}#{maxCustomers}#{spotsTaken}#{spotsLeft}#{availability}#{discount}#");
+                sw.WriteLine($"{listingID + 80}#{trainerFirstName}#{trainerLastName}#{day}#06/28#{listingTime}#This session is recurring#{listingCost}#{maxCustomers}#{spotsTaken}#{spotsLeft}#{availability}#{discount}#");
+                sw.WriteLine($"{listingID + 90}#{trainerFirstName}#{trainerLastName}#{day}#07/05#{listingTime}#This session is recurring#{listingCost}#{maxCustomers}#{spotsTaken}#{spotsLeft}#{availability}#{discount}#");
+                sw.WriteLine($"{listingID + 100}#{trainerFirstName}#{trainerLastName}#{day}#07/12#{listingTime}#This session is recurring#{listingCost}#{maxCustomers}#{spotsTaken}#{spotsLeft}#{availability}#{discount}#");
+                sw.WriteLine($"{listingID + 110}#{trainerFirstName}#{trainerLastName}#{day}#07/19#{listingTime}#This session is recurring#{listingCost}#{maxCustomers}#{spotsTaken}#{spotsLeft}#{availability}#{discount}#");
+                sw.WriteLine($"{listingID + 120}#{trainerFirstName}#{trainerLastName}#{day}#07/26#{listingTime}#This session is recurring#{listingCost}#{maxCustomers}#{spotsTaken}#{spotsLeft}#{availability}#{discount}#");
+                sw.WriteLine($"{listingID + 130}#{trainerFirstName}#{trainerLastName}#{day}#08/02#{listingTime}#This session is recurring#{listingCost}#{maxCustomers}#{spotsTaken}#{spotsLeft}#{availability}#{discount}#");
+                sw.WriteLine($"{listingID + 140}#{trainerFirstName}#{trainerLastName}#{day}#08/09#{listingTime}#This session is recurring#{listingCost}#{maxCustomers}#{spotsTaken}#{spotsLeft}#{availability}#{discount}#");
+                sw.WriteLine($"{listingID + 150}#{trainerFirstName}#{trainerLastName}#{day}#08/16#{listingTime}#This session is recurring#{listingCost}#{maxCustomers}#{spotsTaken}#{spotsLeft}#{availability}#{discount}#");
+                sw.WriteLine($"{listingID + 160}#{trainerFirstName}#{trainerLastName}#{day}#08/23#{listingTime}#This session is recurring#{listingCost}#{maxCustomers}#{spotsTaken}#{spotsLeft}#{availability}#{discount}#");
+                sw.WriteLine($"{listingID + 170}#{trainerFirstName}#{trainerLastName}#{day}#08/30#{listingTime}#This session is recurring#{listingCost}#{maxCustomers}#{spotsTaken}#{spotsLeft}#{availability}#{discount}#");
+            }
+
+            if(day == "Thursday")
+            {
+                sw.WriteLine($"{listingID}#{trainerFirstName}#{trainerLastName}#{day}#05/04#{listingTime}#This session is recurring#{listingCost}#{maxCustomers}#{spotsTaken}#{spotsLeft}#{availability}#{discount}#");
+                sw.WriteLine($"{listingID + 10}#{trainerFirstName}#{trainerLastName}#{day}#05/11#{listingTime}#This session is recurring#{listingCost}#{maxCustomers}#{spotsTaken}#{spotsLeft}#{availability}#{discount}#");
+                sw.WriteLine($"{listingID + 20}#{trainerFirstName}#{trainerLastName}#{day}#05/18#{listingTime}#This session is recurring#{listingCost}#{maxCustomers}#{spotsTaken}#{spotsLeft}#{availability}#{discount}#");
+                sw.WriteLine($"{listingID + 30 }#{trainerFirstName}#{trainerLastName}#{day}#05/25#{listingTime}#This session is recurring#{listingCost}#{maxCustomers}#{spotsTaken}#{spotsLeft}#{availability}#{discount}#");
+                sw.WriteLine($"{listingID + 40}#{trainerFirstName}#{trainerLastName}#{day}#06/01#{listingTime}#This session is recurring#{listingCost}#{maxCustomers}#{spotsTaken}#{spotsLeft}#{availability}#{discount}#");
+                sw.WriteLine($"{listingID + 50}#{trainerFirstName}#{trainerLastName}#{day}#06/08#{listingTime}#This session is recurring#{listingCost}#{maxCustomers}#{spotsTaken}#{spotsLeft}#{availability}#{discount}#");
+                sw.WriteLine($"{listingID + 60}#{trainerFirstName}#{trainerLastName}#{day}#06/15#{listingTime}#This session is recurring#{listingCost}#{maxCustomers}#{spotsTaken}#{spotsLeft}#{availability}#{discount}#");
+                sw.WriteLine($"{listingID + 70}#{trainerFirstName}#{trainerLastName}#{day}#06/22#{listingTime}#This session is recurring#{listingCost}#{maxCustomers}#{spotsTaken}#{spotsLeft}#{availability}#{discount}#");
+                sw.WriteLine($"{listingID + 80}#{trainerFirstName}#{trainerLastName}#{day}#06/29#{listingTime}#This session is recurring#{listingCost}#{maxCustomers}#{spotsTaken}#{spotsLeft}#{availability}#{discount}#");
+                sw.WriteLine($"{listingID + 90}#{trainerFirstName}#{trainerLastName}#{day}#07/06#{listingTime}#This session is recurring#{listingCost}#{maxCustomers}#{spotsTaken}#{spotsLeft}#{availability}#{discount}#");
+                sw.WriteLine($"{listingID + 100}#{trainerFirstName}#{trainerLastName}#{day}#07/13#{listingTime}#This session is recurring#{listingCost}#{maxCustomers}#{spotsTaken}#{spotsLeft}#{availability}#{discount}#");
+                sw.WriteLine($"{listingID + 110}#{trainerFirstName}#{trainerLastName}#{day}#07/20#{listingTime}#This session is recurring#{listingCost}#{maxCustomers}#{spotsTaken}#{spotsLeft}#{availability}#{discount}#");
+                sw.WriteLine($"{listingID + 120}#{trainerFirstName}#{trainerLastName}#{day}#07/27#{listingTime}#This session is recurring#{listingCost}#{maxCustomers}#{spotsTaken}#{spotsLeft}#{availability}#{discount}#");
+                sw.WriteLine($"{listingID + 130}#{trainerFirstName}#{trainerLastName}#{day}#08/03#{listingTime}#This session is recurring#{listingCost}#{maxCustomers}#{spotsTaken}#{spotsLeft}#{availability}#{discount}#");
+                sw.WriteLine($"{listingID + 140}#{trainerFirstName}#{trainerLastName}#{day}#08/10#{listingTime}#This session is recurring#{listingCost}#{maxCustomers}#{spotsTaken}#{spotsLeft}#{availability}#{discount}#");
+                sw.WriteLine($"{listingID + 150}#{trainerFirstName}#{trainerLastName}#{day}#08/17#{listingTime}#This session is recurring#{listingCost}#{maxCustomers}#{spotsTaken}#{spotsLeft}#{availability}#{discount}#");
+                sw.WriteLine($"{listingID + 160}#{trainerFirstName}#{trainerLastName}#{day}#08/24#{listingTime}#This session is recurring#{listingCost}#{maxCustomers}#{spotsTaken}#{spotsLeft}#{availability}#{discount}#");
+                sw.WriteLine($"{listingID + 170}#{trainerFirstName}#{trainerLastName}#{day}#08/31#{listingTime}#This session is recurring#{listingCost}#{maxCustomers}#{spotsTaken}#{spotsLeft}#{availability}#{discount}#");
+            }
+
+            if(day == "Friday")
+            {
+                sw.WriteLine($"{listingID}#{trainerFirstName}#{trainerLastName}#{day}#05/05#{listingTime}#This session is recurring#{listingCost}#{maxCustomers}#{spotsTaken}#{spotsLeft}#{availability}#{discount}#");
+                sw.WriteLine($"{listingID + 10}#{trainerFirstName}#{trainerLastName}#{day}#05/12#{listingTime}#This session is recurring#{listingCost}#{maxCustomers}#{spotsTaken}#{spotsLeft}#{availability}#{discount}#");
+                sw.WriteLine($"{listingID + 20}#{trainerFirstName}#{trainerLastName}#{day}#05/19#{listingTime}#This session is recurring#{listingCost}#{maxCustomers}#{spotsTaken}#{spotsLeft}#{availability}#{discount}#");
+                sw.WriteLine($"{listingID + 30 }#{trainerFirstName}#{trainerLastName}#{day}#05/26#{listingTime}#This session is recurring#{listingCost}#{maxCustomers}#{spotsTaken}#{spotsLeft}#{availability}#{discount}#");
+                sw.WriteLine($"{listingID + 40}#{trainerFirstName}#{trainerLastName}#{day}#06/02#{listingTime}#This session is recurring#{listingCost}#{maxCustomers}#{spotsTaken}#{spotsLeft}#{availability}#{discount}#");
+                sw.WriteLine($"{listingID + 50}#{trainerFirstName}#{trainerLastName}#{day}#06/09#{listingTime}#This session is recurring#{listingCost}#{maxCustomers}#{spotsTaken}#{spotsLeft}#{availability}#{discount}#");
+                sw.WriteLine($"{listingID + 60}#{trainerFirstName}#{trainerLastName}#{day}#06/16#{listingTime}#This session is recurring#{listingCost}#{maxCustomers}#{spotsTaken}#{spotsLeft}#{availability}#{discount}#");
+                sw.WriteLine($"{listingID + 70}#{trainerFirstName}#{trainerLastName}#{day}#06/23#{listingTime}#This session is recurring#{listingCost}#{maxCustomers}#{spotsTaken}#{spotsLeft}#{availability}#{discount}#");
+                sw.WriteLine($"{listingID + 80}#{trainerFirstName}#{trainerLastName}#{day}#06/30#{listingTime}#This session is recurring#{listingCost}#{maxCustomers}#{spotsTaken}#{spotsLeft}#{availability}#{discount}#");
+                sw.WriteLine($"{listingID + 90}#{trainerFirstName}#{trainerLastName}#{day}#07/07#{listingTime}#This session is recurring#{listingCost}#{maxCustomers}#{spotsTaken}#{spotsLeft}#{availability}#{discount}#");
+                sw.WriteLine($"{listingID + 100}#{trainerFirstName}#{trainerLastName}#{day}#07/14#{listingTime}#This session is recurring#{listingCost}#{maxCustomers}#{spotsTaken}#{spotsLeft}#{availability}#{discount}#");
+                sw.WriteLine($"{listingID + 110}#{trainerFirstName}#{trainerLastName}#{day}#07/21#{listingTime}#This session is recurring#{listingCost}#{maxCustomers}#{spotsTaken}#{spotsLeft}#{availability}#{discount}#");
+                sw.WriteLine($"{listingID + 120}#{trainerFirstName}#{trainerLastName}#{day}#07/28#{listingTime}#This session is recurring#{listingCost}#{maxCustomers}#{spotsTaken}#{spotsLeft}#{availability}#{discount}#");
+                sw.WriteLine($"{listingID + 130}#{trainerFirstName}#{trainerLastName}#{day}#08/04#{listingTime}#This session is recurring#{listingCost}#{maxCustomers}#{spotsTaken}#{spotsLeft}#{availability}#{discount}#");
+                sw.WriteLine($"{listingID + 140}#{trainerFirstName}#{trainerLastName}#{day}#08/11#{listingTime}#This session is recurring#{listingCost}#{maxCustomers}#{spotsTaken}#{spotsLeft}#{availability}#{discount}#");
+                sw.WriteLine($"{listingID + 150}#{trainerFirstName}#{trainerLastName}#{day}#08/18#{listingTime}#This session is recurring#{listingCost}#{maxCustomers}#{spotsTaken}#{spotsLeft}#{availability}#{discount}#");
+                sw.WriteLine($"{listingID + 160}#{trainerFirstName}#{trainerLastName}#{day}#08/25#{listingTime}#This session is recurring#{listingCost}#{maxCustomers}#{spotsTaken}#{spotsLeft}#{availability}#{discount}#");
+            }
+
+            if(day == "Saturday")
+            {
+                sw.WriteLine($"{listingID}#{trainerFirstName}#{trainerLastName}#{day}#05/06#{listingTime}#This session is recurring#{listingCost}#{maxCustomers}#{spotsTaken}#{spotsLeft}#{availability}#{discount}#");
+                sw.WriteLine($"{listingID + 10}#{trainerFirstName}#{trainerLastName}#{day}#05/13#{listingTime}#This session is recurring#{listingCost}#{maxCustomers}#{spotsTaken}#{spotsLeft}#{availability}#{discount}#");
+                sw.WriteLine($"{listingID + 20}#{trainerFirstName}#{trainerLastName}#{day}#05/20#{listingTime}#This session is recurring#{listingCost}#{maxCustomers}#{spotsTaken}#{spotsLeft}#{availability}#{discount}#");
+                sw.WriteLine($"{listingID + 30 }#{trainerFirstName}#{trainerLastName}#{day}#05/27#{listingTime}#This session is recurring#{listingCost}#{maxCustomers}#{spotsTaken}#{spotsLeft}#{availability}#{discount}#");
+                sw.WriteLine($"{listingID + 40}#{trainerFirstName}#{trainerLastName}#{day}#06/03#{listingTime}#This session is recurring#{listingCost}#{maxCustomers}#{spotsTaken}#{spotsLeft}#{availability}#{discount}#");
+                sw.WriteLine($"{listingID + 50}#{trainerFirstName}#{trainerLastName}#{day}#06/10#{listingTime}#This session is recurring#{listingCost}#{maxCustomers}#{spotsTaken}#{spotsLeft}#{availability}#{discount}#");
+                sw.WriteLine($"{listingID + 60}#{trainerFirstName}#{trainerLastName}#{day}#06/17#{listingTime}#This session is recurring#{listingCost}#{maxCustomers}#{spotsTaken}#{spotsLeft}#{availability}#{discount}#");
+                sw.WriteLine($"{listingID + 70}#{trainerFirstName}#{trainerLastName}#{day}#06/24#{listingTime}#This session is recurring#{listingCost}#{maxCustomers}#{spotsTaken}#{spotsLeft}#{availability}#{discount}#");
+                sw.WriteLine($"{listingID + 80}#{trainerFirstName}#{trainerLastName}#{day}#07/01#{listingTime}#This session is recurring#{listingCost}#{maxCustomers}#{spotsTaken}#{spotsLeft}#{availability}#{discount}#");
+                sw.WriteLine($"{listingID + 90}#{trainerFirstName}#{trainerLastName}#{day}#07/08#{listingTime}#This session is recurring#{listingCost}#{maxCustomers}#{spotsTaken}#{spotsLeft}#{availability}#{discount}#");
+                sw.WriteLine($"{listingID + 100}#{trainerFirstName}#{trainerLastName}#{day}#07/15#{listingTime}#This session is recurring#{listingCost}#{maxCustomers}#{spotsTaken}#{spotsLeft}#{availability}#{discount}#");
+                sw.WriteLine($"{listingID + 110}#{trainerFirstName}#{trainerLastName}#{day}#07/22#{listingTime}#This session is recurring#{listingCost}#{maxCustomers}#{spotsTaken}#{spotsLeft}#{availability}#{discount}#");
+                sw.WriteLine($"{listingID + 120}#{trainerFirstName}#{trainerLastName}#{day}#07/29#{listingTime}#This session is recurring#{listingCost}#{maxCustomers}#{spotsTaken}#{spotsLeft}#{availability}#{discount}#");
+                sw.WriteLine($"{listingID + 130}#{trainerFirstName}#{trainerLastName}#{day}#08/05#{listingTime}#This session is recurring#{listingCost}#{maxCustomers}#{spotsTaken}#{spotsLeft}#{availability}#{discount}#");
+                sw.WriteLine($"{listingID + 140}#{trainerFirstName}#{trainerLastName}#{day}#08/12#{listingTime}#This session is recurring#{listingCost}#{maxCustomers}#{spotsTaken}#{spotsLeft}#{availability}#{discount}#");
+                sw.WriteLine($"{listingID + 150}#{trainerFirstName}#{trainerLastName}#{day}#08/19#{listingTime}#This session is recurring#{listingCost}#{maxCustomers}#{spotsTaken}#{spotsLeft}#{availability}#{discount}#");
+                sw.WriteLine($"{listingID + 160}#{trainerFirstName}#{trainerLastName}#{day}#08/26#{listingTime}#This session is recurring#{listingCost}#{maxCustomers}#{spotsTaken}#{spotsLeft}#{availability}#{discount}#");
+            }
+
+            if(day == "Sunday")
+            {
+                sw.WriteLine($"{listingID}#{trainerFirstName}#{trainerLastName}#{day}#05/07#{listingTime}#This session is recurring#{listingCost}#{maxCustomers}#{spotsTaken}#{spotsLeft}#{availability}#{discount}#");
+                sw.WriteLine($"{listingID + 10}#{trainerFirstName}#{trainerLastName}#{day}#05/14#{listingTime}#This session is recurring#{listingCost}#{maxCustomers}#{spotsTaken}#{spotsLeft}#{availability}#{discount}#");
+                sw.WriteLine($"{listingID + 20}#{trainerFirstName}#{trainerLastName}#{day}#05/21#{listingTime}#This session is recurring#{listingCost}#{maxCustomers}#{spotsTaken}#{spotsLeft}#{availability}#{discount}#");
+                sw.WriteLine($"{listingID + 30 }#{trainerFirstName}#{trainerLastName}#{day}#05/28#{listingTime}#This session is recurring#{listingCost}#{maxCustomers}#{spotsTaken}#{spotsLeft}#{availability}#{discount}#");
+                sw.WriteLine($"{listingID + 40}#{trainerFirstName}#{trainerLastName}#{day}#06/04#{listingTime}#This session is recurring#{listingCost}#{maxCustomers}#{spotsTaken}#{spotsLeft}#{availability}#{discount}#");
+                sw.WriteLine($"{listingID + 50}#{trainerFirstName}#{trainerLastName}#{day}#06/11#{listingTime}#This session is recurring#{listingCost}#{maxCustomers}#{spotsTaken}#{spotsLeft}#{availability}#{discount}#");
+                sw.WriteLine($"{listingID + 60}#{trainerFirstName}#{trainerLastName}#{day}#06/18#{listingTime}#This session is recurring#{listingCost}#{maxCustomers}#{spotsTaken}#{spotsLeft}#{availability}#{discount}#");
+                sw.WriteLine($"{listingID + 70}#{trainerFirstName}#{trainerLastName}#{day}#06/25#{listingTime}#This session is recurring#{listingCost}#{maxCustomers}#{spotsTaken}#{spotsLeft}#{availability}#{discount}#");
+                sw.WriteLine($"{listingID + 80}#{trainerFirstName}#{trainerLastName}#{day}#07/02#{listingTime}#This session is recurring#{listingCost}#{maxCustomers}#{spotsTaken}#{spotsLeft}#{availability}#{discount}#");
+                sw.WriteLine($"{listingID + 90}#{trainerFirstName}#{trainerLastName}#{day}#07/09#{listingTime}#This session is recurring#{listingCost}#{maxCustomers}#{spotsTaken}#{spotsLeft}#{availability}#{discount}#");
+                sw.WriteLine($"{listingID + 100}#{trainerFirstName}#{trainerLastName}#{day}#07/16#{listingTime}#This session is recurring#{listingCost}#{maxCustomers}#{spotsTaken}#{spotsLeft}#{availability}#{discount}#");
+                sw.WriteLine($"{listingID + 110}#{trainerFirstName}#{trainerLastName}#{day}#07/23#{listingTime}#This session is recurring#{listingCost}#{maxCustomers}#{spotsTaken}#{spotsLeft}#{availability}#{discount}#");
+                sw.WriteLine($"{listingID + 120}#{trainerFirstName}#{trainerLastName}#{day}#07/30#{listingTime}#This session is recurring#{listingCost}#{maxCustomers}#{spotsTaken}#{spotsLeft}#{availability}#{discount}#");
+                sw.WriteLine($"{listingID + 130}#{trainerFirstName}#{trainerLastName}#{day}#08/06#{listingTime}#This session is recurring#{listingCost}#{maxCustomers}#{spotsTaken}#{spotsLeft}#{availability}#{discount}#");
+                sw.WriteLine($"{listingID + 140}#{trainerFirstName}#{trainerLastName}#{day}#08/13#{listingTime}#This session is recurring#{listingCost}#{maxCustomers}#{spotsTaken}#{spotsLeft}#{availability}#{discount}#");
+                sw.WriteLine($"{listingID + 150}#{trainerFirstName}#{trainerLastName}#{day}#08/20#{listingTime}#This session is recurring#{listingCost}#{maxCustomers}#{spotsTaken}#{spotsLeft}#{availability}#{discount}#");
+                sw.WriteLine($"{listingID + 160}#{trainerFirstName}#{trainerLastName}#{day}#08/27#{listingTime}#This session is recurring#{listingCost}#{maxCustomers}#{spotsTaken}#{spotsLeft}#{availability}#{discount}#");
+            }
+            sw.Close();
+        }
+
+
+
+
+
         static void MainMenu()
         {
             System.Console.WriteLine("Please select what you would like to do:");
@@ -687,7 +994,7 @@ namespace mis_221_pa_5_rowecjessica
             BookingUtility bookingUtility = new BookingUtility(bookings, listings, trainers);
 
             bookingUtility.BookingFile(path);
-            bookingUtility.ViewAvailableSessions();
+            bookingUtility.ViewAvailableSessions(listings);
         }
 
         static void RunReports()

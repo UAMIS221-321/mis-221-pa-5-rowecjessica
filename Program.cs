@@ -1,9 +1,11 @@
 ﻿using mis_221_pa_5_rowecjessica;
 
+
 Menu();
 
 static void Menu()
 {
+    Console.Clear();
     System.Console.WriteLine("Welcome to TLAC!");
     System.Console.WriteLine("Please select what you would like to do:");
     System.Console.WriteLine("1 - Manage Trainer Data");
@@ -85,7 +87,7 @@ static void ManageTrainerData()
 static void ManageListingData()
 {
     string path = @"C:\Users\rowec\OneDrive\MIS221\PAs\mis-221-pa-5-rowecjessica\Listings.txt";
-    Listing[] listings = new Listing[200];
+    Listing[] listings = new Listing[500];
     Trainer[] trainers = new Trainer[200];
     ListingUtility listingUtility = new ListingUtility(listings, trainers);
 
@@ -98,19 +100,19 @@ static void ManageCustomerBookingData()
 {
     string path = @"C:\Users\rowec\OneDrive\MIS221\PAs\mis-221-pa-5-rowecjessica\transactions.txt";
     Booking[] bookings = new Booking[200];
-    Listing[] listings = new Listing[200];
+    Listing[] listings = new Listing[500];
     Trainer[] trainers = new Trainer[200];
     BookingUtility bookingUtility = new BookingUtility(bookings, listings, trainers);
 
     bookingUtility.BookingFile(path);
-    bookingUtility.ViewAvailableSessions();
+    bookingUtility.ViewAvailableSessions(listings);
 }
 
 
 static void RunReports()
 {
     Booking[] bookings = new Booking[200];
-    Listing[] listings = new Listing[200];
+    Listing[] listings = new Listing[500];
     Trainer[] trainers = new Trainer[200];
     ReportUtility reportUtility = new ReportUtility(bookings, listings, trainers);
 

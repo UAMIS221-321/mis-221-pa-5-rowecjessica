@@ -524,7 +524,7 @@ namespace mis_221_pa_5_rowecjessica
             BookingUtility bookingUtility = new BookingUtility(bookings, listings, trainers);
 
             bookingUtility.BookingFile(path);
-            bookingUtility.ViewAvailableSessions();
+            bookingUtility.ViewAvailableSessions(listings);
         }
 
         static void RunReports()

@@ -155,12 +155,6 @@ namespace mis_221_pa_5_rowecjessica
         public void SetAvailability(string availability)
         {
             this.availability = availability;
-            // if(spotsLeft > 0){
-            //     availability = "This session is open for booking";
-            // } else 
-            // {
-            //     availability = "This session is closed";
-            // }
         }
 
         public string GetAvailability()
@@ -170,9 +164,7 @@ namespace mis_221_pa_5_rowecjessica
 
         public void SetSpotsLeft(int spotsLeft)
         {
-            // this.spotsLeft = spotsLeft;
-            // spotsLeft = maxCusomters - spotsTaken;
-            this.availability = availability;
+            this.spotsLeft = spotsLeft;
         }
 
         public int GetSpotsLeft()

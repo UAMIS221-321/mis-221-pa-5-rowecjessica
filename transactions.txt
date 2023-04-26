@@ -1,6 +1,28 @@
-11#20#Faith#Rogers#frog03@gmail.com#05/08#0#Jess#Rowe#Open#
-12#20#Kathryn#Pope#kathykat#05/08#0#Jess#Rowe#Open#
-13#20#Tori#Ferguson#tfergie#05/08#0#Jess#Rowe#Open#
-14#20#Anna#conway#acgamil#05/08#0#Jess#Rowe#Open#
-12#20#Kathryn#Pope#kathykat#05/08#0#Jess#Rowe#Open#
-11#20#Faith#Rogers#frog03@gmail.com#05/08#0#Jess#Rowe#Open#
+1#10#Faith#Rogers#frog03@gmail.com#05/01#1#Jessica#Rowe#Open#
+2#10#Audrey#Allison#aallison@gmail.com#05/01#1#Jessica#Rowe#Open#
+3#370#Julie#Newsom#jnewsom@gmail.com#05/03#3#Tori#Ferguson#Open#
+4#900#Sarah Grace#Adams#sgadams@gmail.com#05/06#6#Sydney#Egenes#Open#
+5#740#Kennedy#Smith#ksmith@gmail.com#05/12#5#Anna#Conway#Open#
+2#40#Audrey#Allison#aallison@gmail.com#05/22#1#Jessica#Rowe#Open#
+1#430#Faith#Rogers#frog03@gmail.com#06/14#3#Tori#Ferguson#Open#
+3#420#Julie#Newsom#jnewsom@gmail.com#06/07#3#Tori#Ferguson#Open#
+3#1120#Julie#Newsom#jnewsom@gmail.com#06/11#7#Annabel#Gassel#Open#
+2#80#Audrey#Allison#aallison@gmail.com#06/19#1#Jessica#Rowe#Open#
+4#980#Sarah Grace#Adams#sgadams@gmail.com#07/01#6#Sydney#Egenes#Open#
+5#990#Kennedy#Smith#ksmith@gmail.com#07/08#6#Sydney#Egenes#Open#
+2#400#Audrey#Allison#aallison@gmail.com#05/24#3#Tori#Ferguson#Open#
+1#190#Faith#Rogers#frog03@gmail.com#05/02#2#Jacob#Tinnell#Open#
+2#210#Audrey#Allison#aallison@gmail.com#05/16#2#Jacob#Tinnell#Open#
+3#230#Julie#Newsom#jnewsom@gmail.com#05/30#2#Jacob#Tinnell#Open#
+4#280#Sarah Grace#Adams#sgadams@gmail.com#07/04#2#Jacob#Tinnell#Open#
+3#190#Julie#Newsom#jnewsom@gmail.com#05/02#2#Jacob#Tinnell#Open#
+4#1410#Sarah Grace#Adams#sgadams@gmail.com#08/28#8#Kaylee#Kabza#Open#
+5#550#Kennedy#Smith#ksmith@gmail.com#05/04#4#Kathryn#Pope#Open#
+1#550#Faith#Rogers#frog03@gmail.com#05/04#4#Kathryn#Pope#Closed#
+2#730#Audrey#Allison#aallison@gmail.com#05/05#5#Anna#Conway#Open#
+5#610#Kennedy#Smith#ksmith@gmail.com#06/15#4#Kathryn#Pope#Open#
+4#680#Sarah Grace#Adams#sgadams@gmail.com#08/03#4#Kathryn#Pope#Open#
+2#700#Audrey#Allison#aallison@gmail.com#08/17#4#Kathryn#Pope#Open#
+5#1440#Kennedy#Smith#ksmith@gmail.com#05/24#9#Mary#Lavarato#Open#
+1#580#Faith#Rogers#frog03@gmail.com#05/25#4#Kathryn#Pope#Open#
+3#900#Julie#Newsom#jnewsom@gmail.com#05/06#6#Sydney#Egenes#Open#
