@@ -25,3 +25,489 @@ Listing ID: 400, Date: 05/24, Trainer: #3 Tori Ferguson
 Listing ID: 210, Date: 05/16, Trainer: #2 Jacob Tinnell
 Listing ID: 730, Date: 05/05, Trainer: #5 Anna Conway
 Listing ID: 700, Date: 08/17, Trainer: #4 Kathryn Pope
+Customer: #1 Faith Rogers, Session: #10 on 05/01, Trainer: #1 Jessica Rowe 
+Customer: #1 Faith Rogers, Session: #190 on 05/02, Trainer: #2 Jacob Tinnell 
+Customer: #1 Faith Rogers, Session: #550 on 05/04, Trainer: #4 Kathryn Pope 
+Customer: #1 Faith Rogers, Session: #580 on 05/25, Trainer: #4 Kathryn Pope 
+Customer: #1 Faith Rogers, Session: #430 on 06/14, Trainer: #3 Tori Ferguson 
+Customer: #2 Audrey Allison, Session: #10 on 05/01, Trainer: #1 Jessica Rowe 
+Customer: #2 Audrey Allison, Session: #730 on 05/05, Trainer: #5 Anna Conway 
+Customer: #2 Audrey Allison, Session: #210 on 05/16, Trainer: #2 Jacob Tinnell 
+Customer: #2 Audrey Allison, Session: #40 on 05/22, Trainer: #1 Jessica Rowe 
+Customer: #2 Audrey Allison, Session: #400 on 05/24, Trainer: #3 Tori Ferguson 
+Customer: #2 Audrey Allison, Session: #80 on 06/19, Trainer: #1 Jessica Rowe 
+Customer: #2 Audrey Allison, Session: #700 on 08/17, Trainer: #4 Kathryn Pope 
+Customer: #3 Julie Newsom, Session: #190 on 05/02, Trainer: #2 Jacob Tinnell 
+Customer: #3 Julie Newsom, Session: #370 on 05/03, Trainer: #3 Tori Ferguson 
+Customer: #3 Julie Newsom, Session: #900 on 05/06, Trainer: #6 Sydney Egenes 
+Customer: #3 Julie Newsom, Session: #230 on 05/30, Trainer: #2 Jacob Tinnell 
+Customer: #3 Julie Newsom, Session: #420 on 06/07, Trainer: #3 Tori Ferguson 
+Customer: #3 Julie Newsom, Session: #1120 on 06/11, Trainer: #7 Annabel Gassel 
+Customer: #4 Sarah Grace Adams, Session: #900 on 05/06, Trainer: #6 Sydney Egenes 
+Customer: #4 Sarah Grace Adams, Session: #980 on 07/01, Trainer: #6 Sydney Egenes 
+Customer: #4 Sarah Grace Adams, Session: #280 on 07/04, Trainer: #2 Jacob Tinnell 
+Customer: #4 Sarah Grace Adams, Session: #680 on 08/03, Trainer: #4 Kathryn Pope 
+Customer: #4 Sarah Grace Adams, Session: #1410 on 08/28, Trainer: #8 Kaylee Kabza 
+Customer: #5 Kennedy Smith, Session: #550 on 05/04, Trainer: #4 Kathryn Pope 
+Customer: #5 Kennedy Smith, Session: #740 on 05/12, Trainer: #5 Anna Conway 
+Customer: #5 Kennedy Smith, Session: #1440 on 05/24, Trainer: #9 Mary Lavarato 
+Customer: #5 Kennedy Smith, Session: #610 on 06/15, Trainer: #4 Kathryn Pope 
+Customer: #5 Kennedy Smith, Session: #990 on 07/08, Trainer: #6 Sydney Egenes 
+MAY 2023:
+
+Session #10 was run by #1 Jessica Rowe on 05/01.
+This session had 2 out of 7 spots booked at $60 a spot and discount offered.
+The revenue from this session was: $114
+
+
+Session #10 was run by #1 Jessica Rowe on 05/01.
+This session had 2 out of 7 spots booked at $60 a spot and discount offered.
+The revenue from this session was: $114
+
+
+Session #370 was run by #3 Tori Ferguson on 05/03.
+This session had 1 out of 7 spots booked at $80 a spot and No discount offered.
+The revenue from this session was: $76
+
+
+Session #900 was run by #6 Sydney Egenes on 05/06.
+This session had 2 out of 9 spots booked at $40 a spot and discount offered.
+The revenue from this session was: $76
+
+
+Session #740 was run by #5 Anna Conway on 05/12.
+This session had 1 out of 9 spots booked at $40 a spot and No discount offered.
+The revenue from this session was: $38
+
+
+Session #40 was run by #1 Jessica Rowe on 05/22.
+This session had 1 out of 7 spots booked at $60 a spot and discount offered.
+The revenue from this session was: $57
+
+
+Session #400 was run by #3 Tori Ferguson on 05/24.
+This session had 1 out of 7 spots booked at $80 a spot and No discount offered.
+The revenue from this session was: $76
+
+
+Session #190 was run by #2 Jacob Tinnell on 05/02.
+This session had 2 out of 5 spots booked at $65 a spot and No discount offered.
+The revenue from this session was: $123.5
+
+
+Session #210 was run by #2 Jacob Tinnell on 05/16.
+This session had 1 out of 5 spots booked at $65 a spot and No discount offered.
+The revenue from this session was: $61.75
+
+
+Session #230 was run by #2 Jacob Tinnell on 05/30.
+This session had 1 out of 5 spots booked at $65 a spot and No discount offered.
+The revenue from this session was: $61.75
+
+
+Session #190 was run by #2 Jacob Tinnell on 05/02.
+This session had 2 out of 5 spots booked at $65 a spot and No discount offered.
+The revenue from this session was: $123.5
+
+
+Session #550 was run by #4 Kathryn Pope on 05/04.
+This session had 2 out of 2 spots booked at $110 a spot and discount offered.
+The revenue from this session was: $220
+
+
+Session #550 was run by #4 Kathryn Pope on 05/04.
+This session had 2 out of 2 spots booked at $110 a spot and discount offered.
+The revenue from this session was: $220
+
+
+Session #730 was run by #5 Anna Conway on 05/05.
+This session had 1 out of 9 spots booked at $40 a spot and No discount offered.
+The revenue from this session was: $40
+
+
+Session #1440 was run by #9 Mary Lavarato on 05/24.
+This session had 1 out of 8 spots booked at $70 a spot and discount offered.
+The revenue from this session was: $70
+
+
+Session #580 was run by #4 Kathryn Pope on 05/25.
+This session had 1 out of 2 spots booked at $110 a spot and discount offered.
+The revenue from this session was: $110
+
+
+Session #900 was run by #6 Sydney Egenes on 05/06.
+This session had 2 out of 9 spots booked at $40 a spot and discount offered.
+The revenue from this session was: $80
+
+The total revenue for May 2023 was: $1661.5
+Customer: #1 Faith Rogers, Session: #10 on 05/01, Trainer: #1 Jessica Rowe 
+Customer: #1 Faith Rogers, Session: #190 on 05/02, Trainer: #2 Jacob Tinnell 
+Customer: #1 Faith Rogers, Session: #550 on 05/04, Trainer: #4 Kathryn Pope 
+Customer: #1 Faith Rogers, Session: #580 on 05/25, Trainer: #4 Kathryn Pope 
+Customer: #1 Faith Rogers, Session: #430 on 06/14, Trainer: #3 Tori Ferguson 
+Customer: #2 Audrey Allison, Session: #10 on 05/01, Trainer: #1 Jessica Rowe 
+Customer: #2 Audrey Allison, Session: #730 on 05/05, Trainer: #5 Anna Conway 
+Customer: #2 Audrey Allison, Session: #210 on 05/16, Trainer: #2 Jacob Tinnell 
+Customer: #2 Audrey Allison, Session: #40 on 05/22, Trainer: #1 Jessica Rowe 
+Customer: #2 Audrey Allison, Session: #400 on 05/24, Trainer: #3 Tori Ferguson 
+Customer: #2 Audrey Allison, Session: #80 on 06/19, Trainer: #1 Jessica Rowe 
+Customer: #2 Audrey Allison, Session: #700 on 08/17, Trainer: #4 Kathryn Pope 
+Customer: #3 Julie Newsom, Session: #190 on 05/02, Trainer: #2 Jacob Tinnell 
+Customer: #3 Julie Newsom, Session: #370 on 05/03, Trainer: #3 Tori Ferguson 
+Customer: #3 Julie Newsom, Session: #900 on 05/06, Trainer: #6 Sydney Egenes 
+Customer: #3 Julie Newsom, Session: #230 on 05/30, Trainer: #2 Jacob Tinnell 
+Customer: #3 Julie Newsom, Session: #420 on 06/07, Trainer: #3 Tori Ferguson 
+Customer: #3 Julie Newsom, Session: #1120 on 06/11, Trainer: #7 Annabel Gassel 
+Customer: #4 Sarah Grace Adams, Session: #900 on 05/06, Trainer: #6 Sydney Egenes 
+Customer: #4 Sarah Grace Adams, Session: #980 on 07/01, Trainer: #6 Sydney Egenes 
+Customer: #4 Sarah Grace Adams, Session: #280 on 07/04, Trainer: #2 Jacob Tinnell 
+Customer: #4 Sarah Grace Adams, Session: #680 on 08/03, Trainer: #4 Kathryn Pope 
+Customer: #4 Sarah Grace Adams, Session: #1410 on 08/28, Trainer: #8 Kaylee Kabza 
+Customer: #5 Kennedy Smith, Session: #550 on 05/04, Trainer: #4 Kathryn Pope 
+Customer: #5 Kennedy Smith, Session: #740 on 05/12, Trainer: #5 Anna Conway 
+Customer: #5 Kennedy Smith, Session: #1440 on 05/24, Trainer: #9 Mary Lavarato 
+Customer: #5 Kennedy Smith, Session: #610 on 06/15, Trainer: #4 Kathryn Pope 
+Customer: #5 Kennedy Smith, Session: #990 on 07/08, Trainer: #6 Sydney Egenes 
+MAY 2023:
+
+Session #10 was run by #1 Jessica Rowe on 05/01.
+This session had 2 out of 7 spots booked at $60 a spot and discount offered.
+The revenue from this session was: $114
+
+
+Session #10 was run by #1 Jessica Rowe on 05/01.
+This session had 2 out of 7 spots booked at $60 a spot and discount offered.
+The revenue from this session was: $114
+
+
+Session #370 was run by #3 Tori Ferguson on 05/03.
+This session had 1 out of 7 spots booked at $80 a spot and No discount offered.
+The revenue from this session was: $76
+
+
+Session #900 was run by #6 Sydney Egenes on 05/06.
+This session had 2 out of 9 spots booked at $40 a spot and discount offered.
+The revenue from this session was: $76
+
+
+Session #740 was run by #5 Anna Conway on 05/12.
+This session had 1 out of 9 spots booked at $40 a spot and No discount offered.
+The revenue from this session was: $38
+
+
+Session #40 was run by #1 Jessica Rowe on 05/22.
+This session had 1 out of 7 spots booked at $60 a spot and discount offered.
+The revenue from this session was: $57
+
+
+Session #400 was run by #3 Tori Ferguson on 05/24.
+This session had 1 out of 7 spots booked at $80 a spot and No discount offered.
+The revenue from this session was: $76
+
+
+Session #190 was run by #2 Jacob Tinnell on 05/02.
+This session had 2 out of 5 spots booked at $65 a spot and No discount offered.
+The revenue from this session was: $123.5
+
+
+Session #210 was run by #2 Jacob Tinnell on 05/16.
+This session had 1 out of 5 spots booked at $65 a spot and No discount offered.
+The revenue from this session was: $61.75
+
+
+Session #230 was run by #2 Jacob Tinnell on 05/30.
+This session had 1 out of 5 spots booked at $65 a spot and No discount offered.
+The revenue from this session was: $61.75
+
+
+Session #190 was run by #2 Jacob Tinnell on 05/02.
+This session had 2 out of 5 spots booked at $65 a spot and No discount offered.
+The revenue from this session was: $123.5
+
+
+Session #550 was run by #4 Kathryn Pope on 05/04.
+This session had 2 out of 2 spots booked at $110 a spot and discount offered.
+The revenue from this session was: $220
+
+
+Session #550 was run by #4 Kathryn Pope on 05/04.
+This session had 2 out of 2 spots booked at $110 a spot and discount offered.
+The revenue from this session was: $220
+
+
+Session #730 was run by #5 Anna Conway on 05/05.
+This session had 1 out of 9 spots booked at $40 a spot and No discount offered.
+The revenue from this session was: $40
+
+
+Session #1440 was run by #9 Mary Lavarato on 05/24.
+This session had 1 out of 8 spots booked at $70 a spot and discount offered.
+The revenue from this session was: $70
+
+
+Session #580 was run by #4 Kathryn Pope on 05/25.
+This session had 1 out of 2 spots booked at $110 a spot and discount offered.
+The revenue from this session was: $110
+
+
+Session #900 was run by #6 Sydney Egenes on 05/06.
+This session had 2 out of 9 spots booked at $40 a spot and discount offered.
+The revenue from this session was: $80
+
+The total revenue for May 2023 was: $1661.5
+JUNE 2023:
+
+Session #10 was run by #1 Jessica Rowe on 05/01.
+This session had 2 out of 7 spots booked at $60 a spot and discount offered.
+The revenue from this session was: $114
+
+
+Session #10 was run by #1 Jessica Rowe on 05/01.
+This session had 2 out of 7 spots booked at $60 a spot and discount offered.
+The revenue from this session was: $114
+
+
+Session #370 was run by #3 Tori Ferguson on 05/03.
+This session had 1 out of 7 spots booked at $80 a spot and No discount offered.
+The revenue from this session was: $76
+
+
+Session #900 was run by #6 Sydney Egenes on 05/06.
+This session had 2 out of 9 spots booked at $40 a spot and discount offered.
+The revenue from this session was: $76
+
+
+Session #740 was run by #5 Anna Conway on 05/12.
+This session had 1 out of 9 spots booked at $40 a spot and No discount offered.
+The revenue from this session was: $38
+
+
+Session #40 was run by #1 Jessica Rowe on 05/22.
+This session had 1 out of 7 spots booked at $60 a spot and discount offered.
+The revenue from this session was: $57
+
+
+Session #400 was run by #3 Tori Ferguson on 05/24.
+This session had 1 out of 7 spots booked at $80 a spot and No discount offered.
+The revenue from this session was: $76
+
+
+Session #190 was run by #2 Jacob Tinnell on 05/02.
+This session had 2 out of 5 spots booked at $65 a spot and No discount offered.
+The revenue from this session was: $123.5
+
+
+Session #210 was run by #2 Jacob Tinnell on 05/16.
+This session had 1 out of 5 spots booked at $65 a spot and No discount offered.
+The revenue from this session was: $61.75
+
+
+Session #230 was run by #2 Jacob Tinnell on 05/30.
+This session had 1 out of 5 spots booked at $65 a spot and No discount offered.
+The revenue from this session was: $61.75
+
+
+Session #190 was run by #2 Jacob Tinnell on 05/02.
+This session had 2 out of 5 spots booked at $65 a spot and No discount offered.
+The revenue from this session was: $123.5
+
+
+Session #550 was run by #4 Kathryn Pope on 05/04.
+This session had 2 out of 2 spots booked at $110 a spot and discount offered.
+The revenue from this session was: $220
+
+
+Session #550 was run by #4 Kathryn Pope on 05/04.
+This session had 2 out of 2 spots booked at $110 a spot and discount offered.
+The revenue from this session was: $220
+
+
+Session #730 was run by #5 Anna Conway on 05/05.
+This session had 1 out of 9 spots booked at $40 a spot and No discount offered.
+The revenue from this session was: $40
+
+
+Session #1440 was run by #9 Mary Lavarato on 05/24.
+This session had 1 out of 8 spots booked at $70 a spot and discount offered.
+The revenue from this session was: $70
+
+
+Session #580 was run by #4 Kathryn Pope on 05/25.
+This session had 1 out of 2 spots booked at $110 a spot and discount offered.
+The revenue from this session was: $110
+
+
+Session #900 was run by #6 Sydney Egenes on 05/06.
+This session had 2 out of 9 spots booked at $40 a spot and discount offered.
+The revenue from this session was: $80
+
+The total revenue for June 2023 was: $1661.5
+MAY 2023:
+
+Session #10 was run by #1 Jessica Rowe on 05/01.
+This session had 2 out of 7 spots booked at $60 a spot and discount offered.
+The revenue from this session was: $114
+
+
+Session #10 was run by #1 Jessica Rowe on 05/01.
+This session had 2 out of 7 spots booked at $60 a spot and discount offered.
+The revenue from this session was: $114
+
+
+Session #370 was run by #3 Tori Ferguson on 05/03.
+This session had 1 out of 7 spots booked at $80 a spot and No discount offered.
+The revenue from this session was: $76
+
+
+Session #900 was run by #6 Sydney Egenes on 05/06.
+This session had 2 out of 9 spots booked at $40 a spot and discount offered.
+The revenue from this session was: $76
+
+
+Session #740 was run by #5 Anna Conway on 05/12.
+This session had 1 out of 9 spots booked at $40 a spot and No discount offered.
+The revenue from this session was: $38
+
+
+Session #40 was run by #1 Jessica Rowe on 05/22.
+This session had 1 out of 7 spots booked at $60 a spot and discount offered.
+The revenue from this session was: $57
+
+
+Session #400 was run by #3 Tori Ferguson on 05/24.
+This session had 1 out of 7 spots booked at $80 a spot and No discount offered.
+The revenue from this session was: $76
+
+
+Session #190 was run by #2 Jacob Tinnell on 05/02.
+This session had 2 out of 5 spots booked at $65 a spot and No discount offered.
+The revenue from this session was: $123.5
+
+
+Session #210 was run by #2 Jacob Tinnell on 05/16.
+This session had 1 out of 5 spots booked at $65 a spot and No discount offered.
+The revenue from this session was: $61.75
+
+
+Session #230 was run by #2 Jacob Tinnell on 05/30.
+This session had 1 out of 5 spots booked at $65 a spot and No discount offered.
+The revenue from this session was: $61.75
+
+
+Session #190 was run by #2 Jacob Tinnell on 05/02.
+This session had 2 out of 5 spots booked at $65 a spot and No discount offered.
+The revenue from this session was: $123.5
+
+
+Session #550 was run by #4 Kathryn Pope on 05/04.
+This session had 2 out of 2 spots booked at $110 a spot and discount offered.
+The revenue from this session was: $220
+
+
+Session #550 was run by #4 Kathryn Pope on 05/04.
+This session had 2 out of 2 spots booked at $110 a spot and discount offered.
+The revenue from this session was: $220
+
+
+Session #730 was run by #5 Anna Conway on 05/05.
+This session had 1 out of 9 spots booked at $40 a spot and No discount offered.
+The revenue from this session was: $40
+
+
+Session #1440 was run by #9 Mary Lavarato on 05/24.
+This session had 1 out of 8 spots booked at $70 a spot and discount offered.
+The revenue from this session was: $70
+
+
+Session #580 was run by #4 Kathryn Pope on 05/25.
+This session had 1 out of 2 spots booked at $110 a spot and discount offered.
+The revenue from this session was: $110
+
+
+Session #900 was run by #6 Sydney Egenes on 05/06.
+This session had 2 out of 9 spots booked at $40 a spot and discount offered.
+The revenue from this session was: $80
+
+The total revenue for May 2023 was: $1661.5
+JUNE 2023:
+
+Session #430 was run by #3 Tori Ferguson on 06/14.
+This session had 1 out of 7 spots booked at $80 a spot and No discount offered.
+The revenue from this session was: $76
+
+
+Session #420 was run by #3 Tori Ferguson on 06/07.
+This session had 1 out of 7 spots booked at $80 a spot and No discount offered.
+The revenue from this session was: $76
+
+
+Session #1120 was run by #7 Annabel Gassel on 06/11.
+This session had 1 out of 8 spots booked at $70 a spot and No discount offered.
+The revenue from this session was: $66.5
+
+
+Session #80 was run by #1 Jessica Rowe on 06/19.
+This session had 1 out of 7 spots booked at $60 a spot and discount offered.
+The revenue from this session was: $57
+
+
+Session #610 was run by #4 Kathryn Pope on 06/15.
+This session had 1 out of 2 spots booked at $110 a spot and discount offered.
+The revenue from this session was: $110
+
+The total revenue for June 2023 was: $385.5
+JULY 2023:
+
+Session #980 was run by #6 Sydney Egenes on 07/01.
+This session had 1 out of 9 spots booked at $40 a spot and discount offered.
+The revenue from this session was: $38
+
+
+Session #990 was run by #6 Sydney Egenes on 07/08.
+This session had 1 out of 9 spots booked at $40 a spot and discount offered.
+The revenue from this session was: $38
+
+
+Session #280 was run by #2 Jacob Tinnell on 07/04.
+This session had 1 out of 5 spots booked at $65 a spot and No discount offered.
+The revenue from this session was: $61.75
+
+The total revenue for July 2023 was: $137.75
+AUGUST 2023:
+
+Session #1410 was run by #8 Kaylee Kabza on 08/28.
+This session had 1 out of 8 spots booked at $90 a spot and No discount offered.
+The revenue from this session was: $90
+
+
+Session #680 was run by #4 Kathryn Pope on 08/03.
+This session had 1 out of 2 spots booked at $110 a spot and discount offered.
+The revenue from this session was: $110
+
+
+Session #700 was run by #4 Kathryn Pope on 08/17.
+This session had 1 out of 2 spots booked at $110 a spot and discount offered.
+The revenue from this session was: $110
+
+The total revenue for August 2023 was: $310
+
+Session #10 was run by #1 Jessica Rowe on 05/01.
+This session had 2 out of 7 spots booked at $60 a spot and discount offered.
+The revenue from this session was: $114
+
+
+Session #10 was run by #1 Jessica Rowe on 05/01.
+This session had 2 out of 7 spots booked at $60 a spot and discount offered.
+The revenue from this session was: $114
+
+
+Session #40 was run by #1 Jessica Rowe on 05/22.
+This session had 1 out of 7 spots booked at $60 a spot and discount offered.
+The revenue from this session was: $57
+
+
+Session #80 was run by #1 Jessica Rowe on 06/19.
+This session had 1 out of 7 spots booked at $60 a spot and discount offered.
+The revenue from this session was: $57
+
+The total revenue for Rowe was: $342
