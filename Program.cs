@@ -114,8 +114,7 @@ static void RunReports()
     Booking[] bookings = new Booking[200];
     Listing[] listings = new Listing[500];
     Trainer[] trainers = new Trainer[200];
-    Customer[] customers = new Customer[200];
-    ReportUtility reportUtility = new ReportUtility(bookings, listings, trainers, customers);
+    ReportUtility reportUtility = new ReportUtility(bookings, listings, trainers);
 
     reportUtility.ReportMenu(bookings, listings, trainers);
 }

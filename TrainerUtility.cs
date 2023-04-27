@@ -533,8 +533,7 @@ namespace mis_221_pa_5_rowecjessica
             Booking[] bookings = new Booking[200];
             Listing[] listings = new Listing[200];
             Trainer[] trainers = new Trainer[200];
-            Customer[] customers = new Customer[200];
-            ReportUtility reportUtility = new ReportUtility(bookings, listings, trainers, customers);
+            ReportUtility reportUtility = new ReportUtility(bookings, listings, trainers);
 
 
             reportUtility.ReportMenu(bookings, listings, trainers);

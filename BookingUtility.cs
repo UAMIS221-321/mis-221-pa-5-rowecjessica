@@ -412,20 +412,26 @@ namespace mis_221_pa_5_rowecjessica
                 customerID = int.Parse(Console.ReadLine());
                 ReadInAllBookings(bookings, path);
 
-                for(int i = 0; i < Booking.GetCount(); i ++)
-                {
-                    if(bookings[i].GetCustomerID() == customerID)
-                    {
-                        foundVal = i;
-                        customerFirstName = bookings[i].GetCustomerFirstName();
-                        customerLastName = bookings[i].GetCustomerLastName();
-                        customerEmail = bookings[i].GetCustomerEmail();
-                    }
-                }
+                foundVal = -1;
 
-                if(foundVal < 0)
+                while (foundVal == -1)
                 {
-                    System.Console.WriteLine("Cusomter ID not found");
+                    for(int i = 0; i < Booking.GetCount(); i ++)
+                    {
+                        if(bookings[i].GetCustomerID() == customerID)
+                        {
+                            foundVal = i;
+                            customerFirstName = bookings[i].GetCustomerFirstName();
+                            customerLastName = bookings[i].GetCustomerLastName();
+                            customerEmail = bookings[i].GetCustomerEmail();
+                        }
+                    }
+
+                    if(foundVal < 0)
+                    {
+                        System.Console.WriteLine("Cusomter ID not found, please enter a valid customer ID:");
+                        customerID = int.Parse(Console.ReadLine());
+                    }
                 }
 
             } else
@@ -496,29 +502,31 @@ namespace mis_221_pa_5_rowecjessica
                         status = "Closed";
                     }
 
-                    StreamWriter reWrite = new StreamWriter(@"C:\Users\rowec\OneDrive\MIS221\PAs\mis-221-pa-5-rowecjessica\Listings.txt");
-                    for(int j = 0; j < Listing.GetCount(); j ++)
-                    {
-                        reWrite.Write($"{listings[j].GetListingID()}#");
-                        reWrite.Write($"{listings[j].GetTrainerFirstName()}#");
-                        reWrite.Write($"{listings[j].GetTrainerLastName()}#");
-                        reWrite.Write($"{listings[j].GetListingDay()}#");
-                        reWrite.Write($"{listings[j].GetListingDate()}#");
-                        reWrite.Write($"{listings[j].GetListingTime()}#");
-                        reWrite.Write($"{listings[j].GetRecurring()}#");
-                        reWrite.Write($"{listings[j].GetListingCost()}#");
-                        reWrite.Write($"{listings[j].GetMaxCustomers()}#");
-                        reWrite.Write($"{listings[j].GetSpotsTaken()}#");
-                        reWrite.Write($"{listings[j].GetSpotsLeft()}#");
-                        reWrite.Write($"{listings[j].GetAvailability()}#");
-                        reWrite.Write($"{listings[j].GetDiscount()}#");
-                        reWrite.WriteLine();
-                    }
-                    reWrite.Close();
-
-                }
+                } ///// END FOR LOOP BEFORE
             }
-            
+
+            StreamWriter reWrite = new StreamWriter(@"C:\Users\rowec\OneDrive\MIS221\PAs\mis-221-pa-5-rowecjessica\Listings.txt");
+            for(int j = 0; j < Listing.GetCount(); j ++)
+            {
+                reWrite.Write($"{listings[j].GetListingID()}#");
+                reWrite.Write($"{listings[j].GetTrainerFirstName()}#");
+                reWrite.Write($"{listings[j].GetTrainerLastName()}#");
+                reWrite.Write($"{listings[j].GetListingDay()}#");
+                reWrite.Write($"{listings[j].GetListingDate()}#");
+                reWrite.Write($"{listings[j].GetListingTime()}#");
+                reWrite.Write($"{listings[j].GetRecurring()}#");
+                reWrite.Write($"{listings[j].GetListingCost()}#");
+                reWrite.Write($"{listings[j].GetMaxCustomers()}#");
+                reWrite.Write($"{listings[j].GetSpotsTaken()}#");
+                reWrite.Write($"{listings[j].GetSpotsLeft()}#");
+                reWrite.Write($"{listings[j].GetAvailability()}#");
+                reWrite.Write($"{listings[j].GetDiscount()}#");
+                reWrite.WriteLine();
+            }
+            reWrite.Close();
+
+
+        
 
 
 
@@ -540,6 +548,10 @@ namespace mis_221_pa_5_rowecjessica
             sw.WriteLine();
 
             sw.Close();
+
+            System.Console.WriteLine("Session booked! Press any key to return to Booking Menu:");
+            Console.ReadKey();
+            ViewAvailableSessions(listings);
             
         }
 

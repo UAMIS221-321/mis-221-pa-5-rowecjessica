@@ -1,4 +1,4 @@
-10#Jessica#Rowe#Monday#05/01#9am#This session is recurring#60#7#2#5#This session is open for booking!#discount offered#
+10#Jessica#Rowe#Monday#05/01#9am#This session is recurring#60#7#3#4#This session is open for booking!#discount offered#
 20#Jessica#Rowe#Monday#05/08#9am#This session is recurring#60#7#0#7#This session is open for booking!#discount offered#
 30#Jessica#Rowe#Monday#05/15#9am#This session is recurring#60#7#0#7#This session is open for booking!#discount offered#
 40#Jessica#Rowe#Monday#05/22#9am#This session is recurring#60#7#1#6#This session is open for booking!#discount offered#
@@ -24,7 +24,7 @@
 240#Jacob#Tinnell#Tuesday#06/06#8am#This session is recurring#65#5#0#5#This session is open for booking!#No discount offered#
 250#Jacob#Tinnell#Tuesday#06/13#8am#This session is recurring#65#5#0#5#This session is open for booking!#No discount offered#
 260#Jacob#Tinnell#Tuesday#06/20#8am#This session is recurring#65#5#0#5#This session is open for booking!#No discount offered#
-270#Jacob#Tinnell#Tuesday#06/27#8am#This session is recurring#65#5#0#5#This session is open for booking!#No discount offered#
+270#Jacob#Tinnell#Tuesday#06/27#8am#This session is recurring#65#5#1#4#This session is open for booking!#No discount offered#
 280#Jacob#Tinnell#Tuesday#07/04#8am#This session is recurring#65#5#1#4#This session is open for booking!#No discount offered#
 290#Jacob#Tinnell#Tuesday#07/11#8am#This session is recurring#65#5#0#5#This session is open for booking!#No discount offered#
 300#Jacob#Tinnell#Tuesday#07/18#8am#This session is recurring#65#5#0#5#This session is open for booking!#No discount offered#
@@ -86,12 +86,12 @@
 860#Anna#Conway#Friday#08/04#7pm#This session is recurring#40#9#0#9#This session is open for booking!#No discount offered#
 870#Anna#Conway#Friday#08/11#7pm#This session is recurring#40#9#0#9#This session is open for booking!#No discount offered#
 880#Anna#Conway#Friday#08/18#7pm#This session is recurring#40#9#0#9#This session is open for booking!#No discount offered#
-890#Anna#Conway#Friday#08/25#7pm#This session is recurring#40#9#0#9#This session is open for booking!#No discount offered#
+890#Anna#Conway#Friday#08/25#7pm#This session is recurring#40#9#1#8#This session is open for booking!#No discount offered#
 900#Sydney#Egenes#Saturday#05/06#11am#This session is recurring#40#9#2#7#This session is open for booking!#discount offered#
 910#Sydney#Egenes#Saturday#05/13#11am#This session is recurring#40#9#0#9#This session is open for booking!#discount offered#
 920#Sydney#Egenes#Saturday#05/20#11am#This session is recurring#40#9#0#9#This session is open for booking!#discount offered#
 930#Sydney#Egenes#Saturday#05/27#11am#This session is recurring#40#9#0#9#This session is open for booking!#discount offered#
-940#Sydney#Egenes#Saturday#06/03#11am#This session is recurring#40#9#0#9#This session is open for booking!#discount offered#
+940#Sydney#Egenes#Saturday#06/03#11am#This session is recurring#40#9#1#8#This session is open for booking!#discount offered#
 950#Sydney#Egenes#Saturday#06/10#11am#This session is recurring#40#9#0#9#This session is open for booking!#discount offered#
 960#Sydney#Egenes#Saturday#06/17#11am#This session is recurring#40#9#0#9#This session is open for booking!#discount offered#
 970#Sydney#Egenes#Saturday#06/24#11am#This session is recurring#40#9#0#9#This session is open for booking!#discount offered#
@@ -110,7 +110,7 @@
 1100#Annabel#Gassel#Sunday#05/28#5:30pm#This session is recurring#70#8#0#8#This session is open for booking!#No discount offered#
 1110#Annabel#Gassel#Sunday#06/04#5:30pm#This session is recurring#70#8#0#8#This session is open for booking!#No discount offered#
 1120#Annabel#Gassel#Sunday#06/11#5:30pm#This session is recurring#70#8#1#7#This session is open for booking!#No discount offered#
-1130#Annabel#Gassel#Sunday#06/18#5:30pm#This session is recurring#70#8#0#8#This session is open for booking!#No discount offered#
+1130#Annabel#Gassel#Sunday#06/18#5:30pm#This session is recurring#70#8#1#7#This session is open for booking!#No discount offered#
 1140#Annabel#Gassel#Sunday#06/25#5:30pm#This session is recurring#70#8#0#8#This session is open for booking!#No discount offered#
 1150#Annabel#Gassel#Sunday#07/02#5:30pm#This session is recurring#70#8#0#8#This session is open for booking!#No discount offered#
 1160#Annabel#Gassel#Sunday#07/09#5:30pm#This session is recurring#70#8#0#8#This session is open for booking!#No discount offered#
@@ -128,7 +128,7 @@
 1280#Kaylee#Kabza#Monday#05/29#6am#This session is recurring#90#8#0#8#This session is open for booking!#No discount offered#
 1290#Kaylee#Kabza#Monday#06/05#6am#This session is recurring#90#8#0#8#This session is open for booking!#No discount offered#
 1300#Kaylee#Kabza#Monday#06/12#6am#This session is recurring#90#8#0#8#This session is open for booking!#No discount offered#
-1310#Kaylee#Kabza#Monday#06/19#6am#This session is recurring#90#8#0#8#This session is open for booking!#No discount offered#
+1310#Kaylee#Kabza#Monday#06/19#6am#This session is recurring#90#8#1#7#This session is open for booking!#No discount offered#
 1320#Kaylee#Kabza#Monday#06/26#6am#This session is recurring#90#8#0#8#This session is open for booking!#No discount offered#
 1330#Kaylee#Kabza#Monday#07/03#6am#This session is recurring#90#8#0#8#This session is open for booking!#No discount offered#
 1340#Kaylee#Kabza#Monday#07/10#6am#This session is recurring#90#8#0#8#This session is open for booking!#No discount offered#
@@ -136,7 +136,7 @@
 1360#Kaylee#Kabza#Monday#07/24#6am#This session is recurring#90#8#0#8#This session is open for booking!#No discount offered#
 1370#Kaylee#Kabza#Monday#07/31#6am#This session is recurring#90#8#0#8#This session is open for booking!#No discount offered#
 1380#Kaylee#Kabza#Monday#08/07#6am#This session is recurring#90#8#0#8#This session is open for booking!#No discount offered#
-1390#Kaylee#Kabza#Monday#08/14#6am#This session is recurring#90#8#0#8#This session is open for booking!#No discount offered#
+1390#Kaylee#Kabza#Monday#08/14#6am#This session is recurring#90#8#1#7#This session is open for booking!#No discount offered#
 1400#Kaylee#Kabza#Monday#08/21#6am#This session is recurring#90#8#0#8#This session is open for booking!#No discount offered#
 1410#Kaylee#Kabza#Monday#08/28#6am#This session is recurring#90#8#1#7#This session is open for booking!#No discount offered#
 1420#Mary#Lavarato#Friday#07/14#9am#This session is not recurring#70#8#0#8#This session is open for booking!#No discount offered#

@@ -5,15 +5,14 @@ namespace mis_221_pa_5_rowecjessica
         private Booking[] bookings;
         private Listing[] listings;
         private Trainer[] trainers;
-        private Customer[] customers;
 
-        public ReportUtility(Booking[] bookings, Listing[] listings, Trainer[] trainers, Customer[] customers)
+        public ReportUtility(Booking[] bookings, Listing[] listings, Trainer[] trainers)
         {
             this.bookings = bookings;
             this.listings = listings;
             this.trainers = trainers;
-            this.customers = customers;
         }
+
         public void ReportMenu(Booking[] bookings, Listing[] listings, Trainer[] trainers)
         {
             Console.Clear();
@@ -2181,8 +2180,7 @@ namespace mis_221_pa_5_rowecjessica
             Booking[] bookings = new Booking[200];
             Listing[] listings = new Listing[200];
             Trainer[] trainers = new Trainer[200];
-            Customer[] customers = new Customer[200];
-            ReportUtility reportUtility = new ReportUtility(bookings, listings, trainers, customers);
+            ReportUtility reportUtility = new ReportUtility(bookings, listings, trainers);
 
 
             reportUtility.ReportMenu(bookings, listings, trainers);
