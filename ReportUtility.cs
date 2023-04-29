@@ -13,6 +13,8 @@ namespace mis_221_pa_5_rowecjessica
             this.trainers = trainers;
         }
 
+
+        // ask user what report they'd like to do
         public void ReportMenu(Booking[] bookings, Listing[] listings, Trainer[] trainers)
         {
             Console.Clear();
@@ -25,6 +27,8 @@ namespace mis_221_pa_5_rowecjessica
             ReportMenuNav(bookings, listings, trainers);
         }
 
+         
+         // nav to the selected report option
         public void ReportMenuNav(Booking[] bookings, Listing[] listings, Trainer[] trainers)
         {
             string userInput = Console.ReadLine();
@@ -66,7 +70,7 @@ namespace mis_221_pa_5_rowecjessica
 
 
 
-
+        // prompt user for the customer email they'd like to see previous sessions for
         public void IndividualCustomerSesssions()
         {
             Console.Clear();
@@ -78,6 +82,8 @@ namespace mis_221_pa_5_rowecjessica
             SaveReport(email, customerName);
         }
 
+
+        // check that the customer email entered exists
         public string EmailCheck(string email)
         {
             int foundVal = -1;
@@ -107,6 +113,8 @@ namespace mis_221_pa_5_rowecjessica
             return email;
         }
 
+
+        // using the customer email, read in transactions text and find the customer name that goes with the customerID
         public string GetCustomerName(string email)
         {
             string customerName= "Null";
@@ -127,6 +135,8 @@ namespace mis_221_pa_5_rowecjessica
             return customerName;
         }
 
+
+        // display the customer report for the individual customer
         public void DisplayReport(string email, string customerName)
         {
             Console.Clear();
@@ -148,6 +158,8 @@ namespace mis_221_pa_5_rowecjessica
             sr.Close();
         }
 
+
+        // ask user if they'd like to save the customers report
         public void SaveReport(string email, string customerName)
         {
             System.Console.WriteLine();
@@ -177,6 +189,8 @@ namespace mis_221_pa_5_rowecjessica
             }
         }
 
+
+        // prompt user to enter the path of the existing file they want to save the report to 
         public void SaveToExisting(string email, string customerName)
         {
             Console.Clear();
@@ -210,6 +224,8 @@ namespace mis_221_pa_5_rowecjessica
             MenuNav();
         }
 
+
+        // ask user what they'd like to name the new file to save the report to
         public void SaveToNew(string email, string customerName)
         {
             Console.Clear();
@@ -245,12 +261,15 @@ namespace mis_221_pa_5_rowecjessica
             MenuNav();
         }
 
+
+        // historival customer sessions
         public void HistoricalCustomerSessions(Booking[] bookings)
         {
             ReadInBookings(bookings);
         }
 
         
+        // read in transactions file and make bookings array
         public void ReadInBookings(Booking[] bookings)
         {
             string customerDates = "";
@@ -332,6 +351,7 @@ namespace mis_221_pa_5_rowecjessica
         }
 
 
+        // ask user what they'd like to name the new file to save the historical information to 
         public void SaveHistoricalToNew()
         {
             Console.Clear();
@@ -391,6 +411,8 @@ namespace mis_221_pa_5_rowecjessica
         }
 
 
+
+        // ask user to enter the path of the existing file they'd like to save the report to 
         public void SaveHistoricalToExisting()
         {
             Console.Clear();
@@ -448,11 +470,7 @@ namespace mis_221_pa_5_rowecjessica
 
 
 
-
-
-
-
-
+        // ask user how they would like to view historical revenue report: by month, trainer, or all
         public void HistoricalRevenueReport(Booking[] bookings, Listing[] listings, Trainer[] trainers)
         {
             string customerDates = "";
@@ -548,6 +566,867 @@ namespace mis_221_pa_5_rowecjessica
 
         }
 
+
+        // ask user which month they want to view reports for 
+        public void ViewByMonth()
+        {
+            Console.Clear();
+            System.Console.WriteLine("Please select which month you would like to view:");
+            System.Console.WriteLine("1 - May");
+            System.Console.WriteLine("2 - June");
+            System.Console.WriteLine("3 - July");
+            System.Console.WriteLine("4 - August");
+            string input = Console.ReadLine();
+            string valid = "No";
+
+            while(valid == "No")
+            {
+                if(input == "1")
+                {
+                    ViewMayReport();
+                    SaveMayReport();
+                    valid = "Yes";
+                }
+
+                if(input == "2")
+                {
+                    ViewJuneReport();
+                    SaveJuneReport();
+                    valid = "Yes";
+                }
+
+                if(input == "3")
+                {
+                    ViewJulyReport();
+                    SaveJulyReport();
+                    valid = "Yes";
+                }
+
+                if(input == "4")
+                {
+                    ViewAugustReport();
+                    SaveAugustReport();
+                    valid = "Yes";
+                }
+
+                if(valid == "No")
+                {
+                    System.Console.WriteLine("Please enter a valid menu option");
+                    input = Console.ReadLine();
+                }
+            }
+        }
+
+
+          public double ViewMayReport()
+        {
+            double discount = 0.0;
+            double mayRev = 0.0;
+
+            System.Console.WriteLine("MAY 2023:");
+            for(int i = 0; i < Booking.GetCount(); i ++)
+            {
+                if((500 < int.Parse(bookings[i].GetTrainingDate())) && (int.Parse(bookings[i].GetTrainingDate()) < 600))
+                {
+                    string dateFormat = bookings[i].GetTrainingDate();
+                    dateFormat.ToCharArray();
+                    string finalDate = $"{dateFormat[0]}{dateFormat[1]}/{dateFormat[2]}{dateFormat[3]}";
+
+                    System.Console.WriteLine();
+                    System.Console.WriteLine($"Session #{bookings[i].GetSessionID()} was run by #{bookings[i].GetBookingTrainerID()} {bookings[i].GetBookingTrainerFirstName()} {bookings[i].GetBookingTrainerLastName()} on {finalDate}.");
+                    
+                    int foundVal = -1;
+                    for(int j = 0; j < Listing.GetCount(); j ++)
+                    {
+                        if(listings[j].GetListingID() == bookings[i].GetSessionID())
+                        {
+                            foundVal = j;
+                        }
+                    }
+                    
+                    System.Console.WriteLine($"This session had {listings[foundVal].GetSpotsTaken()} out of {listings[foundVal].GetMaxCustomers()} spots booked at ${listings[foundVal].GetListingCost()} a spot and {listings[foundVal].GetDiscount()}.");
+                    
+                    if(listings[i].GetDiscount() == "discount offered")
+                    {
+                        discount = 0.95;
+                    }
+                    else
+                    {
+                        discount = 1.0;
+                    }
+                    double bookingRev = listings[foundVal].GetSpotsTaken() * listings[foundVal].GetListingCost() * discount;
+                    mayRev = mayRev + bookingRev;
+                    System.Console.WriteLine($"The revenue from this session was: ${bookingRev}");
+                    System.Console.WriteLine();
+                }
+            }
+            System.Console.WriteLine($"The total revenue for May 2023 was: ${mayRev}");
+            return mayRev;
+        }
+
+        public double ViewJuneReport()
+        {
+            double discount = 0.0;
+            double juneRev = 0.0;
+
+            System.Console.WriteLine("JUNE 2023:");
+            for(int i = 0; i < Booking.GetCount(); i ++)
+            {
+                if((600 < int.Parse(bookings[i].GetTrainingDate())) && (int.Parse(bookings[i].GetTrainingDate()) < 700))
+                {
+                    string dateFormat = bookings[i].GetTrainingDate();
+                    dateFormat.ToCharArray();
+                    string finalDate = $"{dateFormat[0]}{dateFormat[1]}/{dateFormat[2]}{dateFormat[3]}";
+
+                    System.Console.WriteLine();
+                    System.Console.WriteLine($"Session #{bookings[i].GetSessionID()} was run by #{bookings[i].GetBookingTrainerID()} {bookings[i].GetBookingTrainerFirstName()} {bookings[i].GetBookingTrainerLastName()} on {finalDate}.");
+                    
+                    int foundVal = -1;
+                    for(int j = 0; j < Listing.GetCount(); j ++)
+                    {
+                        if(listings[j].GetListingID() == bookings[i].GetSessionID())
+                        {
+                            foundVal = j;
+                        }
+                    }
+                    
+                    System.Console.WriteLine($"This session had {listings[foundVal].GetSpotsTaken()} out of {listings[foundVal].GetMaxCustomers()} spots booked at ${listings[foundVal].GetListingCost()} a spot and {listings[foundVal].GetDiscount()}.");
+                    
+                    if(listings[i].GetDiscount() == "discount offered")
+                    {
+                        discount = 0.95;
+                    }
+                    else
+                    {
+                        discount = 1.0;
+                    }
+                    double bookingRev = listings[foundVal].GetSpotsTaken() * listings[foundVal].GetListingCost() * discount;
+                    juneRev = juneRev + bookingRev;
+                    System.Console.WriteLine($"The revenue from this session was: ${bookingRev}");
+                    System.Console.WriteLine();
+                }
+            }
+            System.Console.WriteLine($"The total revenue for June 2023 was: ${juneRev}");
+            return juneRev;
+        }
+
+        public double ViewJulyReport()
+        {
+            double discount = 0.0;
+            double julyRev = 0.0;
+
+            System.Console.WriteLine("JULY 2023:");
+            for(int i = 0; i < Booking.GetCount(); i ++)
+            {
+                if((700 < int.Parse(bookings[i].GetTrainingDate())) && (int.Parse(bookings[i].GetTrainingDate()) < 800))
+                {
+                    string dateFormat = bookings[i].GetTrainingDate();
+                    dateFormat.ToCharArray();
+                    string finalDate = $"{dateFormat[0]}{dateFormat[1]}/{dateFormat[2]}{dateFormat[3]}";
+
+                    System.Console.WriteLine();
+                    System.Console.WriteLine($"Session #{bookings[i].GetSessionID()} was run by #{bookings[i].GetBookingTrainerID()} {bookings[i].GetBookingTrainerFirstName()} {bookings[i].GetBookingTrainerLastName()} on {finalDate}.");
+                    
+                    int foundVal = -1;
+                    for(int j = 0; j < Listing.GetCount(); j ++)
+                    {
+                        if(listings[j].GetListingID() == bookings[i].GetSessionID())
+                        {
+                            foundVal = j;
+                        }
+                    }
+                    
+                    System.Console.WriteLine($"This session had {listings[foundVal].GetSpotsTaken()} out of {listings[foundVal].GetMaxCustomers()} spots booked at ${listings[foundVal].GetListingCost()} a spot and {listings[foundVal].GetDiscount()}.");
+                    
+                    if(listings[i].GetDiscount() == "discount offered")
+                    {
+                        discount = 0.95;
+                    }
+                    else
+                    {
+                        discount = 1.0;
+                    }
+                    double bookingRev = listings[foundVal].GetSpotsTaken() * listings[foundVal].GetListingCost() * discount;
+                    julyRev = julyRev + bookingRev;
+                    System.Console.WriteLine($"The revenue from this session was: ${bookingRev}");
+                    System.Console.WriteLine();
+                }
+            }
+            System.Console.WriteLine($"The total revenue for July 2023 was: ${julyRev}");
+            return julyRev;
+        }
+
+        public double ViewAugustReport()
+        {
+            double discount = 0.0;
+            double augRev = 0.0;
+
+            System.Console.WriteLine("August 2023:");
+            for(int i = 0; i < Booking.GetCount(); i ++)
+            {
+                if((800 < int.Parse(bookings[i].GetTrainingDate())) && (int.Parse(bookings[i].GetTrainingDate()) < 900))
+                {
+                    string dateFormat = bookings[i].GetTrainingDate();
+                    dateFormat.ToCharArray();
+                    string finalDate = $"{dateFormat[0]}{dateFormat[1]}/{dateFormat[2]}{dateFormat[3]}";
+
+                    System.Console.WriteLine();
+                    System.Console.WriteLine($"Session #{bookings[i].GetSessionID()} was run by #{bookings[i].GetBookingTrainerID()} {bookings[i].GetBookingTrainerFirstName()} {bookings[i].GetBookingTrainerLastName()} on {finalDate}.");
+                    
+                    int foundVal = -1;
+                    for(int j = 0; j < Listing.GetCount(); j ++)
+                    {
+                        if(listings[j].GetListingID() == bookings[i].GetSessionID())
+                        {
+                            foundVal = j;
+                        }
+                    }
+                    
+                    System.Console.WriteLine($"This session had {listings[foundVal].GetSpotsTaken()} out of {listings[foundVal].GetMaxCustomers()} spots booked at ${listings[foundVal].GetListingCost()} a spot and {listings[foundVal].GetDiscount()}.");
+                    
+                    if(listings[i].GetDiscount() == "discount offered")
+                    {
+                        discount = 0.95;
+                    }
+                    else
+                    {
+                        discount = 1.0;
+                    }
+                    double bookingRev = listings[foundVal].GetSpotsTaken() * listings[foundVal].GetListingCost() * discount;
+                    augRev = augRev + bookingRev;
+                    System.Console.WriteLine($"The revenue from this session was: ${bookingRev}");
+                    System.Console.WriteLine();
+                }
+            }
+            System.Console.WriteLine($"The total revenue for August 2023 was: ${augRev}");
+            return augRev;
+        }
+
+
+                // ask user if they want to save the May report
+        public void SaveMayReport()
+        {
+            System.Console.WriteLine();
+            System.Console.WriteLine();
+            System.Console.WriteLine();
+            System.Console.WriteLine("Do you want to save this report? Y - yes, N - no");
+            string input = Console.ReadLine().ToUpper();
+            input = CheckYN(input);
+
+            if(input == "Y")
+            {
+                Console.Clear();
+                System.Console.WriteLine("Do you want to save this report to an EXISTING file? Y - yes, N - no");
+                input = Console.ReadLine().ToUpper();
+                input = CheckYN(input);
+
+                if(input == "Y")
+                {
+                    SaveMayReportToExisting();
+                }
+
+                if(input == "N")
+                {
+                    SaveMayReportToNew();
+                }
+
+            }else
+            {
+                ReportMenu(bookings,listings, trainers);
+            }
+        }
+
+        public void SaveMayReportToExisting()
+        {
+            Console.Clear();
+            double discount = 0.0;
+            double mayRev = 0.0;
+
+            System.Console.WriteLine("Please enter the path to the existing file you would like to add this data to:");
+            string path = Console.ReadLine();
+
+            StreamWriter outFile = File.AppendText(path);
+
+
+            
+            outFile.WriteLine("MAY 2023:");
+            for(int i = 0; i < Booking.GetCount(); i ++)
+            {
+                if((500 < int.Parse(bookings[i].GetTrainingDate())) && (int.Parse(bookings[i].GetTrainingDate()) < 600))
+                {
+                    string dateFormat = bookings[i].GetTrainingDate();
+                    dateFormat.ToCharArray();
+                    string finalDate = $"{dateFormat[0]}{dateFormat[1]}/{dateFormat[2]}{dateFormat[3]}";
+
+                    outFile.WriteLine();
+                    outFile.WriteLine($"Session #{bookings[i].GetSessionID()} was run by #{bookings[i].GetBookingTrainerID()} {bookings[i].GetBookingTrainerFirstName()} {bookings[i].GetBookingTrainerLastName()} on {finalDate}.");
+                    
+                    int foundVal = -1;
+                    for(int j = 0; j < Listing.GetCount(); j ++)
+                    {
+                        if(listings[j].GetListingID() == bookings[i].GetSessionID())
+                        {
+                            foundVal = j;
+                        }
+                    }
+                    
+                    outFile.WriteLine($"This session had {listings[foundVal].GetSpotsTaken()} out of {listings[foundVal].GetMaxCustomers()} spots booked at ${listings[foundVal].GetListingCost()} a spot and {listings[foundVal].GetDiscount()}.");
+                    
+                    if(listings[i].GetDiscount() == "discount offered")
+                    {
+                        discount = 0.95;
+                    }
+                    else
+                    {
+                        discount = 1.0;
+                    }
+                    double bookingRev = listings[foundVal].GetSpotsTaken() * listings[foundVal].GetListingCost() * discount;
+                    mayRev = mayRev + bookingRev;
+                    outFile.WriteLine($"The revenue from this session was: ${bookingRev}");
+                    outFile.WriteLine();
+                }
+            }
+            outFile.WriteLine($"The total revenue for May 2023 was: ${mayRev}");
+            outFile.Close();
+
+            Console.Clear();
+            System.Console.WriteLine("Report saved to file!");
+            System.Console.WriteLine();
+            MenuNav();
+        }
+
+        public void SaveMayReportToNew()
+        {
+            Console.Clear();
+            double discount = 0.0;
+            double mayRev = 0.0;
+
+            System.Console.WriteLine("Enter what would you like to call the NEW file this report will be saved to:");
+            string fileName = Console.ReadLine();
+
+            StreamWriter newFile = File.CreateText(fileName);
+            newFile.Close();
+
+            StreamWriter outFile = File.AppendText(fileName);
+
+
+            
+            outFile.WriteLine("MAY 2023:");
+            for(int i = 0; i < Booking.GetCount(); i ++)
+            {
+                if((500 < int.Parse(bookings[i].GetTrainingDate())) && (int.Parse(bookings[i].GetTrainingDate()) < 600))
+                {
+                    string dateFormat = bookings[i].GetTrainingDate();
+                    dateFormat.ToCharArray();
+                    string finalDate = $"{dateFormat[0]}{dateFormat[1]}/{dateFormat[2]}{dateFormat[3]}";
+
+                    outFile.WriteLine();
+                    outFile.WriteLine($"Session #{bookings[i].GetSessionID()} was run by #{bookings[i].GetBookingTrainerID()} {bookings[i].GetBookingTrainerFirstName()} {bookings[i].GetBookingTrainerLastName()} on {finalDate}.");
+                    
+                    int foundVal = -1;
+                    for(int j = 0; j < Listing.GetCount(); j ++)
+                    {
+                        if(listings[j].GetListingID() == bookings[i].GetSessionID())
+                        {
+                            foundVal = j;
+                        }
+                    }
+                    
+                    outFile.WriteLine($"This session had {listings[foundVal].GetSpotsTaken()} out of {listings[foundVal].GetMaxCustomers()} spots booked at ${listings[foundVal].GetListingCost()} a spot and {listings[foundVal].GetDiscount()}.");
+                    
+                    if(listings[i].GetDiscount() == "discount offered")
+                    {
+                        discount = 0.95;
+                    }
+                    else
+                    {
+                        discount = 1.0;
+                    }
+                    double bookingRev = listings[foundVal].GetSpotsTaken() * listings[foundVal].GetListingCost() * discount;
+                    mayRev = mayRev + bookingRev;
+                    outFile.WriteLine($"The revenue from this session was: ${bookingRev}");
+                    outFile.WriteLine();
+                }
+            }
+            outFile.WriteLine($"The total revenue for May 2023 was: ${mayRev}");
+            outFile.Close();
+
+            Console.Clear();
+            System.Console.WriteLine("Report saved to file!");
+            System.Console.WriteLine();
+            MenuNav();
+        }
+
+
+        // ask user if they want to save the june report
+        public void SaveJuneReport()
+        {
+            System.Console.WriteLine();
+            System.Console.WriteLine();
+            System.Console.WriteLine();
+            System.Console.WriteLine("Do you want to save this report? Y - yes, N - no");
+            string input = Console.ReadLine().ToUpper();
+            input = CheckYN(input);
+
+            if(input == "Y")
+            {
+                Console.Clear();
+                System.Console.WriteLine("Do you want to save this report to an EXISTING file? Y - yes, N - no");
+                input = Console.ReadLine().ToUpper();
+                input = CheckYN(input);
+
+                if(input == "Y")
+                {
+                    SaveJuneReportToExisting();
+                }
+
+                if(input == "N")
+                {
+                    SaveJuneReportToNew();
+                }
+
+            }else
+            {
+                ReportMenu(bookings,listings, trainers);
+            }
+        }
+
+        public void SaveJuneReportToExisting()
+        {
+            Console.Clear();
+            double discount = 0.0;
+            double juneRev = 0.0;
+
+            System.Console.WriteLine("Please enter the path to the existing file you would like to add this data to:");
+            string path = Console.ReadLine();
+
+            StreamWriter outFile = File.AppendText(path);
+
+
+            
+            outFile.WriteLine("JUNE 2023:");
+            for(int i = 0; i < Booking.GetCount(); i ++)
+            {
+                if((600 < int.Parse(bookings[i].GetTrainingDate())) && (int.Parse(bookings[i].GetTrainingDate()) < 700))
+                {
+                    string dateFormat = bookings[i].GetTrainingDate();
+                    dateFormat.ToCharArray();
+                    string finalDate = $"{dateFormat[0]}{dateFormat[1]}/{dateFormat[2]}{dateFormat[3]}";
+
+                    outFile.WriteLine();
+                    outFile.WriteLine($"Session #{bookings[i].GetSessionID()} was run by #{bookings[i].GetBookingTrainerID()} {bookings[i].GetBookingTrainerFirstName()} {bookings[i].GetBookingTrainerLastName()} on {finalDate}.");
+                    
+                    int foundVal = -1;
+                    for(int j = 0; j < Listing.GetCount(); j ++)
+                    {
+                        if(listings[j].GetListingID() == bookings[i].GetSessionID())
+                        {
+                            foundVal = j;
+                        }
+                    }
+                    
+                    outFile.WriteLine($"This session had {listings[foundVal].GetSpotsTaken()} out of {listings[foundVal].GetMaxCustomers()} spots booked at ${listings[foundVal].GetListingCost()} a spot and {listings[foundVal].GetDiscount()}.");
+                    
+                    if(listings[i].GetDiscount() == "discount offered")
+                    {
+                        discount = 0.95;
+                    }
+                    else
+                    {
+                        discount = 1.0;
+                    }
+                    double bookingRev = listings[foundVal].GetSpotsTaken() * listings[foundVal].GetListingCost() * discount;
+                    juneRev = juneRev + bookingRev;
+                    outFile.WriteLine($"The revenue from this session was: ${bookingRev}");
+                    outFile.WriteLine();
+                }
+            }
+            outFile.WriteLine($"The total revenue for June 2023 was: ${juneRev}");
+            outFile.Close();
+
+            Console.Clear();
+            System.Console.WriteLine("Report saved to file!");
+            System.Console.WriteLine();
+            MenuNav();
+        }
+
+        public void SaveJuneReportToNew()
+        {
+            Console.Clear();
+            double discount = 0.0;
+            double juneRev = 0.0;
+
+            System.Console.WriteLine("Enter what would you like to call the NEW file this report will be saved to:");
+            string fileName = Console.ReadLine();
+
+            StreamWriter newFile = File.CreateText(fileName);
+            newFile.Close();
+
+            StreamWriter outFile = File.AppendText(fileName);
+
+
+            
+            outFile.WriteLine("JUNE 2023:");
+            for(int i = 0; i < Booking.GetCount(); i ++)
+            {
+                if((600 < int.Parse(bookings[i].GetTrainingDate())) && (int.Parse(bookings[i].GetTrainingDate()) < 700))
+                {
+                    string dateFormat = bookings[i].GetTrainingDate();
+                    dateFormat.ToCharArray();
+                    string finalDate = $"{dateFormat[0]}{dateFormat[1]}/{dateFormat[2]}{dateFormat[3]}";
+
+                    outFile.WriteLine();
+                    outFile.WriteLine($"Session #{bookings[i].GetSessionID()} was run by #{bookings[i].GetBookingTrainerID()} {bookings[i].GetBookingTrainerFirstName()} {bookings[i].GetBookingTrainerLastName()} on {finalDate}.");
+                    
+                    int foundVal = -1;
+                    for(int j = 0; j < Listing.GetCount(); j ++)
+                    {
+                        if(listings[j].GetListingID() == bookings[i].GetSessionID())
+                        {
+                            foundVal = j;
+                        }
+                    }
+                    
+                    outFile.WriteLine($"This session had {listings[foundVal].GetSpotsTaken()} out of {listings[foundVal].GetMaxCustomers()} spots booked at ${listings[foundVal].GetListingCost()} a spot and {listings[foundVal].GetDiscount()}.");
+                    
+                    if(listings[i].GetDiscount() == "discount offered")
+                    {
+                        discount = 0.95;
+                    }
+                    else
+                    {
+                        discount = 1.0;
+                    }
+                    double bookingRev = listings[foundVal].GetSpotsTaken() * listings[foundVal].GetListingCost() * discount;
+                    juneRev = juneRev + bookingRev;
+                    outFile.WriteLine($"The revenue from this session was: ${bookingRev}");
+                    outFile.WriteLine();
+                }
+            }
+            outFile.WriteLine($"The total revenue for June 2023 was: ${juneRev}");
+            outFile.Close();
+
+            Console.Clear();
+            System.Console.WriteLine("Report saved to file!");
+            System.Console.WriteLine();
+            MenuNav();
+        }
+
+
+                // ask user if they want to save the july report
+        public void SaveJulyReport()
+        {
+            System.Console.WriteLine();
+            System.Console.WriteLine();
+            System.Console.WriteLine();
+            System.Console.WriteLine("Do you want to save this report? Y - yes, N - no");
+            string input = Console.ReadLine().ToUpper();
+            input = CheckYN(input);
+
+            if(input == "Y")
+            {
+                Console.Clear();
+                System.Console.WriteLine("Do you want to save this report to an EXISTING file? Y - yes, N - no");
+                input = Console.ReadLine().ToUpper();
+                input = CheckYN(input);
+
+                if(input == "Y")
+                {
+                    SaveJulyReportToExisting();
+                }
+
+                if(input == "N")
+                {
+                    SaveJulyReportToNew();
+                }
+
+            }else
+            {
+                ReportMenu(bookings,listings, trainers);
+            }
+        }
+
+        public void SaveJulyReportToExisting()
+        {
+            Console.Clear();
+            double discount = 0.0;
+            double julyRev = 0.0;
+
+            System.Console.WriteLine("Please enter the path to the existing file you would like to add this data to:");
+            string path = Console.ReadLine();
+
+            StreamWriter outFile = File.AppendText(path);
+
+
+            
+            outFile.WriteLine("JULY 2023:");
+            for(int i = 0; i < Booking.GetCount(); i ++)
+            {
+                if((700 < int.Parse(bookings[i].GetTrainingDate())) && (int.Parse(bookings[i].GetTrainingDate()) < 800))
+                {
+                    string dateFormat = bookings[i].GetTrainingDate();
+                    dateFormat.ToCharArray();
+                    string finalDate = $"{dateFormat[0]}{dateFormat[1]}/{dateFormat[2]}{dateFormat[3]}";
+
+                    outFile.WriteLine();
+                    outFile.WriteLine($"Session #{bookings[i].GetSessionID()} was run by #{bookings[i].GetBookingTrainerID()} {bookings[i].GetBookingTrainerFirstName()} {bookings[i].GetBookingTrainerLastName()} on {finalDate}.");
+                    
+                    int foundVal = -1;
+                    for(int j = 0; j < Listing.GetCount(); j ++)
+                    {
+                        if(listings[j].GetListingID() == bookings[i].GetSessionID())
+                        {
+                            foundVal = j;
+                        }
+                    }
+                    
+                    outFile.WriteLine($"This session had {listings[foundVal].GetSpotsTaken()} out of {listings[foundVal].GetMaxCustomers()} spots booked at ${listings[foundVal].GetListingCost()} a spot and {listings[foundVal].GetDiscount()}.");
+                    
+                    if(listings[i].GetDiscount() == "discount offered")
+                    {
+                        discount = 0.95;
+                    }
+                    else
+                    {
+                        discount = 1.0;
+                    }
+                    double bookingRev = listings[foundVal].GetSpotsTaken() * listings[foundVal].GetListingCost() * discount;
+                    julyRev = julyRev + bookingRev;
+                    outFile.WriteLine($"The revenue from this session was: ${bookingRev}");
+                    outFile.WriteLine();
+                }
+            }
+            outFile.WriteLine($"The total revenue for July 2023 was: ${julyRev}");
+            outFile.Close();
+
+            Console.Clear();
+            System.Console.WriteLine("Report saved to file!");
+            System.Console.WriteLine();
+            MenuNav();
+        }
+
+        public void SaveJulyReportToNew()
+        {
+            Console.Clear();
+            double discount = 0.0;
+            double julyRev = 0.0;
+
+            System.Console.WriteLine("Enter what would you like to call the NEW file this report will be saved to:");
+            string fileName = Console.ReadLine();
+
+            StreamWriter newFile = File.CreateText(fileName);
+            newFile.Close();
+
+            StreamWriter outFile = File.AppendText(fileName);
+
+
+            
+            outFile.WriteLine("JULY 2023:");
+            for(int i = 0; i < Booking.GetCount(); i ++)
+            {
+                if((700 < int.Parse(bookings[i].GetTrainingDate())) && (int.Parse(bookings[i].GetTrainingDate()) < 800))
+                {
+                    string dateFormat = bookings[i].GetTrainingDate();
+                    dateFormat.ToCharArray();
+                    string finalDate = $"{dateFormat[0]}{dateFormat[1]}/{dateFormat[2]}{dateFormat[3]}";
+
+                    outFile.WriteLine();
+                    outFile.WriteLine($"Session #{bookings[i].GetSessionID()} was run by #{bookings[i].GetBookingTrainerID()} {bookings[i].GetBookingTrainerFirstName()} {bookings[i].GetBookingTrainerLastName()} on {finalDate}.");
+                    
+                    int foundVal = -1;
+                    for(int j = 0; j < Listing.GetCount(); j ++)
+                    {
+                        if(listings[j].GetListingID() == bookings[i].GetSessionID())
+                        {
+                            foundVal = j;
+                        }
+                    }
+                    
+                    outFile.WriteLine($"This session had {listings[foundVal].GetSpotsTaken()} out of {listings[foundVal].GetMaxCustomers()} spots booked at ${listings[foundVal].GetListingCost()} a spot and {listings[foundVal].GetDiscount()}.");
+                    
+                    if(listings[i].GetDiscount() == "discount offered")
+                    {
+                        discount = 0.95;
+                    }
+                    else
+                    {
+                        discount = 1.0;
+                    }
+                    double bookingRev = listings[foundVal].GetSpotsTaken() * listings[foundVal].GetListingCost() * discount;
+                    julyRev = julyRev + bookingRev;
+                    outFile.WriteLine($"The revenue from this session was: ${bookingRev}");
+                    outFile.WriteLine();
+                }
+            }
+            outFile.WriteLine($"The total revenue for July 2023 was: ${julyRev}");
+            outFile.Close();
+
+            Console.Clear();
+            System.Console.WriteLine("Report saved to file!");
+            System.Console.WriteLine();
+            MenuNav();
+        }
+
+
+ // ask user if they want to save the august report
+        public void SaveAugustReport()
+        {
+            System.Console.WriteLine();
+            System.Console.WriteLine();
+            System.Console.WriteLine();
+            System.Console.WriteLine("Do you want to save this report? Y - yes, N - no");
+            string input = Console.ReadLine().ToUpper();
+            input = CheckYN(input);
+
+            if(input == "Y")
+            {
+                Console.Clear();
+                System.Console.WriteLine("Do you want to save this report to an EXISTING file? Y - yes, N - no");
+                input = Console.ReadLine().ToUpper();
+                input = CheckYN(input);
+
+                if(input == "Y")
+                {
+                    SaveAugustReportToExisting();
+                }
+
+                if(input == "N")
+                {
+                    SaveAugustReportToNew();
+                }
+
+            }else
+            {
+                ReportMenu(bookings,listings, trainers);
+            }
+        }
+
+        public void SaveAugustReportToExisting()
+        {
+            Console.Clear();
+            double discount = 0.0;
+            double augRev = 0.0;
+
+            System.Console.WriteLine("Please enter the path to the existing file you would like to add this data to:");
+            string path = Console.ReadLine();
+
+            StreamWriter outFile = File.AppendText(path);
+
+
+            
+            outFile.WriteLine("AUGUST 2023:");
+            for(int i = 0; i < Booking.GetCount(); i ++)
+            {
+                if((800 < int.Parse(bookings[i].GetTrainingDate())) && (int.Parse(bookings[i].GetTrainingDate()) < 900))
+                {
+                    string dateFormat = bookings[i].GetTrainingDate();
+                    dateFormat.ToCharArray();
+                    string finalDate = $"{dateFormat[0]}{dateFormat[1]}/{dateFormat[2]}{dateFormat[3]}";
+
+                    outFile.WriteLine();
+                    outFile.WriteLine($"Session #{bookings[i].GetSessionID()} was run by #{bookings[i].GetBookingTrainerID()} {bookings[i].GetBookingTrainerFirstName()} {bookings[i].GetBookingTrainerLastName()} on {finalDate}.");
+                    
+                    int foundVal = -1;
+                    for(int j = 0; j < Listing.GetCount(); j ++)
+                    {
+                        if(listings[j].GetListingID() == bookings[i].GetSessionID())
+                        {
+                            foundVal = j;
+                        }
+                    }
+                    
+                    outFile.WriteLine($"This session had {listings[foundVal].GetSpotsTaken()} out of {listings[foundVal].GetMaxCustomers()} spots booked at ${listings[foundVal].GetListingCost()} a spot and {listings[foundVal].GetDiscount()}.");
+                    
+                    if(listings[i].GetDiscount() == "discount offered")
+                    {
+                        discount = 0.95;
+                    }
+                    else
+                    {
+                        discount = 1.0;
+                    }
+                    double bookingRev = listings[foundVal].GetSpotsTaken() * listings[foundVal].GetListingCost() * discount;
+                    augRev = augRev + bookingRev;
+                    outFile.WriteLine($"The revenue from this session was: ${bookingRev}");
+                    outFile.WriteLine();
+                }
+            }
+            outFile.WriteLine($"The total revenue for August 2023 was: ${augRev}");
+            outFile.Close();
+
+            Console.Clear();
+            System.Console.WriteLine("Report saved to file!");
+            System.Console.WriteLine();
+            MenuNav();
+        }
+
+        public void SaveAugustReportToNew()
+        {
+            Console.Clear();
+            double discount = 0.0;
+            double augRev = 0.0;
+
+            System.Console.WriteLine("Enter what would you like to call the NEW file this report will be saved to:");
+            string fileName = Console.ReadLine();
+
+            StreamWriter newFile = File.CreateText(fileName);
+            newFile.Close();
+
+            StreamWriter outFile = File.AppendText(fileName);
+
+
+            
+            outFile.WriteLine("AUGUST 2023:");
+            for(int i = 0; i < Booking.GetCount(); i ++)
+            {
+                if((800 < int.Parse(bookings[i].GetTrainingDate())) && (int.Parse(bookings[i].GetTrainingDate()) < 900))
+                {
+                    string dateFormat = bookings[i].GetTrainingDate();
+                    dateFormat.ToCharArray();
+                    string finalDate = $"{dateFormat[0]}{dateFormat[1]}/{dateFormat[2]}{dateFormat[3]}";
+
+                    outFile.WriteLine();
+                    outFile.WriteLine($"Session #{bookings[i].GetSessionID()} was run by #{bookings[i].GetBookingTrainerID()} {bookings[i].GetBookingTrainerFirstName()} {bookings[i].GetBookingTrainerLastName()} on {finalDate}.");
+                    
+                    int foundVal = -1;
+                    for(int j = 0; j < Listing.GetCount(); j ++)
+                    {
+                        if(listings[j].GetListingID() == bookings[i].GetSessionID())
+                        {
+                            foundVal = j;
+                        }
+                    }
+                    
+                    outFile.WriteLine($"This session had {listings[foundVal].GetSpotsTaken()} out of {listings[foundVal].GetMaxCustomers()} spots booked at ${listings[foundVal].GetListingCost()} a spot and {listings[foundVal].GetDiscount()}.");
+                    
+                    if(listings[i].GetDiscount() == "discount offered")
+                    {
+                        discount = 0.95;
+                    }
+                    else
+                    {
+                        discount = 1.0;
+                    }
+                    double bookingRev = listings[foundVal].GetSpotsTaken() * listings[foundVal].GetListingCost() * discount;
+                    augRev = augRev + bookingRev;
+                    outFile.WriteLine($"The revenue from this session was: ${bookingRev}");
+                    outFile.WriteLine();
+                }
+            }
+            outFile.WriteLine($"The total revenue for August 2023 was: ${augRev}");
+            outFile.Close();
+
+            Console.Clear();
+            System.Console.WriteLine("Report saved to file!");
+            System.Console.WriteLine();
+            MenuNav();
+        }
+
+
+
+
+
+        // view reports by trainer
         public string ViewByTrainer()
         {
             Console.Clear();
@@ -619,7 +1498,7 @@ namespace mis_221_pa_5_rowecjessica
 
 
 
-
+        // ask user if they'd like to save the trainer report
         public void SaveTrainer(string lastName)
         {
                 System.Console.WriteLine();
@@ -651,6 +1530,8 @@ namespace mis_221_pa_5_rowecjessica
             }
         }
 
+
+        // ask user what they'd like to name the new file to save the trainer report to 
         public void SaveTrainerReportToNew(string lastName)
         {
             System.Console.WriteLine("Enter what would you like to call the NEW file this report will be saved to:");
@@ -711,6 +1592,8 @@ namespace mis_221_pa_5_rowecjessica
             MenuNav();
         }
 
+
+        // ask user for the path of the existing file they'd like to save the report to 
         public void SaveTrainerReportToExisting(string lastName)
         {
             System.Console.WriteLine("Please enter the path to the existing file you would like to add this data to:");
@@ -770,6 +1653,7 @@ namespace mis_221_pa_5_rowecjessica
         }
 
 
+        // ask user if they'd like to save all reports
         public void SaveAllReports()
         {
             
@@ -801,6 +1685,9 @@ namespace mis_221_pa_5_rowecjessica
             }
         }
 
+
+        
+        // ask user for the path to the existing fil ethey want to save the report to 
         public void SaveAllReportsToExisting()
         {
             Console.Clear();
@@ -993,13 +1880,10 @@ namespace mis_221_pa_5_rowecjessica
         }
 
 
-
+        // ask user for the name of the new file they want to save all reports to 
         public void SaveAllReportsToNew()
         {
             Console.Clear();
-
-
-            
 
             System.Console.WriteLine("Enter what would you like to call the NEW file this report will be saved to:");
             string path = Console.ReadLine();
@@ -1191,867 +2075,10 @@ namespace mis_221_pa_5_rowecjessica
         }
 
 
+        
 
-        public void ViewByMonth()
-        {
-            Console.Clear();
-            System.Console.WriteLine("Please select which month you would like to view:");
-            System.Console.WriteLine("1 - May");
-            System.Console.WriteLine("2 - June");
-            System.Console.WriteLine("3 - July");
-            System.Console.WriteLine("4 - August");
-            string input = Console.ReadLine();
-            string valid = "No";
 
-            while(valid == "No")
-            {
-                if(input == "1")
-                {
-                    ViewMayReport();
-                    SaveMayReport();
-                    valid = "Yes";
-                }
-
-                if(input == "2")
-                {
-                    ViewJuneReport();
-                    SaveJuneReport();
-                    valid = "Yes";
-                }
-
-                if(input == "3")
-                {
-                    ViewJulyReport();
-                    SaveJulyReport();
-                    valid = "Yes";
-                }
-
-                if(input == "4")
-                {
-                    ViewAugustReport();
-                    SaveAugustReport();
-                    valid = "Yes";
-                }
-
-                if(valid == "No")
-                {
-                    System.Console.WriteLine("Please enter a valid menu option");
-                    input = Console.ReadLine();
-                }
-            }
-        }
-
-
-        public void SaveAugustReport()
-        {
-            System.Console.WriteLine();
-            System.Console.WriteLine();
-            System.Console.WriteLine();
-            System.Console.WriteLine("Do you want to save this report? Y - yes, N - no");
-            string input = Console.ReadLine().ToUpper();
-            input = CheckYN(input);
-
-            if(input == "Y")
-            {
-                Console.Clear();
-                System.Console.WriteLine("Do you want to save this report to an EXISTING file? Y - yes, N - no");
-                input = Console.ReadLine().ToUpper();
-                input = CheckYN(input);
-
-                if(input == "Y")
-                {
-                    SaveAugustReportToExisting();
-                }
-
-                if(input == "N")
-                {
-                    SaveAugustReportToNew();
-                }
-
-            }else
-            {
-                ReportMenu(bookings,listings, trainers);
-            }
-        }
-
-        public void SaveAugustReportToExisting()
-        {
-            Console.Clear();
-            double discount = 0.0;
-            double augRev = 0.0;
-
-            System.Console.WriteLine("Please enter the path to the existing file you would like to add this data to:");
-            string path = Console.ReadLine();
-
-            StreamWriter outFile = File.AppendText(path);
-
-
-            
-            outFile.WriteLine("AUGUST 2023:");
-            for(int i = 0; i < Booking.GetCount(); i ++)
-            {
-                if((800 < int.Parse(bookings[i].GetTrainingDate())) && (int.Parse(bookings[i].GetTrainingDate()) < 900))
-                {
-                    string dateFormat = bookings[i].GetTrainingDate();
-                    dateFormat.ToCharArray();
-                    string finalDate = $"{dateFormat[0]}{dateFormat[1]}/{dateFormat[2]}{dateFormat[3]}";
-
-                    outFile.WriteLine();
-                    outFile.WriteLine($"Session #{bookings[i].GetSessionID()} was run by #{bookings[i].GetBookingTrainerID()} {bookings[i].GetBookingTrainerFirstName()} {bookings[i].GetBookingTrainerLastName()} on {finalDate}.");
-                    
-                    int foundVal = -1;
-                    for(int j = 0; j < Listing.GetCount(); j ++)
-                    {
-                        if(listings[j].GetListingID() == bookings[i].GetSessionID())
-                        {
-                            foundVal = j;
-                        }
-                    }
-                    
-                    outFile.WriteLine($"This session had {listings[foundVal].GetSpotsTaken()} out of {listings[foundVal].GetMaxCustomers()} spots booked at ${listings[foundVal].GetListingCost()} a spot and {listings[foundVal].GetDiscount()}.");
-                    
-                    if(listings[i].GetDiscount() == "discount offered")
-                    {
-                        discount = 0.95;
-                    }
-                    else
-                    {
-                        discount = 1.0;
-                    }
-                    double bookingRev = listings[foundVal].GetSpotsTaken() * listings[foundVal].GetListingCost() * discount;
-                    augRev = augRev + bookingRev;
-                    outFile.WriteLine($"The revenue from this session was: ${bookingRev}");
-                    outFile.WriteLine();
-                }
-            }
-            outFile.WriteLine($"The total revenue for August 2023 was: ${augRev}");
-            outFile.Close();
-
-            Console.Clear();
-            System.Console.WriteLine("Report saved to file!");
-            System.Console.WriteLine();
-            MenuNav();
-        }
-
-        public void SaveAugustReportToNew()
-        {
-            Console.Clear();
-            double discount = 0.0;
-            double augRev = 0.0;
-
-            System.Console.WriteLine("Enter what would you like to call the NEW file this report will be saved to:");
-            string fileName = Console.ReadLine();
-
-            StreamWriter newFile = File.CreateText(fileName);
-            newFile.Close();
-
-            StreamWriter outFile = File.AppendText(fileName);
-
-
-            
-            outFile.WriteLine("AUGUST 2023:");
-            for(int i = 0; i < Booking.GetCount(); i ++)
-            {
-                if((800 < int.Parse(bookings[i].GetTrainingDate())) && (int.Parse(bookings[i].GetTrainingDate()) < 900))
-                {
-                    string dateFormat = bookings[i].GetTrainingDate();
-                    dateFormat.ToCharArray();
-                    string finalDate = $"{dateFormat[0]}{dateFormat[1]}/{dateFormat[2]}{dateFormat[3]}";
-
-                    outFile.WriteLine();
-                    outFile.WriteLine($"Session #{bookings[i].GetSessionID()} was run by #{bookings[i].GetBookingTrainerID()} {bookings[i].GetBookingTrainerFirstName()} {bookings[i].GetBookingTrainerLastName()} on {finalDate}.");
-                    
-                    int foundVal = -1;
-                    for(int j = 0; j < Listing.GetCount(); j ++)
-                    {
-                        if(listings[j].GetListingID() == bookings[i].GetSessionID())
-                        {
-                            foundVal = j;
-                        }
-                    }
-                    
-                    outFile.WriteLine($"This session had {listings[foundVal].GetSpotsTaken()} out of {listings[foundVal].GetMaxCustomers()} spots booked at ${listings[foundVal].GetListingCost()} a spot and {listings[foundVal].GetDiscount()}.");
-                    
-                    if(listings[i].GetDiscount() == "discount offered")
-                    {
-                        discount = 0.95;
-                    }
-                    else
-                    {
-                        discount = 1.0;
-                    }
-                    double bookingRev = listings[foundVal].GetSpotsTaken() * listings[foundVal].GetListingCost() * discount;
-                    augRev = augRev + bookingRev;
-                    outFile.WriteLine($"The revenue from this session was: ${bookingRev}");
-                    outFile.WriteLine();
-                }
-            }
-            outFile.WriteLine($"The total revenue for August 2023 was: ${augRev}");
-            outFile.Close();
-
-            Console.Clear();
-            System.Console.WriteLine("Report saved to file!");
-            System.Console.WriteLine();
-            MenuNav();
-        }
-
-
-
-
-        public void SaveJulyReport()
-        {
-            System.Console.WriteLine();
-            System.Console.WriteLine();
-            System.Console.WriteLine();
-            System.Console.WriteLine("Do you want to save this report? Y - yes, N - no");
-            string input = Console.ReadLine().ToUpper();
-            input = CheckYN(input);
-
-            if(input == "Y")
-            {
-                Console.Clear();
-                System.Console.WriteLine("Do you want to save this report to an EXISTING file? Y - yes, N - no");
-                input = Console.ReadLine().ToUpper();
-                input = CheckYN(input);
-
-                if(input == "Y")
-                {
-                    SaveJulyReportToExisting();
-                }
-
-                if(input == "N")
-                {
-                    SaveJulyReportToNew();
-                }
-
-            }else
-            {
-                ReportMenu(bookings,listings, trainers);
-            }
-        }
-
-        public void SaveJulyReportToExisting()
-        {
-            Console.Clear();
-            double discount = 0.0;
-            double julyRev = 0.0;
-
-            System.Console.WriteLine("Please enter the path to the existing file you would like to add this data to:");
-            string path = Console.ReadLine();
-
-            StreamWriter outFile = File.AppendText(path);
-
-
-            
-            outFile.WriteLine("JULY 2023:");
-            for(int i = 0; i < Booking.GetCount(); i ++)
-            {
-                if((700 < int.Parse(bookings[i].GetTrainingDate())) && (int.Parse(bookings[i].GetTrainingDate()) < 800))
-                {
-                    string dateFormat = bookings[i].GetTrainingDate();
-                    dateFormat.ToCharArray();
-                    string finalDate = $"{dateFormat[0]}{dateFormat[1]}/{dateFormat[2]}{dateFormat[3]}";
-
-                    outFile.WriteLine();
-                    outFile.WriteLine($"Session #{bookings[i].GetSessionID()} was run by #{bookings[i].GetBookingTrainerID()} {bookings[i].GetBookingTrainerFirstName()} {bookings[i].GetBookingTrainerLastName()} on {finalDate}.");
-                    
-                    int foundVal = -1;
-                    for(int j = 0; j < Listing.GetCount(); j ++)
-                    {
-                        if(listings[j].GetListingID() == bookings[i].GetSessionID())
-                        {
-                            foundVal = j;
-                        }
-                    }
-                    
-                    outFile.WriteLine($"This session had {listings[foundVal].GetSpotsTaken()} out of {listings[foundVal].GetMaxCustomers()} spots booked at ${listings[foundVal].GetListingCost()} a spot and {listings[foundVal].GetDiscount()}.");
-                    
-                    if(listings[i].GetDiscount() == "discount offered")
-                    {
-                        discount = 0.95;
-                    }
-                    else
-                    {
-                        discount = 1.0;
-                    }
-                    double bookingRev = listings[foundVal].GetSpotsTaken() * listings[foundVal].GetListingCost() * discount;
-                    julyRev = julyRev + bookingRev;
-                    outFile.WriteLine($"The revenue from this session was: ${bookingRev}");
-                    outFile.WriteLine();
-                }
-            }
-            outFile.WriteLine($"The total revenue for July 2023 was: ${julyRev}");
-            outFile.Close();
-
-            Console.Clear();
-            System.Console.WriteLine("Report saved to file!");
-            System.Console.WriteLine();
-            MenuNav();
-        }
-
-        public void SaveJulyReportToNew()
-        {
-            Console.Clear();
-            double discount = 0.0;
-            double julyRev = 0.0;
-
-            System.Console.WriteLine("Enter what would you like to call the NEW file this report will be saved to:");
-            string fileName = Console.ReadLine();
-
-            StreamWriter newFile = File.CreateText(fileName);
-            newFile.Close();
-
-            StreamWriter outFile = File.AppendText(fileName);
-
-
-            
-            outFile.WriteLine("JULY 2023:");
-            for(int i = 0; i < Booking.GetCount(); i ++)
-            {
-                if((700 < int.Parse(bookings[i].GetTrainingDate())) && (int.Parse(bookings[i].GetTrainingDate()) < 800))
-                {
-                    string dateFormat = bookings[i].GetTrainingDate();
-                    dateFormat.ToCharArray();
-                    string finalDate = $"{dateFormat[0]}{dateFormat[1]}/{dateFormat[2]}{dateFormat[3]}";
-
-                    outFile.WriteLine();
-                    outFile.WriteLine($"Session #{bookings[i].GetSessionID()} was run by #{bookings[i].GetBookingTrainerID()} {bookings[i].GetBookingTrainerFirstName()} {bookings[i].GetBookingTrainerLastName()} on {finalDate}.");
-                    
-                    int foundVal = -1;
-                    for(int j = 0; j < Listing.GetCount(); j ++)
-                    {
-                        if(listings[j].GetListingID() == bookings[i].GetSessionID())
-                        {
-                            foundVal = j;
-                        }
-                    }
-                    
-                    outFile.WriteLine($"This session had {listings[foundVal].GetSpotsTaken()} out of {listings[foundVal].GetMaxCustomers()} spots booked at ${listings[foundVal].GetListingCost()} a spot and {listings[foundVal].GetDiscount()}.");
-                    
-                    if(listings[i].GetDiscount() == "discount offered")
-                    {
-                        discount = 0.95;
-                    }
-                    else
-                    {
-                        discount = 1.0;
-                    }
-                    double bookingRev = listings[foundVal].GetSpotsTaken() * listings[foundVal].GetListingCost() * discount;
-                    julyRev = julyRev + bookingRev;
-                    outFile.WriteLine($"The revenue from this session was: ${bookingRev}");
-                    outFile.WriteLine();
-                }
-            }
-            outFile.WriteLine($"The total revenue for July 2023 was: ${julyRev}");
-            outFile.Close();
-
-            Console.Clear();
-            System.Console.WriteLine("Report saved to file!");
-            System.Console.WriteLine();
-            MenuNav();
-        }
-
-
-
-        public void SaveJuneReport()
-        {
-            System.Console.WriteLine();
-            System.Console.WriteLine();
-            System.Console.WriteLine();
-            System.Console.WriteLine("Do you want to save this report? Y - yes, N - no");
-            string input = Console.ReadLine().ToUpper();
-            input = CheckYN(input);
-
-            if(input == "Y")
-            {
-                Console.Clear();
-                System.Console.WriteLine("Do you want to save this report to an EXISTING file? Y - yes, N - no");
-                input = Console.ReadLine().ToUpper();
-                input = CheckYN(input);
-
-                if(input == "Y")
-                {
-                    SaveJuneReportToExisting();
-                }
-
-                if(input == "N")
-                {
-                    SaveJuneReportToNew();
-                }
-
-            }else
-            {
-                ReportMenu(bookings,listings, trainers);
-            }
-        }
-
-        public void SaveJuneReportToExisting()
-        {
-            Console.Clear();
-            double discount = 0.0;
-            double juneRev = 0.0;
-
-            System.Console.WriteLine("Please enter the path to the existing file you would like to add this data to:");
-            string path = Console.ReadLine();
-
-            StreamWriter outFile = File.AppendText(path);
-
-
-            
-            outFile.WriteLine("JUNE 2023:");
-            for(int i = 0; i < Booking.GetCount(); i ++)
-            {
-                if((600 < int.Parse(bookings[i].GetTrainingDate())) && (int.Parse(bookings[i].GetTrainingDate()) < 700))
-                {
-                    string dateFormat = bookings[i].GetTrainingDate();
-                    dateFormat.ToCharArray();
-                    string finalDate = $"{dateFormat[0]}{dateFormat[1]}/{dateFormat[2]}{dateFormat[3]}";
-
-                    outFile.WriteLine();
-                    outFile.WriteLine($"Session #{bookings[i].GetSessionID()} was run by #{bookings[i].GetBookingTrainerID()} {bookings[i].GetBookingTrainerFirstName()} {bookings[i].GetBookingTrainerLastName()} on {finalDate}.");
-                    
-                    int foundVal = -1;
-                    for(int j = 0; j < Listing.GetCount(); j ++)
-                    {
-                        if(listings[j].GetListingID() == bookings[i].GetSessionID())
-                        {
-                            foundVal = j;
-                        }
-                    }
-                    
-                    outFile.WriteLine($"This session had {listings[foundVal].GetSpotsTaken()} out of {listings[foundVal].GetMaxCustomers()} spots booked at ${listings[foundVal].GetListingCost()} a spot and {listings[foundVal].GetDiscount()}.");
-                    
-                    if(listings[i].GetDiscount() == "discount offered")
-                    {
-                        discount = 0.95;
-                    }
-                    else
-                    {
-                        discount = 1.0;
-                    }
-                    double bookingRev = listings[foundVal].GetSpotsTaken() * listings[foundVal].GetListingCost() * discount;
-                    juneRev = juneRev + bookingRev;
-                    outFile.WriteLine($"The revenue from this session was: ${bookingRev}");
-                    outFile.WriteLine();
-                }
-            }
-            outFile.WriteLine($"The total revenue for June 2023 was: ${juneRev}");
-            outFile.Close();
-
-            Console.Clear();
-            System.Console.WriteLine("Report saved to file!");
-            System.Console.WriteLine();
-            MenuNav();
-        }
-
-        public void SaveJuneReportToNew()
-        {
-            Console.Clear();
-            double discount = 0.0;
-            double juneRev = 0.0;
-
-            System.Console.WriteLine("Enter what would you like to call the NEW file this report will be saved to:");
-            string fileName = Console.ReadLine();
-
-            StreamWriter newFile = File.CreateText(fileName);
-            newFile.Close();
-
-            StreamWriter outFile = File.AppendText(fileName);
-
-
-            
-            outFile.WriteLine("JUNE 2023:");
-            for(int i = 0; i < Booking.GetCount(); i ++)
-            {
-                if((600 < int.Parse(bookings[i].GetTrainingDate())) && (int.Parse(bookings[i].GetTrainingDate()) < 700))
-                {
-                    string dateFormat = bookings[i].GetTrainingDate();
-                    dateFormat.ToCharArray();
-                    string finalDate = $"{dateFormat[0]}{dateFormat[1]}/{dateFormat[2]}{dateFormat[3]}";
-
-                    outFile.WriteLine();
-                    outFile.WriteLine($"Session #{bookings[i].GetSessionID()} was run by #{bookings[i].GetBookingTrainerID()} {bookings[i].GetBookingTrainerFirstName()} {bookings[i].GetBookingTrainerLastName()} on {finalDate}.");
-                    
-                    int foundVal = -1;
-                    for(int j = 0; j < Listing.GetCount(); j ++)
-                    {
-                        if(listings[j].GetListingID() == bookings[i].GetSessionID())
-                        {
-                            foundVal = j;
-                        }
-                    }
-                    
-                    outFile.WriteLine($"This session had {listings[foundVal].GetSpotsTaken()} out of {listings[foundVal].GetMaxCustomers()} spots booked at ${listings[foundVal].GetListingCost()} a spot and {listings[foundVal].GetDiscount()}.");
-                    
-                    if(listings[i].GetDiscount() == "discount offered")
-                    {
-                        discount = 0.95;
-                    }
-                    else
-                    {
-                        discount = 1.0;
-                    }
-                    double bookingRev = listings[foundVal].GetSpotsTaken() * listings[foundVal].GetListingCost() * discount;
-                    juneRev = juneRev + bookingRev;
-                    outFile.WriteLine($"The revenue from this session was: ${bookingRev}");
-                    outFile.WriteLine();
-                }
-            }
-            outFile.WriteLine($"The total revenue for June 2023 was: ${juneRev}");
-            outFile.Close();
-
-            Console.Clear();
-            System.Console.WriteLine("Report saved to file!");
-            System.Console.WriteLine();
-            MenuNav();
-        }
-
-
-
-        public void SaveMayReport()
-        {
-            System.Console.WriteLine();
-            System.Console.WriteLine();
-            System.Console.WriteLine();
-            System.Console.WriteLine("Do you want to save this report? Y - yes, N - no");
-            string input = Console.ReadLine().ToUpper();
-            input = CheckYN(input);
-
-            if(input == "Y")
-            {
-                Console.Clear();
-                System.Console.WriteLine("Do you want to save this report to an EXISTING file? Y - yes, N - no");
-                input = Console.ReadLine().ToUpper();
-                input = CheckYN(input);
-
-                if(input == "Y")
-                {
-                    SaveMayReportToExisting();
-                }
-
-                if(input == "N")
-                {
-                    SaveMayReportToNew();
-                }
-
-            }else
-            {
-                ReportMenu(bookings,listings, trainers);
-            }
-        }
-
-        public void SaveMayReportToExisting()
-        {
-            Console.Clear();
-            double discount = 0.0;
-            double mayRev = 0.0;
-
-            System.Console.WriteLine("Please enter the path to the existing file you would like to add this data to:");
-            string path = Console.ReadLine();
-
-            StreamWriter outFile = File.AppendText(path);
-
-
-            
-            outFile.WriteLine("MAY 2023:");
-            for(int i = 0; i < Booking.GetCount(); i ++)
-            {
-                if((500 < int.Parse(bookings[i].GetTrainingDate())) && (int.Parse(bookings[i].GetTrainingDate()) < 600))
-                {
-                    string dateFormat = bookings[i].GetTrainingDate();
-                    dateFormat.ToCharArray();
-                    string finalDate = $"{dateFormat[0]}{dateFormat[1]}/{dateFormat[2]}{dateFormat[3]}";
-
-                    outFile.WriteLine();
-                    outFile.WriteLine($"Session #{bookings[i].GetSessionID()} was run by #{bookings[i].GetBookingTrainerID()} {bookings[i].GetBookingTrainerFirstName()} {bookings[i].GetBookingTrainerLastName()} on {finalDate}.");
-                    
-                    int foundVal = -1;
-                    for(int j = 0; j < Listing.GetCount(); j ++)
-                    {
-                        if(listings[j].GetListingID() == bookings[i].GetSessionID())
-                        {
-                            foundVal = j;
-                        }
-                    }
-                    
-                    outFile.WriteLine($"This session had {listings[foundVal].GetSpotsTaken()} out of {listings[foundVal].GetMaxCustomers()} spots booked at ${listings[foundVal].GetListingCost()} a spot and {listings[foundVal].GetDiscount()}.");
-                    
-                    if(listings[i].GetDiscount() == "discount offered")
-                    {
-                        discount = 0.95;
-                    }
-                    else
-                    {
-                        discount = 1.0;
-                    }
-                    double bookingRev = listings[foundVal].GetSpotsTaken() * listings[foundVal].GetListingCost() * discount;
-                    mayRev = mayRev + bookingRev;
-                    outFile.WriteLine($"The revenue from this session was: ${bookingRev}");
-                    outFile.WriteLine();
-                }
-            }
-            outFile.WriteLine($"The total revenue for May 2023 was: ${mayRev}");
-            outFile.Close();
-
-            Console.Clear();
-            System.Console.WriteLine("Report saved to file!");
-            System.Console.WriteLine();
-            MenuNav();
-        }
-
-        public void SaveMayReportToNew()
-        {
-            Console.Clear();
-            double discount = 0.0;
-            double mayRev = 0.0;
-
-            System.Console.WriteLine("Enter what would you like to call the NEW file this report will be saved to:");
-            string fileName = Console.ReadLine();
-
-            StreamWriter newFile = File.CreateText(fileName);
-            newFile.Close();
-
-            StreamWriter outFile = File.AppendText(fileName);
-
-
-            
-            outFile.WriteLine("MAY 2023:");
-            for(int i = 0; i < Booking.GetCount(); i ++)
-            {
-                if((500 < int.Parse(bookings[i].GetTrainingDate())) && (int.Parse(bookings[i].GetTrainingDate()) < 600))
-                {
-                    string dateFormat = bookings[i].GetTrainingDate();
-                    dateFormat.ToCharArray();
-                    string finalDate = $"{dateFormat[0]}{dateFormat[1]}/{dateFormat[2]}{dateFormat[3]}";
-
-                    outFile.WriteLine();
-                    outFile.WriteLine($"Session #{bookings[i].GetSessionID()} was run by #{bookings[i].GetBookingTrainerID()} {bookings[i].GetBookingTrainerFirstName()} {bookings[i].GetBookingTrainerLastName()} on {finalDate}.");
-                    
-                    int foundVal = -1;
-                    for(int j = 0; j < Listing.GetCount(); j ++)
-                    {
-                        if(listings[j].GetListingID() == bookings[i].GetSessionID())
-                        {
-                            foundVal = j;
-                        }
-                    }
-                    
-                    outFile.WriteLine($"This session had {listings[foundVal].GetSpotsTaken()} out of {listings[foundVal].GetMaxCustomers()} spots booked at ${listings[foundVal].GetListingCost()} a spot and {listings[foundVal].GetDiscount()}.");
-                    
-                    if(listings[i].GetDiscount() == "discount offered")
-                    {
-                        discount = 0.95;
-                    }
-                    else
-                    {
-                        discount = 1.0;
-                    }
-                    double bookingRev = listings[foundVal].GetSpotsTaken() * listings[foundVal].GetListingCost() * discount;
-                    mayRev = mayRev + bookingRev;
-                    outFile.WriteLine($"The revenue from this session was: ${bookingRev}");
-                    outFile.WriteLine();
-                }
-            }
-            outFile.WriteLine($"The total revenue for May 2023 was: ${mayRev}");
-            outFile.Close();
-
-            Console.Clear();
-            System.Console.WriteLine("Report saved to file!");
-            System.Console.WriteLine();
-            MenuNav();
-        }
-
-
-
-
-
-
-        public double ViewMayReport()
-        {
-            double discount = 0.0;
-            double mayRev = 0.0;
-
-            System.Console.WriteLine("MAY 2023:");
-            for(int i = 0; i < Booking.GetCount(); i ++)
-            {
-                if((500 < int.Parse(bookings[i].GetTrainingDate())) && (int.Parse(bookings[i].GetTrainingDate()) < 600))
-                {
-                    string dateFormat = bookings[i].GetTrainingDate();
-                    dateFormat.ToCharArray();
-                    string finalDate = $"{dateFormat[0]}{dateFormat[1]}/{dateFormat[2]}{dateFormat[3]}";
-
-                    System.Console.WriteLine();
-                    System.Console.WriteLine($"Session #{bookings[i].GetSessionID()} was run by #{bookings[i].GetBookingTrainerID()} {bookings[i].GetBookingTrainerFirstName()} {bookings[i].GetBookingTrainerLastName()} on {finalDate}.");
-                    
-                    int foundVal = -1;
-                    for(int j = 0; j < Listing.GetCount(); j ++)
-                    {
-                        if(listings[j].GetListingID() == bookings[i].GetSessionID())
-                        {
-                            foundVal = j;
-                        }
-                    }
-                    
-                    System.Console.WriteLine($"This session had {listings[foundVal].GetSpotsTaken()} out of {listings[foundVal].GetMaxCustomers()} spots booked at ${listings[foundVal].GetListingCost()} a spot and {listings[foundVal].GetDiscount()}.");
-                    
-                    if(listings[i].GetDiscount() == "discount offered")
-                    {
-                        discount = 0.95;
-                    }
-                    else
-                    {
-                        discount = 1.0;
-                    }
-                    double bookingRev = listings[foundVal].GetSpotsTaken() * listings[foundVal].GetListingCost() * discount;
-                    mayRev = mayRev + bookingRev;
-                    System.Console.WriteLine($"The revenue from this session was: ${bookingRev}");
-                    System.Console.WriteLine();
-                }
-            }
-            System.Console.WriteLine($"The total revenue for May 2023 was: ${mayRev}");
-            return mayRev;
-        }
-
-        public double ViewJuneReport()
-        {
-            double discount = 0.0;
-            double juneRev = 0.0;
-
-            System.Console.WriteLine("JUNE 2023:");
-            for(int i = 0; i < Booking.GetCount(); i ++)
-            {
-                if((600 < int.Parse(bookings[i].GetTrainingDate())) && (int.Parse(bookings[i].GetTrainingDate()) < 700))
-                {
-                    string dateFormat = bookings[i].GetTrainingDate();
-                    dateFormat.ToCharArray();
-                    string finalDate = $"{dateFormat[0]}{dateFormat[1]}/{dateFormat[2]}{dateFormat[3]}";
-
-                    System.Console.WriteLine();
-                    System.Console.WriteLine($"Session #{bookings[i].GetSessionID()} was run by #{bookings[i].GetBookingTrainerID()} {bookings[i].GetBookingTrainerFirstName()} {bookings[i].GetBookingTrainerLastName()} on {finalDate}.");
-                    
-                    int foundVal = -1;
-                    for(int j = 0; j < Listing.GetCount(); j ++)
-                    {
-                        if(listings[j].GetListingID() == bookings[i].GetSessionID())
-                        {
-                            foundVal = j;
-                        }
-                    }
-                    
-                    System.Console.WriteLine($"This session had {listings[foundVal].GetSpotsTaken()} out of {listings[foundVal].GetMaxCustomers()} spots booked at ${listings[foundVal].GetListingCost()} a spot and {listings[foundVal].GetDiscount()}.");
-                    
-                    if(listings[i].GetDiscount() == "discount offered")
-                    {
-                        discount = 0.95;
-                    }
-                    else
-                    {
-                        discount = 1.0;
-                    }
-                    double bookingRev = listings[foundVal].GetSpotsTaken() * listings[foundVal].GetListingCost() * discount;
-                    juneRev = juneRev + bookingRev;
-                    System.Console.WriteLine($"The revenue from this session was: ${bookingRev}");
-                    System.Console.WriteLine();
-                }
-            }
-            System.Console.WriteLine($"The total revenue for June 2023 was: ${juneRev}");
-            return juneRev;
-        }
-
-        public double ViewJulyReport()
-        {
-            double discount = 0.0;
-            double julyRev = 0.0;
-
-            System.Console.WriteLine("JULY 2023:");
-            for(int i = 0; i < Booking.GetCount(); i ++)
-            {
-                if((700 < int.Parse(bookings[i].GetTrainingDate())) && (int.Parse(bookings[i].GetTrainingDate()) < 800))
-                {
-                    string dateFormat = bookings[i].GetTrainingDate();
-                    dateFormat.ToCharArray();
-                    string finalDate = $"{dateFormat[0]}{dateFormat[1]}/{dateFormat[2]}{dateFormat[3]}";
-
-                    System.Console.WriteLine();
-                    System.Console.WriteLine($"Session #{bookings[i].GetSessionID()} was run by #{bookings[i].GetBookingTrainerID()} {bookings[i].GetBookingTrainerFirstName()} {bookings[i].GetBookingTrainerLastName()} on {finalDate}.");
-                    
-                    int foundVal = -1;
-                    for(int j = 0; j < Listing.GetCount(); j ++)
-                    {
-                        if(listings[j].GetListingID() == bookings[i].GetSessionID())
-                        {
-                            foundVal = j;
-                        }
-                    }
-                    
-                    System.Console.WriteLine($"This session had {listings[foundVal].GetSpotsTaken()} out of {listings[foundVal].GetMaxCustomers()} spots booked at ${listings[foundVal].GetListingCost()} a spot and {listings[foundVal].GetDiscount()}.");
-                    
-                    if(listings[i].GetDiscount() == "discount offered")
-                    {
-                        discount = 0.95;
-                    }
-                    else
-                    {
-                        discount = 1.0;
-                    }
-                    double bookingRev = listings[foundVal].GetSpotsTaken() * listings[foundVal].GetListingCost() * discount;
-                    julyRev = julyRev + bookingRev;
-                    System.Console.WriteLine($"The revenue from this session was: ${bookingRev}");
-                    System.Console.WriteLine();
-                }
-            }
-            System.Console.WriteLine($"The total revenue for July 2023 was: ${julyRev}");
-            return julyRev;
-        }
-
-        public double ViewAugustReport()
-        {
-            double discount = 0.0;
-            double augRev = 0.0;
-
-            System.Console.WriteLine("August 2023:");
-            for(int i = 0; i < Booking.GetCount(); i ++)
-            {
-                if((800 < int.Parse(bookings[i].GetTrainingDate())) && (int.Parse(bookings[i].GetTrainingDate()) < 900))
-                {
-                    string dateFormat = bookings[i].GetTrainingDate();
-                    dateFormat.ToCharArray();
-                    string finalDate = $"{dateFormat[0]}{dateFormat[1]}/{dateFormat[2]}{dateFormat[3]}";
-
-                    System.Console.WriteLine();
-                    System.Console.WriteLine($"Session #{bookings[i].GetSessionID()} was run by #{bookings[i].GetBookingTrainerID()} {bookings[i].GetBookingTrainerFirstName()} {bookings[i].GetBookingTrainerLastName()} on {finalDate}.");
-                    
-                    int foundVal = -1;
-                    for(int j = 0; j < Listing.GetCount(); j ++)
-                    {
-                        if(listings[j].GetListingID() == bookings[i].GetSessionID())
-                        {
-                            foundVal = j;
-                        }
-                    }
-                    
-                    System.Console.WriteLine($"This session had {listings[foundVal].GetSpotsTaken()} out of {listings[foundVal].GetMaxCustomers()} spots booked at ${listings[foundVal].GetListingCost()} a spot and {listings[foundVal].GetDiscount()}.");
-                    
-                    if(listings[i].GetDiscount() == "discount offered")
-                    {
-                        discount = 0.95;
-                    }
-                    else
-                    {
-                        discount = 1.0;
-                    }
-                    double bookingRev = listings[foundVal].GetSpotsTaken() * listings[foundVal].GetListingCost() * discount;
-                    augRev = augRev + bookingRev;
-                    System.Console.WriteLine($"The revenue from this session was: ${bookingRev}");
-                    System.Console.WriteLine();
-                }
-            }
-            System.Console.WriteLine($"The total revenue for August 2023 was: ${augRev}");
-            return augRev;
-        }
-
-
-
+       
 
 
 

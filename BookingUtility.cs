@@ -13,6 +13,7 @@ namespace mis_221_pa_5_rowecjessica
             this.trainers = trainers;
         }
 
+        // if transaction file doesnt exist, create it 
         public void BookingFile(string path)
         {
             if(!File.Exists(path))
@@ -23,6 +24,7 @@ namespace mis_221_pa_5_rowecjessica
             
         }
 
+        // ask user how they would like to view availble bookings
         public void ViewAvailableSessions(Listing[] listings)
         {
             Console.Clear();
@@ -81,6 +83,7 @@ namespace mis_221_pa_5_rowecjessica
         }
 
 
+        // ask user the last name of the trainer they would like to see available sessions for
         public string ViewAvailableSessionsByTrainer(string path, Listing[] listings)
         {
             Console.Clear();
@@ -143,6 +146,8 @@ namespace mis_221_pa_5_rowecjessica
             return searchLastName;
         }
 
+
+        // prompt user to enter what weekday theyd like to see available sessions for 
         public string ViewAvailableSessionsByDay(string path)
         {
             Console.Clear();
@@ -206,6 +211,8 @@ namespace mis_221_pa_5_rowecjessica
 
         }
 
+
+        // ask user what date they would like to see available sessions for 
         public string ViewAvailableSessionsByDate(string path)
         {
             Console.Clear();
@@ -268,7 +275,9 @@ namespace mis_221_pa_5_rowecjessica
             inFile.Close();
             return searchDate;
         }
-   
+
+
+        // show user all available sessions
         public void ViewAllAvailable(string path)
         {
             Console.Clear();
@@ -298,6 +307,8 @@ namespace mis_221_pa_5_rowecjessica
             inFile.Close();
         }
 
+
+        // ask user if they would like to book one of the available sessions
         public void BookSession(Listing[] listings)
         {
             System.Console.WriteLine();
@@ -335,6 +346,8 @@ namespace mis_221_pa_5_rowecjessica
 
         }
 
+
+        // when the user enters the listing ID of the session they would like to book, double check the listing is oepn
         public int CheckBookingIsOpen(int ID, Listing[] listings)
         {
             string path = @"C:\Users\rowec\OneDrive\MIS221\PAs\mis-221-pa-5-rowecjessica\Listings.txt"; 
@@ -379,6 +392,8 @@ namespace mis_221_pa_5_rowecjessica
             return ID;
         }
 
+
+        // if user is a returning customer ask for their customerID, else make a customer ID and have them enter their information
         public void FinalizeBooking(int ID, Listing[] listings, Trainer[] trainers)
         {
             Console.Clear();
@@ -562,6 +577,8 @@ namespace mis_221_pa_5_rowecjessica
             
         }
 
+
+        // read in transactions file and make booking array
         public void ReadInAllBookings(Booking[] bookings, string path)
         {
             StreamReader inFile = new StreamReader(path);
@@ -579,6 +596,8 @@ namespace mis_221_pa_5_rowecjessica
             inFile.Close();
         }
 
+
+        // read in trainers file and find the trainerID that makes the one enterd
         public int FindTrainerID(string trainerLastName)
             {
                 string path = @"C:\Users\rowec\OneDrive\MIS221\PAs\mis-221-pa-5-rowecjessica\Trainers.txt";
@@ -608,6 +627,7 @@ namespace mis_221_pa_5_rowecjessica
                 return trainerID;
 
             }
+
 
 
         static void MainMenu()

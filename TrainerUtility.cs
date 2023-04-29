@@ -210,8 +210,8 @@ namespace mis_221_pa_5_rowecjessica
         {
             Console.Clear();
             System.Console.WriteLine("What is the trainer ID of the trainer who's information you'd like to change?");
-            string line = Console.ReadLine();
-            int searchVal = EditTrainerErrorHandle(line);
+            int searchVal = int.Parse(Console.ReadLine());
+            string line = "";
             
             while(searchVal != -1)
             {
@@ -229,6 +229,7 @@ namespace mis_221_pa_5_rowecjessica
                 // user re enters the information for the trainer with the trainer ID they entered
                 if(foundVal != -1)
                 {
+                    line = "";
                     trainers[foundVal].SetTrainerID(searchVal);
                     
                     System.Console.WriteLine("Please enter the trainer's first name");
@@ -300,38 +301,15 @@ namespace mis_221_pa_5_rowecjessica
                 }
 
                 System.Console.WriteLine("If you'd like to edit the information of another trainer, enter their trainer ID. To exit -1");
-                line = Console.ReadLine();
+                searchVal = int.Parse(Console.ReadLine());
                 if( line == "-1")
                 {
                     Console.Clear();
                 }
-                searchVal = EditTrainerErrorHandle(line);
-            }
-        }
-
-        public int EditTrainerErrorHandle(string line)
-        {
-            int result = 0;
-
-            if( line == "-1")
-            {
-                NewTrainer(@"C:\Users\rowec\OneDrive\MIS221\PAs\mis-221-pa-5-rowecjessica\Trainers.txt");
+                
             }
 
-            bool parseSuccessful = int.TryParse(line, out result);
-
-            while (result <= 0 ){
-                System.Console.WriteLine("Please enter a number:");
-                line = Console.ReadLine();
-                if( line == "-1")
-                {
-                    NewTrainer(@"C:\Users\rowec\OneDrive\MIS221\PAs\mis-221-pa-5-rowecjessica\Trainers.txt");
-                }
-                parseSuccessful = int.TryParse(line, out result);
-            }
-            int searchVal = result;
-
-            return searchVal;
+            NewTrainer(path);
         }
 
 

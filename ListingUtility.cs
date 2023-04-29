@@ -13,6 +13,9 @@ namespace mis_221_pa_5_rowecjessica
         }
 
 
+
+
+        // make lsitingsings file if it doesnt exist 
         public void ListingFile(string path)
         {
 
@@ -24,6 +27,8 @@ namespace mis_221_pa_5_rowecjessica
 
         }
 
+
+        // lsiting menu
         public void NewListing(string path, Listing[] listings, Trainer[] trainers){
             Console.Clear();
             System.Console.WriteLine("Select what you would like to do:");
@@ -72,6 +77,7 @@ namespace mis_221_pa_5_rowecjessica
 
 
     
+        // read in existing listings and add a new one
         public void GetAllListings(Listing[] listings, string path, Trainer[] trainers)
         {
             Console.Clear();
@@ -204,7 +210,303 @@ namespace mis_221_pa_5_rowecjessica
         }
 
 
+          // read in listings to find the most recent listing ID, add 10 and make the ID for the new listing 
+        public int MakeListingID(Listing[] listings, string path)
+        {
+            ReadInAllListings(listings, path);
+            int max = listings[0].GetListingID();
 
+            for(int i = 1; i < Listing.GetCount(); i ++)
+            {
+                if(listings[i].GetListingID() > max)
+                {
+                    max = listings[i].GetListingID();
+                }
+            }
+
+            int listingID = max + 10;
+            return listingID;
+        }
+
+
+        // find the location of the selected listing
+        public int Find(int searchVal){
+            for(int i = 0; i < Listing.GetCount(); i ++)
+            {
+                if(listings[i].GetListingID() == searchVal)
+                {
+                    return i;
+                }
+            }
+
+            return -1;
+        }
+
+
+        // read in listings text and make the listing array
+        public void ReadInAllListings(Listing[] listings, string path)
+        {
+            StreamReader inFile = new StreamReader(path);
+            Listing.SetCount(0);
+            string line = inFile.ReadLine();
+
+            while( line != null)
+            {
+                string[] temp = line.Split('#');
+                listings[Listing.GetCount()] = new Listing(int.Parse(temp[0]), temp[1], temp[2], temp[3], temp[4], temp[5], temp[6], int.Parse(temp[7]), int.Parse(temp[8]), int.Parse(temp[9]), int.Parse(temp[10]), temp[11], temp[12]);
+                Listing.IncCount();
+                line = inFile.ReadLine();
+            }
+
+            inFile.Close();
+        }
+
+
+
+        // check trainers file to make sure the trainerID entered exists
+        public int CheckTrainerID(int ID)
+        {
+            int foundVal = -1;
+            int trainerID = 0;
+
+            StreamReader inFile = new StreamReader(@"C:\Users\rowec\OneDrive\MIS221\PAs\mis-221-pa-5-rowecjessica\Trainers.txt");
+            Trainer.SetCount(0);
+            string line = inFile.ReadLine();
+
+            while(foundVal < 0)
+            {
+                while( line != null)
+                {
+                    string[] temp = line.Split('#');
+                    trainers[Trainer.GetCount()] = new Trainer(int.Parse(temp[0]), temp[1], temp[2], temp[3], temp[4], double.Parse(temp[5]), temp[6], int.Parse(temp[7]));
+                    Trainer.IncCount();
+                    line = inFile.ReadLine();
+                }
+                inFile.Close();
+
+                for(int i = 0; i < Trainer.GetCount(); i ++)
+                {
+                    if(ID == trainers[i].GetTrainerID())
+                    {
+                        foundVal = i;
+                    }
+                }
+                
+                if(foundVal < 0)
+                {
+                    System.Console.WriteLine("Trainer ID not found. You need to be a registerd trainer to be able to list a training session.");
+                    System.Console.WriteLine("To enter a different trainer ID: press 1");
+                    System.Console.WriteLine("To return the the Main Menu: press 2");
+                    string response = Console.ReadLine();
+
+                    if(response == "1")
+                    {
+                        System.Console.WriteLine("Please enter the trainer ID of the trainer running this session:");
+                        ID = int.Parse(Console.ReadLine());
+                    }
+
+                    if(response == "2")
+                    {
+                        MainMenu();
+                    }
+                }
+
+                trainerID = ID;
+                }
+            return trainerID;
+        }
+
+
+        // using trainerID, reade in trainers file and get the trainers name from that ID
+        public int FindTrainersName(int trainerID)
+        {
+                int foundVal = -1;
+
+                //////////////////////// Trainer first and last name //////////////////////
+                StreamReader inFile = new StreamReader(@"C:\Users\rowec\OneDrive\MIS221\PAs\mis-221-pa-5-rowecjessica\Trainers.txt");
+                Trainer.SetCount(0);
+                string line = inFile.ReadLine();
+
+                while(foundVal < 0)
+                {
+                    while( line != null)
+                    {
+                        string[] temp = line.Split('#');
+                        trainers[Trainer.GetCount()] = new Trainer(int.Parse(temp[0]), temp[1], temp[2], temp[3], temp[4], double.Parse(temp[5]), temp[6], int.Parse(temp[7]));
+                        Trainer.IncCount();
+                        line = inFile.ReadLine();
+                    }
+                    inFile.Close();
+
+                    for(int i = 0; i < Trainer.GetCount(); i ++)
+                    {
+                        if(trainerID == trainers[i].GetTrainerID())
+                        {
+                            foundVal = i;
+                        }
+                    }
+                    
+                }
+            return foundVal;
+        }
+
+        // ask if the trainer wants to make the session recurring
+        public string ListingReccuring()
+        {
+            System.Console.WriteLine("Please enter if this session is recurring: Y for yes, N for no ");
+            string userInput = Console.ReadLine().ToUpper();
+            string recurring = "false";
+
+            if( userInput == "Y"){
+                recurring = "This session is recurring";
+            } else {
+                if( userInput == "N"){
+                    recurring = "This session is not recurring";
+                } else {
+                    System.Console.WriteLine("invalid input");
+                }
+            } 
+            return recurring;
+        }
+
+
+
+        // if trainer chooses to make the session recurring, it will automatically book that session for that time every weekday of the day chosen
+        public void IfRecurring(string recurring, string day, int listingID, string trainerFirstName, string trainerLastName, string listingTime, int foundVal, int trainerID)
+        {
+            if(recurring == "This session is recurring")
+            {
+                ///////////////////////   Listing Cost   ///////////////////////////
+                    
+                    foundVal = FindListingCost(trainerID);
+                    double listingCost = trainers[foundVal].GetHourlyRate();
+                    listings[Listing.GetCount()].SetListingCost(listingCost);
+
+                    /////////////////////////  Max customers  ////////////////////////////////////////////
+
+                    foundVal = FindMaxCustomers(trainerID);
+                    int maxCustomers = trainers[foundVal].GetMaxCustomers();
+                    listings[Listing.GetCount()].SetMaxCustomers(maxCustomers);
+
+
+                    ////// set spots taken and spots left
+                    int spotsTaken = 0;
+                    listings[Listing.GetCount()].SetSpotsTaken(spotsTaken);
+
+
+                    // calculate spots left
+                    int spotsLeft = maxCustomers - spotsTaken;
+                    listings[Listing.GetCount()].SetSpotsLeft(spotsLeft);
+
+
+                    // set session to open or full
+                    string availability = FindAvailability(spotsLeft);
+                    listings[Listing.GetCount()].SetAvailability(availability);
+
+                    // discount 
+                    string discount = FindDiscount();
+                    listings[foundVal].SetDiscount(discount);
+
+                GetDateFromDay(day, listingID, trainerFirstName, trainerLastName, listingTime, foundVal, trainerID, listingCost, maxCustomers, spotsTaken, spotsLeft, availability, discount);
+            }
+        }
+
+
+        // using trainerID, read in trainers text and find how much the trainer charges for their sessions
+        public int FindListingCost(int trainerID)
+        {
+            StreamReader costFile = new StreamReader(@"C:\Users\rowec\OneDrive\MIS221\PAs\mis-221-pa-5-rowecjessica\Trainers.txt");
+            Trainer.SetCount(0);
+            int foundVal = -1;
+
+            string line = costFile.ReadLine();
+
+            while( line != null)
+                {
+                    string[] temp = line.Split('#');
+                    trainers[Trainer.GetCount()] = new Trainer(int.Parse(temp[0]), temp[1], temp[2], temp[3], temp[4], double.Parse(temp[5]), temp[6], int.Parse(temp[7]));
+                    Trainer.IncCount();
+                    line = costFile.ReadLine();
+                }
+                costFile.Close();
+
+                for(int i = 0; i < Trainer.GetCount(); i ++)
+                {
+                    if(trainerID == trainers[i].GetTrainerID())
+                    {
+                        foundVal = i;
+                    }
+                }
+            return foundVal;
+        }
+
+
+      // using trainerID, read in trainers text and find the max amoutn of customers the trainer offers for each session
+        public int FindMaxCustomers(int trainerID)
+        {
+            StreamReader maxFile = new StreamReader(@"C:\Users\rowec\OneDrive\MIS221\PAs\mis-221-pa-5-rowecjessica\Trainers.txt");
+            Trainer.SetCount(0);
+            int foundVal = -1;
+            string line = maxFile.ReadLine();
+
+            while( line != null)
+            {
+                string[] temp = line.Split('#');
+                trainers[Trainer.GetCount()] = new Trainer(int.Parse(temp[0]), temp[1], temp[2], temp[3], temp[4], double.Parse(temp[5]), temp[6], int.Parse(temp[7]));
+                Trainer.IncCount();
+                line = maxFile.ReadLine();
+            }
+            maxFile.Close();
+
+            for(int i = 0; i < Trainer.GetCount(); i ++)
+            {
+                if(trainerID == trainers[i].GetTrainerID())
+                {
+                    foundVal = i;
+                }
+            }
+
+            return foundVal;
+        }
+
+
+        
+        // set if class is open or closed by looking at spots left
+        public string FindAvailability(int spotsLeft)
+        {
+            string availability = "";
+            if(spotsLeft > 0){
+                availability = "This session is open for booking!";
+            } else
+            {
+                availability = "This session is full!";
+            }
+            return availability;
+        }
+
+
+        // ask trainer if they would like to offer a discount for the listing
+        public string FindDiscount()
+        {
+            System.Console.WriteLine("Please enter if you would like to offer a %5 discount on your classes: Y for yes, N for no");
+            string userInput = Console.ReadLine().ToUpper();
+            string discount = "No disocunt offered";
+
+            if( userInput == "Y"){
+                discount = "discount offered";
+            } else {
+                if( userInput == "N"){
+                    discount = "No discount offered";
+                } else {
+                    System.Console.WriteLine($"{discount}");
+                }
+            }
+            return discount; 
+        }
+
+
+
+        // read in current listings and chose one to edit
         public void EditListing(Listing[] listings, string path, Trainer[] trainers)
         {
             System.Console.WriteLine("What is the listing ID of the listing you would like to update?");
@@ -326,280 +628,9 @@ namespace mis_221_pa_5_rowecjessica
             }
         }
 
-        public void IfRecurring(string recurring, string day, int listingID, string trainerFirstName, string trainerLastName, string listingTime, int foundVal, int trainerID)
-        {
-            if(recurring == "This session is recurring")
-            {
-                ///////////////////////   Listing Cost   ///////////////////////////
-                    
-                    foundVal = FindListingCost(trainerID);
-                    double listingCost = trainers[foundVal].GetHourlyRate();
-                    listings[Listing.GetCount()].SetListingCost(listingCost);
-
-                    /////////////////////////  Max customers  ////////////////////////////////////////////
-
-                    foundVal = FindMaxCustomers(trainerID);
-                    int maxCustomers = trainers[foundVal].GetMaxCustomers();
-                    listings[Listing.GetCount()].SetMaxCustomers(maxCustomers);
 
 
-                    ////// set spots taken and spots left
-                    int spotsTaken = 0;
-                    listings[Listing.GetCount()].SetSpotsTaken(spotsTaken);
-
-
-                    // calculate spots left
-                    int spotsLeft = maxCustomers - spotsTaken;
-                    listings[Listing.GetCount()].SetSpotsLeft(spotsLeft);
-
-
-                    // set session to open or full
-                    string availability = FindAvailability(spotsLeft);
-                    listings[Listing.GetCount()].SetAvailability(availability);
-
-                    // discount 
-                    string discount = FindDiscount();
-                    listings[foundVal].SetDiscount(discount);
-
-                GetDateFromDay(day, listingID, trainerFirstName, trainerLastName, listingTime, foundVal, trainerID, listingCost, maxCustomers, spotsTaken, spotsLeft, availability, discount);
-            }
-        }
-
-
-
-
-        public int CheckTrainerID(int ID)
-        {
-            int foundVal = -1;
-            int trainerID = 0;
-
-            StreamReader inFile = new StreamReader(@"C:\Users\rowec\OneDrive\MIS221\PAs\mis-221-pa-5-rowecjessica\Trainers.txt");
-            Trainer.SetCount(0);
-            string line = inFile.ReadLine();
-
-            while(foundVal < 0)
-            {
-                while( line != null)
-                {
-                    string[] temp = line.Split('#');
-                    trainers[Trainer.GetCount()] = new Trainer(int.Parse(temp[0]), temp[1], temp[2], temp[3], temp[4], double.Parse(temp[5]), temp[6], int.Parse(temp[7]));
-                    Trainer.IncCount();
-                    line = inFile.ReadLine();
-                }
-                inFile.Close();
-
-                for(int i = 0; i < Trainer.GetCount(); i ++)
-                {
-                    if(ID == trainers[i].GetTrainerID())
-                    {
-                        foundVal = i;
-                    }
-                }
-                
-                if(foundVal < 0)
-                {
-                    System.Console.WriteLine("Trainer ID not found. You need to be a registerd trainer to be able to list a training session.");
-                    System.Console.WriteLine("To enter a different trainer ID: press 1");
-                    System.Console.WriteLine("To return the the Main Menu: press 2");
-                    string response = Console.ReadLine();
-
-                    if(response == "1")
-                    {
-                        System.Console.WriteLine("Please enter the trainer ID of the trainer running this session:");
-                        ID = int.Parse(Console.ReadLine());
-                    }
-
-                    if(response == "2")
-                    {
-                        MainMenu();
-                    }
-                }
-
-                trainerID = ID;
-                }
-            return trainerID;
-        }
-
-        public int FindTrainersName(int trainerID)
-        {
-                int foundVal = -1;
-
-                //////////////////////// Trainer first and last name //////////////////////
-                StreamReader inFile = new StreamReader(@"C:\Users\rowec\OneDrive\MIS221\PAs\mis-221-pa-5-rowecjessica\Trainers.txt");
-                Trainer.SetCount(0);
-                string line = inFile.ReadLine();
-
-                while(foundVal < 0)
-                {
-                    while( line != null)
-                    {
-                        string[] temp = line.Split('#');
-                        trainers[Trainer.GetCount()] = new Trainer(int.Parse(temp[0]), temp[1], temp[2], temp[3], temp[4], double.Parse(temp[5]), temp[6], int.Parse(temp[7]));
-                        Trainer.IncCount();
-                        line = inFile.ReadLine();
-                    }
-                    inFile.Close();
-
-                    for(int i = 0; i < Trainer.GetCount(); i ++)
-                    {
-                        if(trainerID == trainers[i].GetTrainerID())
-                        {
-                            foundVal = i;
-                        }
-                    }
-                    
-                }
-            return foundVal;
-        }
-
-        public int FindListingCost(int trainerID)
-        {
-            StreamReader costFile = new StreamReader(@"C:\Users\rowec\OneDrive\MIS221\PAs\mis-221-pa-5-rowecjessica\Trainers.txt");
-            Trainer.SetCount(0);
-            int foundVal = -1;
-
-            string line = costFile.ReadLine();
-
-            while( line != null)
-                {
-                    string[] temp = line.Split('#');
-                    trainers[Trainer.GetCount()] = new Trainer(int.Parse(temp[0]), temp[1], temp[2], temp[3], temp[4], double.Parse(temp[5]), temp[6], int.Parse(temp[7]));
-                    Trainer.IncCount();
-                    line = costFile.ReadLine();
-                }
-                costFile.Close();
-
-                for(int i = 0; i < Trainer.GetCount(); i ++)
-                {
-                    if(trainerID == trainers[i].GetTrainerID())
-                    {
-                        foundVal = i;
-                    }
-                }
-            return foundVal;
-        }
-
-        public string ListingReccuring()
-        {
-            System.Console.WriteLine("Please enter if this session is recurring: Y for yes, N for no ");
-            string userInput = Console.ReadLine().ToUpper();
-            string recurring = "false";
-
-            if( userInput == "Y"){
-                recurring = "This session is recurring";
-            } else {
-                if( userInput == "N"){
-                    recurring = "This session is not recurring";
-                } else {
-                    System.Console.WriteLine("invalid input");
-                }
-            } 
-            return recurring;
-        }
-
-        public int FindMaxCustomers(int trainerID)
-        {
-            StreamReader maxFile = new StreamReader(@"C:\Users\rowec\OneDrive\MIS221\PAs\mis-221-pa-5-rowecjessica\Trainers.txt");
-            Trainer.SetCount(0);
-            int foundVal = -1;
-            string line = maxFile.ReadLine();
-
-            while( line != null)
-            {
-                string[] temp = line.Split('#');
-                trainers[Trainer.GetCount()] = new Trainer(int.Parse(temp[0]), temp[1], temp[2], temp[3], temp[4], double.Parse(temp[5]), temp[6], int.Parse(temp[7]));
-                Trainer.IncCount();
-                line = maxFile.ReadLine();
-            }
-            maxFile.Close();
-
-            for(int i = 0; i < Trainer.GetCount(); i ++)
-            {
-                if(trainerID == trainers[i].GetTrainerID())
-                {
-                    foundVal = i;
-                }
-            }
-
-            return foundVal;
-        }
-
-        public string FindAvailability(int spotsLeft)
-        {
-            string availability = "";
-            if(spotsLeft > 0){
-                availability = "This session is open for booking!";
-            } else
-            {
-                availability = "This session is full!";
-            }
-            return availability;
-        }
-
-        public string FindDiscount()
-        {
-            System.Console.WriteLine("Please enter if you would like to offer a %5 discount on your classes: Y for yes, N for no");
-            string userInput = Console.ReadLine().ToUpper();
-            string discount = "No disocunt offered";
-
-            if( userInput == "Y"){
-                discount = "discount offered";
-            } else {
-                if( userInput == "N"){
-                    discount = "No discount offered";
-                } else {
-                    System.Console.WriteLine($"{discount}");
-                }
-            }
-            return discount; 
-        }
-        public int MakeListingID(Listing[] listings, string path)
-        {
-            ReadInAllListings(listings, path);
-            int max = listings[0].GetListingID();
-
-            for(int i = 1; i < Listing.GetCount(); i ++)
-            {
-                if(listings[i].GetListingID() > max)
-                {
-                    max = listings[i].GetListingID();
-                }
-            }
-
-            int listingID = max + 10;
-            return listingID;
-        }
-
-
-        public int Find(int searchVal){
-            for(int i = 0; i < Listing.GetCount(); i ++)
-            {
-                if(listings[i].GetListingID() == searchVal)
-                {
-                    return i;
-                }
-            }
-
-            return -1;
-        }
-
-        public void ReadInAllListings(Listing[] listings, string path)
-        {
-            StreamReader inFile = new StreamReader(path);
-            Listing.SetCount(0);
-            string line = inFile.ReadLine();
-
-            while( line != null)
-            {
-                string[] temp = line.Split('#');
-                listings[Listing.GetCount()] = new Listing(int.Parse(temp[0]), temp[1], temp[2], temp[3], temp[4], temp[5], temp[6], int.Parse(temp[7]), int.Parse(temp[8]), int.Parse(temp[9]), int.Parse(temp[10]), temp[11], temp[12]);
-                Listing.IncCount();
-                line = inFile.ReadLine();
-            }
-
-            inFile.Close();
-        }
-
+        // choose which session the trainer would like to delete
         public void DeleteListing (Listing[] listings)
         {
             string path = @"C:\Users\rowec\OneDrive\MIS221\PAs\mis-221-pa-5-rowecjessica\Listings.txt";
@@ -653,6 +684,8 @@ namespace mis_221_pa_5_rowecjessica
             NewListing(path, listings, trainers);
         }
 
+
+        // from date entered by user, find which day of the week that day is
         public string GetDayFromDate(string date)
         {
             string day = "";
@@ -737,7 +770,7 @@ namespace mis_221_pa_5_rowecjessica
         }
 
 
-            
+        // right out the listing for the recurring listings by the day of the week they recur
         public void GetDateFromDay(string day, int listingID, string trainerFirstName, string trainerLastName, string listingTime, int foundVal, int trainerID, double listingCost, int maxCustomers, int spotsTaken, int spotsLeft, string availability, string discount)
         {
             StreamWriter sw = File.AppendText(@"C:\Users\rowec\OneDrive\MIS221\PAs\mis-221-pa-5-rowecjessica\Listings.txt");
