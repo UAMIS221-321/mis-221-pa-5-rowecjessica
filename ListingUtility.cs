@@ -19,6 +19,7 @@ namespace mis_221_pa_5_rowecjessica
             if(!File.Exists(path))
             {
                 StreamWriter tf = File.CreateText(path);
+                tf.Close();
             }
 
         }

@@ -15,6 +15,7 @@ namespace mis_221_pa_5_rowecjessica
             if(!File.Exists(path))
             {
                 StreamWriter tf = File.CreateText(path);
+                tf.Close();
             }
 
         }
@@ -91,6 +92,7 @@ namespace mis_221_pa_5_rowecjessica
         // Writing to the Trainers.txt file as the user enters information
         public void GetAllTrainers(Trainer[] trainers, string path)
         {
+            Console.Clear();
             System.Console.WriteLine("Would you like to register as a new trainer? Press Y for yes, any other key to return to trainer menu");
             string response = Console.ReadLine().ToUpper();
 
@@ -206,6 +208,7 @@ namespace mis_221_pa_5_rowecjessica
         // Program reprints the trainers with the updated trainer
         public void EditTrainer(Trainer[] trainers, string path)
         {
+            Console.Clear();
             System.Console.WriteLine("What is the trainer ID of the trainer who's information you'd like to change?");
             string line = Console.ReadLine();
             int searchVal = EditTrainerErrorHandle(line);
@@ -334,10 +337,9 @@ namespace mis_221_pa_5_rowecjessica
 
         // Delete trainer from trainer file
         public void DeleteTrainer(Trainer[] trainers, string path)
-        {
+        { 
             System.Console.WriteLine("What is the trainer ID of the trainer you would like to delete?");
-            string line = Console.ReadLine();
-            int searchVal = DeleteTrainerErrorHandle(line);
+            int searchVal = int.Parse(Console.ReadLine());
             
             // Read in current trainers and find the trainer ID given
             while(searchVal >= 0)
@@ -345,7 +347,7 @@ namespace mis_221_pa_5_rowecjessica
                 Trainer.SetCount(0);
                 int foundVal = -1;
                 StreamReader inFile = new StreamReader(path);
-                line = inFile.ReadLine();
+                string line = inFile.ReadLine();
 
                 while( line != null)
                 {
@@ -388,43 +390,14 @@ namespace mis_221_pa_5_rowecjessica
                     System.Console.WriteLine($"There is no trainer on file with the ID number {searchVal}.");
                 }
                 System.Console.WriteLine("If you would like to delete another trainer, enter the trainer ID. To return to the menu enter -1:");
-                line = Console.ReadLine();
-                searchVal = DeleteTrainerErrorHandle(line);
+                searchVal = int.Parse(Console.ReadLine());
             }
+            Console.Clear();
+            System.Console.WriteLine("Trainer deleted!");
             NewTrainer(path);
         }
 
 
-        static int DeleteTrainerErrorHandle(string line)
-        {
-            int result = 0;
-
-            if( line == "-1")
-            {
-                // NewTrainer(@"C:\Users\rowec\OneDrive\MIS221\PAs\mis-221-pa-5-rowecjessica\Trainers.txt");
-                System.Console.WriteLine("Add path later");
-                /////////////////////////////////////////////////////
-            }
-
-            bool parseSuccessful = int.TryParse(line, out result);
-
-            while (result <= 0 ){
-                System.Console.WriteLine("Please enter a number:");
-                line = Console.ReadLine();
-
-                if( line == "-1")
-                {
-                    // NewTrainer(@"C:\Users\rowec\OneDrive\MIS221\PAs\mis-221-pa-5-rowecjessica\Trainers.txt");
-                    System.Console.WriteLine("add path later");
-                    ///////////////////////////////////////////////////
-                }
-
-                parseSuccessful = int.TryParse(line, out result);
-            }
-            int searchVal = result;
-
-            return searchVal;
-        }
 
         // Copy of menu from main
         static void MainMenu()

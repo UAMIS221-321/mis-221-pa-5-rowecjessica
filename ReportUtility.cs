@@ -276,8 +276,11 @@ namespace mis_221_pa_5_rowecjessica
             inFile.Close();
 
             
+            int max = 0;
+
             for(int i = 0; i < Booking.GetCount(); i ++) 
             {
+                int customerCount = 0;
                 for(int s = 501; s < 832; s ++)
                 {
                     for(int j = 0; j < Booking.GetCount(); j ++) 
@@ -287,11 +290,18 @@ namespace mis_221_pa_5_rowecjessica
                             string dateFormat = bookings[j].GetTrainingDate();
                             dateFormat.ToCharArray();
                             string finalDate = $"{dateFormat[0]}{dateFormat[1]}/{dateFormat[2]}{dateFormat[3]}";
+                            customerCount ++;
                             System.Console.WriteLine($"Customer: #{bookings[j].GetCustomerID()} {bookings[j].GetCustomerFirstName()} {bookings[j].GetCustomerLastName()}, Session: #{bookings[j].GetSessionID()} on {finalDate}, Trainer: #{bookings[j].GetBookingTrainerID()} {bookings[j].GetBookingTrainerFirstName()} {bookings[j].GetBookingTrainerLastName()} ");
+                            max = j;
                             
                         }
                     }
                 }
+                if(max != 0)
+                {
+                    System.Console.WriteLine($"Total bookings for {bookings[max].GetCustomerFirstName()} {bookings[max].GetCustomerLastName()}: {customerCount}");
+                }
+                    max = 0;
             }
 
             System.Console.WriteLine();
