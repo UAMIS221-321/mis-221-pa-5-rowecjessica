@@ -1,8 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "AQ698zs8i5HdwEx6a6Ps2ih2UorBCaTN0sYL9nA+vIl756012Hckkv2qHNBClEmQvQZpJNSUbqkadQBWE81euA==",
+  "dgSpecHash": "2lHQvClgKBWdUczVlUXJ7C/UOY4MgWKAjonLNLr8pU1AE+OO/0Rv0N9hUvaPCZ3rZdBR7babM12yk5YWAbuk2Q==",
   "success": true,
-  "projectFilePath": "C:\\Users\\rowec\\OneDrive\\MIS221\\PAs\\mis-221-pa-5-rowecjessica\\mis-221-pa-5-rowecjessica.csproj",
-  "expectedPackageFiles": [],
+  "projectFilePath": "C:\\Users\\Evan Paddock\\Desktop\\221_PA5_Grading\\mis-221-pa-5-rowecjessica\\mis-221-pa-5-rowecjessica.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Evan Paddock\\.nuget\\packages\\microsoft.netcore.app.ref\\6.0.13\\microsoft.netcore.app.ref.6.0.13.nupkg.sha512",
+    "C:\\Users\\Evan Paddock\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\6.0.13\\microsoft.windowsdesktop.app.ref.6.0.13.nupkg.sha512",
+    "C:\\Users\\Evan Paddock\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\6.0.13\\microsoft.aspnetcore.app.ref.6.0.13.nupkg.sha512",
+    "C:\\Users\\Evan Paddock\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\6.0.13\\microsoft.netcore.app.host.win-x64.6.0.13.nupkg.sha512"
+  ],
   "logs": []
 }

@@ -75,7 +75,7 @@ static int MenuErrorHandle(string line)
 
 static void ManageTrainerData()
 {
-    string path = @"C:\Users\rowec\OneDrive\MIS221\PAs\mis-221-pa-5-rowecjessica\Trainers.txt"; 
+    string path = @"./Trainers.txt"; 
     Trainer[] trainers = new Trainer[200];
     TrainerUtility trainerUtility = new TrainerUtility(trainers);
 
@@ -86,7 +86,7 @@ static void ManageTrainerData()
 
 static void ManageListingData()
 {
-    string path = @"C:\Users\rowec\OneDrive\MIS221\PAs\mis-221-pa-5-rowecjessica\Listings.txt";
+    string path = @"./Listings.txt";
     Listing[] listings = new Listing[500];
     Trainer[] trainers = new Trainer[200];
     ListingUtility listingUtility = new ListingUtility(listings, trainers);
@@ -98,7 +98,7 @@ static void ManageListingData()
 
 static void ManageCustomerBookingData()
 {
-    string path = @"C:\Users\rowec\OneDrive\MIS221\PAs\mis-221-pa-5-rowecjessica\transactions.txt";
+    string path = @"./transactions.txt";
     Booking[] bookings = new Booking[200];
     Listing[] listings = new Listing[500];
     Trainer[] trainers = new Trainer[200];

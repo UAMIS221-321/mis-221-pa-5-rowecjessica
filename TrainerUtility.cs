@@ -185,7 +185,7 @@ namespace mis_221_pa_5_rowecjessica
         // Reads in all current trainers on file and puts them into the trainers array
         public void ReadInAllTrainers(Trainer[] trainers, string path)
         {
-            path = @"C:\Users\rowec\OneDrive\MIS221\PAs\mis-221-pa-5-rowecjessica\Trainers.txt";
+            path = @"./Trainers.txt";
             StreamReader inFile = new StreamReader(path);
             Trainer.SetCount(0);
             string line = inFile.ReadLine();
@@ -448,7 +448,7 @@ namespace mis_221_pa_5_rowecjessica
 
         static void ManageTrainerData()
         {
-            string path = @"C:\Users\rowec\OneDrive\MIS221\PAs\mis-221-pa-5-rowecjessica\Trainers.txt"; 
+            string path = @"./Trainers.txt"; 
             Trainer[] trainers = new Trainer[200];
             TrainerUtility trainerUtility = new TrainerUtility(trainers);
 
@@ -458,7 +458,7 @@ namespace mis_221_pa_5_rowecjessica
 
         static void ManageListingData()
         {
-            string path = @"C:\Users\rowec\OneDrive\MIS221\PAs\mis-221-pa-5-rowecjessica\Listings.txt";
+            string path = @"./Listings.txt";
             Listing[] listings = new Listing[200];
             Trainer[] trainers = new Trainer[200];
             ListingUtility listingUtility = new ListingUtility(listings, trainers);
@@ -469,7 +469,7 @@ namespace mis_221_pa_5_rowecjessica
 
         static void ManageCustomerBookingData()
         {
-            string path = @"C:\Users\rowec\OneDrive\MIS221\PAs\mis-221-pa-5-rowecjessica\transactions.txt";
+            string path = @"./transactions.txt";
             Booking[] bookings = new Booking[200];
             Listing[] listings = new Listing[200];
             Trainer[] trainers = new Trainer[200];

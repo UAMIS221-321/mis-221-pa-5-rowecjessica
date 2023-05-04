@@ -28,7 +28,7 @@ namespace mis_221_pa_5_rowecjessica
         public void ViewAvailableSessions(Listing[] listings)
         {
             Console.Clear();
-            string path = @"C:\Users\rowec\OneDrive\MIS221\PAs\mis-221-pa-5-rowecjessica\Listings.txt";
+            string path = @"./Listings.txt";
             System.Console.WriteLine("How would you like to view available bookings?");
             System.Console.WriteLine("1 - By trainer");
             System.Console.WriteLine("2 - By day of week");
@@ -90,7 +90,7 @@ namespace mis_221_pa_5_rowecjessica
             System.Console.WriteLine("Please enter the last name of the trainer whose availabe sessions you'd like to see:");
             string searchLastName = Console.ReadLine().ToUpper();
 
-            path = @"C:\Users\rowec\OneDrive\MIS221\PAs\mis-221-pa-5-rowecjessica\Listings.txt";
+            path = @"./Listings.txt";
             int foundVal = -1;
             int found = -1;
 
@@ -154,7 +154,7 @@ namespace mis_221_pa_5_rowecjessica
             System.Console.WriteLine("Please enter the weekday you would like to see available sessions for (write full day, do not abreviate)");
             string searchDay = Console.ReadLine().ToUpper();
 
-            path = @"C:\Users\rowec\OneDrive\MIS221\PAs\mis-221-pa-5-rowecjessica\Listings.txt";
+            path = @"./Listings.txt";
             int foundVal = -1;
             int found = -1;
 
@@ -220,7 +220,7 @@ namespace mis_221_pa_5_rowecjessica
             string searchDate = Console.ReadLine();
 
 
-            path = @"C:\Users\rowec\OneDrive\MIS221\PAs\mis-221-pa-5-rowecjessica\Listings.txt";
+            path = @"./Listings.txt";
             int foundVal = -1;
             int found = -1;
 
@@ -350,7 +350,7 @@ namespace mis_221_pa_5_rowecjessica
         // when the user enters the listing ID of the session they would like to book, double check the listing is oepn
         public int CheckBookingIsOpen(int ID, Listing[] listings)
         {
-            string path = @"C:\Users\rowec\OneDrive\MIS221\PAs\mis-221-pa-5-rowecjessica\Listings.txt"; 
+            string path = @"./Listings.txt"; 
             int foundVal = -1;
             Listing.SetCount(0);
             StreamReader inFile = new StreamReader(path);
@@ -407,7 +407,7 @@ namespace mis_221_pa_5_rowecjessica
             int customerID = 0;
             int foundVal = -1;
 
-            string path = @"C:\Users\rowec\OneDrive\MIS221\PAs\mis-221-pa-5-rowecjessica\transactions.txt";
+            string path = @"./transactions.txt";
 
             System.Console.WriteLine();
             System.Console.WriteLine("Are you a returning customer? Y - yes, N - no");
@@ -483,7 +483,7 @@ namespace mis_221_pa_5_rowecjessica
             }
 
             
-            StreamReader readIn = new StreamReader(@"C:\Users\rowec\OneDrive\MIS221\PAs\mis-221-pa-5-rowecjessica\Listings.txt");
+            StreamReader readIn = new StreamReader(@"./Listings.txt");
             Listing.SetCount(0);
             string line = readIn.ReadLine(); 
 
@@ -527,7 +527,7 @@ namespace mis_221_pa_5_rowecjessica
                 } ///// END FOR LOOP BEFORE
             }
 
-            StreamWriter reWrite = new StreamWriter(@"C:\Users\rowec\OneDrive\MIS221\PAs\mis-221-pa-5-rowecjessica\Listings.txt");
+            StreamWriter reWrite = new StreamWriter(@"./Listings.txt");
             for(int j = 0; j < Listing.GetCount(); j ++)
             {
                 reWrite.Write($"{listings[j].GetListingID()}#");
@@ -554,7 +554,7 @@ namespace mis_221_pa_5_rowecjessica
 
             int trainerID = FindTrainerID(trainerLastName);
 
-            path = @"C:\Users\rowec\OneDrive\MIS221\PAs\mis-221-pa-5-rowecjessica\transactions.txt";
+            path = @"./transactions.txt";
             StreamWriter sw = File.AppendText(path);
             
             sw.Write($"{customerID}#");
@@ -600,7 +600,7 @@ namespace mis_221_pa_5_rowecjessica
         // read in trainers file and find the trainerID that makes the one enterd
         public int FindTrainerID(string trainerLastName)
             {
-                string path = @"C:\Users\rowec\OneDrive\MIS221\PAs\mis-221-pa-5-rowecjessica\Trainers.txt";
+                string path = @"./Trainers.txt";
                 StreamReader newFile = new StreamReader(path);
                 Trainer.SetCount(0);
                 string line = newFile.ReadLine();
@@ -700,7 +700,7 @@ namespace mis_221_pa_5_rowecjessica
 
         static void ManageTrainerData()
         {
-            string path = @"C:\Users\rowec\OneDrive\MIS221\PAs\mis-221-pa-5-rowecjessica\Trainers.txt"; 
+            string path = @"./Trainers.txt"; 
             Trainer[] trainers = new Trainer[200];
             TrainerUtility trainerUtility = new TrainerUtility(trainers);
 
@@ -710,7 +710,7 @@ namespace mis_221_pa_5_rowecjessica
 
         static void ManageListingData()
         {
-            string path = @"C:\Users\rowec\OneDrive\MIS221\PAs\mis-221-pa-5-rowecjessica\Listings.txt";
+            string path = @"./Listings.txt";
             Listing[] listings = new Listing[200];
             Trainer[] trainers = new Trainer[200];
             ListingUtility listingUtility = new ListingUtility(listings, trainers);
@@ -721,7 +721,7 @@ namespace mis_221_pa_5_rowecjessica
 
         static void ManageCustomerBookingData()
         {
-            string path = @"C:\Users\rowec\OneDrive\MIS221\PAs\mis-221-pa-5-rowecjessica\transactions.txt";
+            string path = @"./transactions.txt";
             Booking[] bookings = new Booking[200];
             Listing[] listings = new Listing[200];
             Trainer[] trainers = new Trainer[200];

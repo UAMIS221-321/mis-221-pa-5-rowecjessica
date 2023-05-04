@@ -269,7 +269,7 @@ namespace mis_221_pa_5_rowecjessica
             int foundVal = -1;
             int trainerID = 0;
 
-            StreamReader inFile = new StreamReader(@"C:\Users\rowec\OneDrive\MIS221\PAs\mis-221-pa-5-rowecjessica\Trainers.txt");
+            StreamReader inFile = new StreamReader(@"./Trainers.txt");
             Trainer.SetCount(0);
             string line = inFile.ReadLine();
 
@@ -323,7 +323,7 @@ namespace mis_221_pa_5_rowecjessica
                 int foundVal = -1;
 
                 //////////////////////// Trainer first and last name //////////////////////
-                StreamReader inFile = new StreamReader(@"C:\Users\rowec\OneDrive\MIS221\PAs\mis-221-pa-5-rowecjessica\Trainers.txt");
+                StreamReader inFile = new StreamReader(@"./Trainers.txt");
                 Trainer.SetCount(0);
                 string line = inFile.ReadLine();
 
@@ -415,7 +415,7 @@ namespace mis_221_pa_5_rowecjessica
         // using trainerID, read in trainers text and find how much the trainer charges for their sessions
         public int FindListingCost(int trainerID)
         {
-            StreamReader costFile = new StreamReader(@"C:\Users\rowec\OneDrive\MIS221\PAs\mis-221-pa-5-rowecjessica\Trainers.txt");
+            StreamReader costFile = new StreamReader(@"./Trainers.txt");
             Trainer.SetCount(0);
             int foundVal = -1;
 
@@ -444,7 +444,7 @@ namespace mis_221_pa_5_rowecjessica
       // using trainerID, read in trainers text and find the max amoutn of customers the trainer offers for each session
         public int FindMaxCustomers(int trainerID)
         {
-            StreamReader maxFile = new StreamReader(@"C:\Users\rowec\OneDrive\MIS221\PAs\mis-221-pa-5-rowecjessica\Trainers.txt");
+            StreamReader maxFile = new StreamReader(@"./Trainers.txt");
             Trainer.SetCount(0);
             int foundVal = -1;
             string line = maxFile.ReadLine();
@@ -633,7 +633,7 @@ namespace mis_221_pa_5_rowecjessica
         // choose which session the trainer would like to delete
         public void DeleteListing (Listing[] listings)
         {
-            string path = @"C:\Users\rowec\OneDrive\MIS221\PAs\mis-221-pa-5-rowecjessica\Listings.txt";
+            string path = @"./Listings.txt";
             System.Console.WriteLine("What is the listing ID of the listing you would like to delete?");
             int searchVal = int.Parse(Console.ReadLine());
 
@@ -773,7 +773,7 @@ namespace mis_221_pa_5_rowecjessica
         // right out the listing for the recurring listings by the day of the week they recur
         public void GetDateFromDay(string day, int listingID, string trainerFirstName, string trainerLastName, string listingTime, int foundVal, int trainerID, double listingCost, int maxCustomers, int spotsTaken, int spotsLeft, string availability, string discount)
         {
-            StreamWriter sw = File.AppendText(@"C:\Users\rowec\OneDrive\MIS221\PAs\mis-221-pa-5-rowecjessica\Listings.txt");
+            StreamWriter sw = File.AppendText(@"./Listings.txt");
             if(day == "Monday")
             {
                 sw.WriteLine($"{listingID}#{trainerFirstName}#{trainerLastName}#{day}#05/01#{listingTime}#This session is recurring#{listingCost}#{maxCustomers}#{spotsTaken}#{spotsLeft}#{availability}#{discount}#");
@@ -1001,7 +1001,7 @@ namespace mis_221_pa_5_rowecjessica
 
         static void ManageTrainerData()
         {
-            string path = @"C:\Users\rowec\OneDrive\MIS221\PAs\mis-221-pa-5-rowecjessica\Trainers.txt"; 
+            string path = @"./Trainers.txt"; 
             Trainer[] trainers = new Trainer[200];
             TrainerUtility trainerUtility = new TrainerUtility(trainers);
 
@@ -1011,7 +1011,7 @@ namespace mis_221_pa_5_rowecjessica
 
         static void ManageListingData()
         {
-            string path = @"C:\Users\rowec\OneDrive\MIS221\PAs\mis-221-pa-5-rowecjessica\Listings.txt";
+            string path = @"./Listings.txt";
             Listing[] listings = new Listing[200];
             Trainer[] trainers = new Trainer[200];
             ListingUtility listingUtility = new ListingUtility(listings, trainers);
@@ -1022,7 +1022,7 @@ namespace mis_221_pa_5_rowecjessica
 
         static void ManageCustomerBookingData()
         {
-            string path = @"C:\Users\rowec\OneDrive\MIS221\PAs\mis-221-pa-5-rowecjessica\transactions.txt";
+            string path = @"./transactions.txt";
             Booking[] bookings = new Booking[200];
             Listing[] listings = new Listing[200];
             Trainer[] trainers = new Trainer[200];

@@ -90,7 +90,7 @@ namespace mis_221_pa_5_rowecjessica
 
             while(foundVal == -1)
             {
-                StreamReader sr = new StreamReader(@"C:\Users\rowec\OneDrive\MIS221\PAs\mis-221-pa-5-rowecjessica\transactions.txt");
+                StreamReader sr = new StreamReader(@"./transactions.txt");
                 string line = sr.ReadLine();
 
                 while(line != null)
@@ -118,7 +118,7 @@ namespace mis_221_pa_5_rowecjessica
         public string GetCustomerName(string email)
         {
             string customerName= "Null";
-            StreamReader sr = new StreamReader(@"C:\Users\rowec\OneDrive\MIS221\PAs\mis-221-pa-5-rowecjessica\transactions.txt");
+            StreamReader sr = new StreamReader(@"./transactions.txt");
             string line = sr.ReadLine();
 
             while(line != null)
@@ -142,7 +142,7 @@ namespace mis_221_pa_5_rowecjessica
             Console.Clear();
             System.Console.WriteLine($"Previous training sessions for {customerName}:");
             System.Console.WriteLine();
-            StreamReader sr = new StreamReader(@"C:\Users\rowec\OneDrive\MIS221\PAs\mis-221-pa-5-rowecjessica\transactions.txt");
+            StreamReader sr = new StreamReader(@"./transactions.txt");
             string line = sr.ReadLine();
             
             while(line != null)
@@ -201,7 +201,7 @@ namespace mis_221_pa_5_rowecjessica
             nf.WriteLine($"Previous training sessions for {customerName}:");
             nf.Close();
 
-            StreamReader inFile = new StreamReader(@"C:\Users\rowec\OneDrive\MIS221\PAs\mis-221-pa-5-rowecjessica\transactions.txt");
+            StreamReader inFile = new StreamReader(@"./transactions.txt");
             string line = inFile.ReadLine();
 
             while(line != null)
@@ -238,7 +238,7 @@ namespace mis_221_pa_5_rowecjessica
             nf.WriteLine($"Previous training sessions for {customerName}:");
             nf.Close();
             
-            StreamReader sr = new StreamReader(@"C:\Users\rowec\OneDrive\MIS221\PAs\mis-221-pa-5-rowecjessica\transactions.txt");
+            StreamReader sr = new StreamReader(@"./transactions.txt");
             string line = sr.ReadLine();
 
             while(line != null)
@@ -276,7 +276,7 @@ namespace mis_221_pa_5_rowecjessica
             string date = "";
 
             Booking.SetCount(0);
-            StreamReader inFile = new StreamReader(@"C:\Users\rowec\OneDrive\MIS221\PAs\mis-221-pa-5-rowecjessica\transactions.txt");
+            StreamReader inFile = new StreamReader(@"./transactions.txt");
             string line = inFile.ReadLine();
             
             while(line != null)
@@ -365,7 +365,7 @@ namespace mis_221_pa_5_rowecjessica
 
 
             Booking.SetCount(0);
-            StreamReader inFile = new StreamReader(@"C:\Users\rowec\OneDrive\MIS221\PAs\mis-221-pa-5-rowecjessica\transactions.txt");
+            StreamReader inFile = new StreamReader(@"./transactions.txt");
             string line = inFile.ReadLine();
             
             while(line != null)
@@ -423,7 +423,7 @@ namespace mis_221_pa_5_rowecjessica
             string path = Console.ReadLine();
 
             Booking.SetCount(0);
-            StreamReader inFile = new StreamReader(@"C:\Users\rowec\OneDrive\MIS221\PAs\mis-221-pa-5-rowecjessica\transactions.txt");
+            StreamReader inFile = new StreamReader(@"./transactions.txt");
             string line = inFile.ReadLine();
             
             while(line != null)
@@ -477,7 +477,7 @@ namespace mis_221_pa_5_rowecjessica
             string date = "";
 
             Booking.SetCount(0);
-            StreamReader inFile = new StreamReader(@"C:\Users\rowec\OneDrive\MIS221\PAs\mis-221-pa-5-rowecjessica\transactions.txt");
+            StreamReader inFile = new StreamReader(@"./transactions.txt");
             string line = inFile.ReadLine();
             
             while(line != null)
@@ -497,7 +497,7 @@ namespace mis_221_pa_5_rowecjessica
 
 
 
-            StreamReader readIn = new StreamReader(@"C:\Users\rowec\OneDrive\MIS221\PAs\mis-221-pa-5-rowecjessica\Listings.txt");
+            StreamReader readIn = new StreamReader(@"./Listings.txt");
             Listing.SetCount(0);
             line = readIn.ReadLine();
 
@@ -2181,7 +2181,7 @@ namespace mis_221_pa_5_rowecjessica
 
         static void ManageTrainerData()
         {
-            string path = @"C:\Users\rowec\OneDrive\MIS221\PAs\mis-221-pa-5-rowecjessica\Trainers.txt"; 
+            string path = @"./Trainers.txt"; 
             Trainer[] trainers = new Trainer[200];
             TrainerUtility trainerUtility = new TrainerUtility(trainers);
 
@@ -2191,7 +2191,7 @@ namespace mis_221_pa_5_rowecjessica
 
         static void ManageListingData()
         {
-            string path = @"C:\Users\rowec\OneDrive\MIS221\PAs\mis-221-pa-5-rowecjessica\Listings.txt";
+            string path = @"./Listings.txt";
             Listing[] listings = new Listing[200];
             Trainer[] trainers = new Trainer[200];
             ListingUtility listingUtility = new ListingUtility(listings, trainers);
@@ -2202,7 +2202,7 @@ namespace mis_221_pa_5_rowecjessica
 
         static void ManageCustomerBookingData()
         {
-            string path = @"C:\Users\rowec\OneDrive\MIS221\PAs\mis-221-pa-5-rowecjessica\transactions.txt";
+            string path = @"./transactions.txt";
             Booking[] bookings = new Booking[200];
             Listing[] listings = new Listing[200];
             Trainer[] trainers = new Trainer[200];
